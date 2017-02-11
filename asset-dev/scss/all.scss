@@ -23,7 +23,7 @@ body {
     background: $topBackground;
     justify-content: space-between;
     align-items: stretch;
-    
+
     .menu {
         width: percentage(1/5);
         margin: auto;
@@ -56,11 +56,16 @@ body {
         }
         
         &:hover {
-            background-color: $hoverBackground;
-            
             .submenu {
                 max-height: 300px;
             }
         }
     }
+}
+
+#wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
 }

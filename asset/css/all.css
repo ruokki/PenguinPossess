@@ -39,7 +39,11 @@ body {
       transition: max-height 0.35s;
       max-height: 0;
       overflow: hidden; }
-    #topMenu .menu:hover {
-      background-color: #B7CE63; }
-      #topMenu .menu:hover .submenu {
-        max-height: 300px; }
+    #topMenu .menu:hover .submenu {
+      max-height: 300px; }
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  display: flex; }

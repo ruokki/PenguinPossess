@@ -31,3 +31,4 @@
 <?php if($this->session->user !== NULL) : ?>
     <?php echo generateMainMenu(); ?>
 <?php endif; ?>
+        <div id="wrapper">
