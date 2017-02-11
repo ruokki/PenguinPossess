@@ -1,0 +1,1 @@
+<a href="<?php echo site_url('category/' . $id); ?>"><?php echo $name; ?></a>
