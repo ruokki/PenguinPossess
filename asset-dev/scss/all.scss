@@ -27,11 +27,23 @@ body {
     .menu {
         width: percentage(1/5);
         margin: auto;
-        padding: 10px;
         position: relative;
         text-align: center;
         cursor: pointer;
-        transition: background-color $transitionTime;
+        
+        a {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background: $topBackground;
+            transition: background-color $transitionTime;
+            text-decoration: none;
+            color: inherit;
+            
+            &:hover {
+                background-color: $hoverBackground;
+            }
+        }
         
         .submenu {
             position: absolute;
@@ -41,20 +53,6 @@ body {
             transition: max-height $transitionTime;
             max-height: 0;
             overflow: hidden;
-            
-            a {
-                display: inline-block;
-                width: 100%;
-                padding: 10px;
-                background: $topBackground;
-                transition: background-color $transitionTime;
-                text-decoration: none;
-                color: inherit;
-                
-                &:hover {
-                    background-color: $hoverBackground;
-                }
-            }
         }
         
         &:hover {

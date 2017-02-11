@@ -18,11 +18,19 @@ body {
   #topMenu .menu {
     width: 20%;
     margin: auto;
-    padding: 10px;
     position: relative;
     text-align: center;
-    cursor: pointer;
-    transition: background-color 0.35s; }
+    cursor: pointer; }
+    #topMenu .menu a {
+      display: inline-block;
+      width: 100%;
+      padding: 10px;
+      background: #FBFCFF;
+      transition: background-color 0.35s;
+      text-decoration: none;
+      color: inherit; }
+      #topMenu .menu a:hover {
+        background-color: #B7CE63; }
     #topMenu .menu .submenu {
       position: absolute;
       top: 100%;
@@ -31,16 +39,6 @@ body {
       transition: max-height 0.35s;
       max-height: 0;
       overflow: hidden; }
-      #topMenu .menu .submenu a {
-        display: inline-block;
-        width: 100%;
-        padding: 10px;
-        background: #FBFCFF;
-        transition: background-color 0.35s;
-        text-decoration: none;
-        color: inherit; }
-        #topMenu .menu .submenu a:hover {
-          background-color: #B7CE63; }
     #topMenu .menu:hover {
       background-color: #B7CE63; }
       #topMenu .menu:hover .submenu {
