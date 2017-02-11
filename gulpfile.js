@@ -11,6 +11,12 @@ gulp.task("sass", function(){
         .pipe(gulp.dest(destFolder + "/css"));
 });
 
+gulp.task("js", function(){
+    return gulp.src(srcFolder + "/js/**/*.js")
+        .pipe(gulp.dest(destFolder + "/js"));
+});
+
 gulp.task("default", function(){
     gulp.watch(srcFolder + "/scss/**/*.scss", ["sass"]);
+    gulp.watch(srcFolder + "/js/**/*.js", ["js"]);
 });

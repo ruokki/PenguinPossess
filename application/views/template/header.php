@@ -27,7 +27,7 @@
         <?php endif; ?>
         
     </head>
-    <body>
+    <body <?php echo $this->session->user !== NULL ? 'class="topMenu"' : ''; ?>>
 <?php if($this->session->user !== NULL) : ?>
     <?php echo generateMainMenu(isset($active) ? $active : ''); ?>
 <?php endif; ?>

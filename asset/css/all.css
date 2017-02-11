@@ -4,7 +4,10 @@ html, body {
   font-family: Arial; }
 
 body {
-  background-color: #D0CCD0; }
+  background-color: #D0CCD0;
+  position: relative; }
+  body.topMenu {
+    padding-top: 36px; }
 
 * {
   box-sizing: border-box; }
@@ -13,12 +16,26 @@ a {
   color: inherit;
   text-decoration: none; }
 
+button, .button {
+  border: none;
+  background-color: #8FB339;
+  padding: 15px;
+  transition: background-color 0.35s; }
+  button:hover, .button:hover {
+    background-color: #B7CE63; }
+
+input, select, textarea {
+  width: 100%; }
+
 #topMenu {
   width: 100%;
   display: flex;
   background: #FBFCFF;
   justify-content: space-between;
-  align-items: stretch; }
+  align-items: stretch;
+  position: absolute;
+  top: 0;
+  left: 0; }
   #topMenu .menu {
     width: 20%;
     margin: auto;
@@ -53,4 +70,5 @@ a {
   width: 100%;
   height: 100%;
   padding: 30px;
-  display: flex; }
+  display: flex;
+  box-sizing: border-box; }

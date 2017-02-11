@@ -172,6 +172,10 @@ class Forge_model extends CI_Model {
             'item_seasons' => array(
                 'type' => 'INT'
             ),
+            'item_type' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('item_id', TRUE);

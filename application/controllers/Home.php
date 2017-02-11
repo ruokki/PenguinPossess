@@ -8,7 +8,7 @@ class Home extends CI_Controller {
         
         $uri = uri_string();
         
-        if($this->session->user === NULL && $uri !== 'home/login') {
+        if($this->session->user === NULL && !in_array($uri, array('home/login', 'home/createDB'))) {
             redirect('home/login');
         }
     }

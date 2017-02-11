@@ -8,6 +8,11 @@ html, body {
 
 body {
     background-color: #D0CCD0;
+    position: relative;
+    
+    &.topMenu {
+        padding-top: 36px;
+    }
 }
 
 * {
@@ -19,6 +24,21 @@ a {
     text-decoration: none;
 }
 
+button, .button {
+    border: none;
+    background-color: $defaultColor;
+    padding: 15px;
+    transition: background-color $transitionTime;
+    
+    &:hover {
+        background-color: $hoverColor;
+    }
+}
+
+input, select, textarea {
+    width: 100%;
+}
+
 #topMenu {
     $topBackground: #FBFCFF;
     
@@ -27,6 +47,9 @@ a {
     background: $topBackground;
     justify-content: space-between;
     align-items: stretch;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     .menu {
         width: percentage(1/5);
@@ -77,4 +100,5 @@ a {
     height: 100%;
     padding: 30px;
     display: flex;
+    box-sizing: border-box;
 }
