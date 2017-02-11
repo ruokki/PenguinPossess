@@ -21,7 +21,7 @@
         <?php if(isset($css)) : ?>
             <?php if(is_array($css)) : ?>
                 <?php foreach($css as $file) : ?>
-                <link href="<?php echo base_url('asset/css/' . $css); ?>" rel="stylesheet" />
+                <link href="<?php echo base_url('asset/css/' . $file); ?>" rel="stylesheet" />
                 <?php endforeach; ?>
             <?php endif; ?>
         <?php endif; ?>
