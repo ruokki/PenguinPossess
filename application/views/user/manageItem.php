@@ -69,4 +69,13 @@
             </div>
         </div>
     </div>
+    <div id="submitWrapper" class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-offset-4 col-xs-8">
+                <div class="box">
+                    <button type="submit">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

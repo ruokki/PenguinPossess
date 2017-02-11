@@ -42,6 +42,7 @@ class User extends CI_Controller {
      */
     public function manageItem($cmd = 'create') {
         $this->load->model('category_model', 'Category', TRUE);
+        $this->load->model('item_model', 'Item', TRUE);
         
         if($this->input->is_ajax_request()) {
             $cmd = $this->input->post('cmd');
@@ -60,6 +61,27 @@ class User extends CI_Controller {
             echo json_encode($return);
         }
         else {
+            // Enregistrement de l'item
+            if($this->input->post()) {
+                $item = $this->input->post();
+                
+                if(isset($item['track'])) {
+                    $item['item_tracklist'] = implode(',', $item['track']);
+                    unset($item['track']);
+                }
+                
+                $item['item_date_create'] = date('Ymd');
+                $item['item_img'] = '';
+                
+                $idItem = 0;
+                if(isset($item['item_id'])) {
+                    $idItem = $item['item_id'];
+                    unset($item['item_id']);
+                }
+                
+                $this->Item->setItem($item, $idItem);
+            }
+            
             $data = array(
                 'categories' => $this->Category->getCategory(),
                 'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',

@@ -28,6 +28,7 @@ class Forge_model extends CI_Model {
         $this->createItem();
         $this->createTag();
         $this->createItemTag();
+        $this->createItemUser();
     }
     
     /**
@@ -121,10 +122,10 @@ class Forge_model extends CI_Model {
                 'type' => 'INT',
                 'auto_increment' => TRUE
             ),
-            'category_name' => array(
+            'category_id' => array(
                 'type' => 'INT'
             ),
-            'sub_category_name' => array(
+            'subcategory_id' => array(
                 'type' => 'INT'
             ),
             'item_name' => array(
@@ -215,6 +216,22 @@ class Forge_model extends CI_Model {
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->create_table('itemTag', TRUE, $this->attributes);
+    }
+    
+    /**
+     * Création de la table ItemUser
+     */
+    public function createItemUser() {
+        $fields = array(
+            'item_id' => array(
+                'type' => 'INT'
+            ),
+            'tag_id' => array(
+                'type' => 'INT'
+            )
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->create_table('itemUser', TRUE, $this->attributes);
     }
     
     
