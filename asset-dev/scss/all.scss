@@ -14,9 +14,13 @@ body {
     box-sizing: border-box;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 #topMenu {
     $topBackground: #FBFCFF;
-    $hoverBackground: #B7CE63;
     
     width: 100%;
     display: flex;
@@ -30,22 +34,23 @@ body {
         position: relative;
         text-align: center;
         cursor: pointer;
+        color: black;
         
         a {
             display: inline-block;
             width: 100%;
             padding: 10px;
             background: $topBackground;
-            transition: background-color $transitionTime;
-            text-decoration: none;
-            color: inherit;
+            transition: background-color $transitionTime, color $transitionTime;
             
             &.active {
-                background-color: #8FB339;
+                color: $activeColor;
+                font-weight: bold;
             }
             
             &:hover {
-                background-color: $hoverBackground;
+                color: inherit;
+                background-color: $hoverColor;
             }
         }
         

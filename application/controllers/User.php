@@ -22,9 +22,19 @@ class User extends CI_Controller {
         }
     }
     
+    /**
+     * Page d'accueil "Mon compte"
+     *  - Ajout d'un produit
+     */
     public function index() {
+        $data['title'] = 'Mon compte';
         $data['active'] = 'user';
+        $data['css'] = array(
+            'user/index.css'
+        );
+        
         $this->load->view('template/header', $data);
+        $this->load->view('user/index', $data);
         $this->load->view('template/footer', $data);
     }
     

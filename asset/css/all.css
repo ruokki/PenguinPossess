@@ -9,6 +9,10 @@ body {
 * {
   box-sizing: border-box; }
 
+a {
+  color: inherit;
+  text-decoration: none; }
+
 #topMenu {
   width: 100%;
   display: flex;
@@ -20,18 +24,19 @@ body {
     margin: auto;
     position: relative;
     text-align: center;
-    cursor: pointer; }
+    cursor: pointer;
+    color: black; }
     #topMenu .menu a {
       display: inline-block;
       width: 100%;
       padding: 10px;
       background: #FBFCFF;
-      transition: background-color 0.35s;
-      text-decoration: none;
-      color: inherit; }
+      transition: background-color 0.35s, color 0.35s; }
       #topMenu .menu a.active {
-        background-color: #8FB339; }
+        color: #7C98B3;
+        font-weight: bold; }
       #topMenu .menu a:hover {
+        color: inherit;
         background-color: #B7CE63; }
     #topMenu .menu .submenu {
       position: absolute;
