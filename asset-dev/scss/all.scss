@@ -40,6 +40,10 @@ body {
             text-decoration: none;
             color: inherit;
             
+            &.active {
+                background-color: #8FB339;
+            }
+            
             &:hover {
                 background-color: $hoverBackground;
             }

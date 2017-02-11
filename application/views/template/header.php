@@ -29,6 +29,6 @@
     </head>
     <body>
 <?php if($this->session->user !== NULL) : ?>
-    <?php echo generateMainMenu(); ?>
+    <?php echo generateMainMenu(isset($active) ? $active : ''); ?>
 <?php endif; ?>
         <div id="wrapper">

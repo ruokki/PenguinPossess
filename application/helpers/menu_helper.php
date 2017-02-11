@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Génère le HTML pour le top menu
  * @return String
  */
-function generateMainMenu() {
+function generateMainMenu($activeCat = '') {
     $CI = get_instance();
     
     $CI->load->model('category_model', 'Cat', TRUE);
@@ -18,7 +18,8 @@ function generateMainMenu() {
         $param = array(
             'id' => $cat['category_id'], 
             'name' => $cat['category_name'], 
-            'subCat' => ''
+            'subCat' => '',
+            'active' => $activeCat
         );
         $children = $CI->Cat->getCategory($cat['category_id']);
         
@@ -26,6 +27,7 @@ function generateMainMenu() {
             $param['subCat'] .= $CI->load->view('template/menu/child_category', array(
                 'id'    => $childCat['category_id'],
                 'name'  => $childCat['category_name'],
+                'active' => $activeCat
             ), TRUE);
         }
         
@@ -34,5 +36,5 @@ function generateMainMenu() {
         array_push($final, $html);
     }
     
-    return $CI->load->view('template/top-menu', array('categories' => $final), TRUE);
+    return $CI->load->view('template/top-menu', array('categories' => $final, 'active' => $activeCat), TRUE);
 }

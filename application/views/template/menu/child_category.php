@@ -1,1 +1,1 @@
-<a href="<?php echo site_url('category/' . $id); ?>"><?php echo $name; ?></a>
+<a href="<?php echo site_url('category/' . $id); ?>" <?php if($active === $id) { echo 'class="active"'; } ?>><?php echo $name; ?></a>
