@@ -27,15 +27,31 @@ class item_model extends CI_Model {
     }
     
     /**
+     * Établit un lien entre un item et un utilisateur
+     * @param Integer $idItem
+     * @param Integer $idUser
+     */
+    public function setItemUserLink($idItem, $idUser) {
+        $this->db->insert('itemUser', array(
+            'item_id' => $idUser,
+            'user_id' => $idUser
+        ));
+    }
+    
+    /**
      * Récupère les items appartenant à une catégorie spécifique
      * @param Integer $idCat
      * @return Array
      */
-    public function getItemFromCategory($idCat) {
+    public function getItemFromCategory($idCat = NULL) {
+        
+        if($idCat !== NULL) {
+            $this->db->where('category_id', $idCat)
+                ->or_where('subcategory_id', $idCat);
+        }
+        
         return $this->db->select('*')
                 ->from('item')
-                ->where('category_id', $idCat)
-                ->or_where('subcategory_id', $idCat)
                 ->get()->result_array();
     }
     

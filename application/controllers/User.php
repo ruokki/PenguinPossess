@@ -75,6 +75,7 @@ class User extends CI_Controller {
             // Enregistrement de l'item
             if($this->input->post()) {
                 $item = $this->input->post();
+                $isNew = FALSE;
                 
                 // Gestion des pistes pour un album
                 if(isset($item['track'])) {
@@ -90,6 +91,9 @@ class User extends CI_Controller {
                 if(isset($item['item_id'])) {
                     $idItem = $item['item_id'];
                     unset($item['item_id']);
+                }
+                else {
+                    $isNew = TRUE;
                 }
                 
                 // Gestion de l'upload de l'image
@@ -123,6 +127,10 @@ class User extends CI_Controller {
                     $data['result'] = array('success' => TRUE);
                 }
                 $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                
+                if($isNew === TRUE) {
+                    $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                }
             }
 
             $this->load->view('template/header', $data);

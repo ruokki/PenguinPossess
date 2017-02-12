@@ -14,12 +14,26 @@ class Home extends CI_Controller {
     }
 
     /**
-     * Home page
+     * Page d'accueil
+     * Affichage des derniers items saisis
      */
     public function index() {
-        $this->load->view('template/header');
-        $this->load->view('home/index');
-        $this->load->view('template/footer');
+        $this->load->model('Item_model', 'Item', TRUE);
+        
+        $data = array(
+            'active' => 'home',
+            'items' => $this->Item->getItemFromCategory(),
+            'css' => array(
+                'listItem.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            )
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('template/listItem', $data);
+        $this->load->view('template/footer', $data);
     }
     
     /**
@@ -27,10 +41,12 @@ class Home extends CI_Controller {
      */
     public function login() {
         
-        $data['title'] = 'Connexion';
-        $data['error'] = FALSE;
-        $data['css'] = array(
-            'home/login.css'
+        $data = array(
+            'title' => 'Connexion',
+            'error' => FALSE,
+            'css' => array(
+                'home/login.css'
+            )
         );
         
         // Vérification des infos saisies
@@ -72,7 +88,6 @@ class Home extends CI_Controller {
      */
     public function category($id) {
         $this->load->model('Item_model', 'Item', TRUE);
-        $this->load->model('Category_model', 'Category', TRUE);
         
         $data = array(
             'title' => '',

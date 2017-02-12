@@ -226,7 +226,7 @@ class Forge_model extends CI_Model {
             'item_id' => array(
                 'type' => 'INT'
             ),
-            'tag_id' => array(
+            'user_id' => array(
                 'type' => 'INT'
             )
         );
