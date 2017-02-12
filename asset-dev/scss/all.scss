@@ -61,7 +61,7 @@ input, select, textarea {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 200;
     background-color: #FBFCFF;
     
     > div {
@@ -78,6 +78,7 @@ input, select, textarea {
     position: absolute;
     top: 0;
     left: -100%;
+    z-index: 150;
     padding-top: 150px;
     transition: left $transitionTime+.20;
     

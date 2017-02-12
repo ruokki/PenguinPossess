@@ -26,4 +26,17 @@ class item_model extends CI_Model {
         return $idItem;
     }
     
+    /**
+     * Récupère les items appartenant à une catégorie spécifique
+     * @param Integer $idCat
+     * @return Array
+     */
+    public function getItemFromCategory($idCat) {
+        return $this->db->select('*')
+                ->from('item')
+                ->where('category_id', $idCat)
+                ->or_where('subcategory_id', $idCat)
+                ->get()->result_array();
+    }
+    
 }

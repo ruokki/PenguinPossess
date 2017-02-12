@@ -31,6 +31,7 @@
         <?php if($this->session->user !== NULL) : ?>
             <div id="topMenu">
                 <div id="getMenu" class="float-left">M</div>
+                <div id="currenttMenu" class="float-left"></div>
                 <div id="shortcut" class="float-right">
                     <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">+</a>
                     <a href="" title="Ma wishlist">*</a>

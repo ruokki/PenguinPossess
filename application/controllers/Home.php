@@ -65,6 +65,32 @@ class Home extends CI_Controller {
         $this->load->view('home/login');
         $this->load->view('template/footer', $data);
     }
+    
+    /**
+     * Affichage des items correspondant à une catégorie
+     * @param String $id
+     */
+    public function category($id) {
+        $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
+        
+        $data = array(
+            'title' => '',
+            'css' => array(
+                'listItem.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            ),
+            'active' => $id
+        );
+        
+        $data['items'] = $this->Item->getItemFromCategory($id);
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('template/listItem', $data);
+        $this->load->view('template/footer', $data);
+    }
 
     /**
      * Créer la base de données

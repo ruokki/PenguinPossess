@@ -83,7 +83,7 @@ class User extends CI_Controller {
                 }
                 
                 // Date création
-                $item['item_date_create'] = date('Ymd');
+                $item['item_date_create'] = date('Ymd H:m:s');
                 
                 // Gestion de l'id
                 $idItem = 0;

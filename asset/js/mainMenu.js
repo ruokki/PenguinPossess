@@ -1,6 +1,9 @@
 (jQuery)(function($){
     
-    var $mainMenu = $("#mainMenu");
+    var $mainMenu = $("#mainMenu"),
+        currentMenu = $("#mainMenu .active").text();
+    
+    $("#currenttMenu").text(currentMenu);
     
     // Affichage du menu principal
     $("#getMenu").on("click", function(e){
