@@ -63,7 +63,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_season" id="seasonItem" />
+                <input type="text" name="item_seasons" id="seasonItem" />
             </div>
         </div>
     </div>

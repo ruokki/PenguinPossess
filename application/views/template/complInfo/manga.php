@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-3">
             <div class="box">
-                <input type="text" name="item_idx_siblings" id="idxSiblingsItem" />
+                <input type="text" name="item_idx_sibling" id="idxSiblingsItem" />
             </div>
         </div>
         <div class="col-xs-1">/</div>

@@ -1,4 +1,4 @@
-<form name="manageItem" method="POST" action="" class="row">
+<form name="manageItem" enctype="multipart/form-data" method="POST" action="" class="row">
     <h1>
         <?php if($cmd === 'create') : ?>
         Création d'un item
@@ -16,6 +16,20 @@
             <div class="col-xs-8">
                 <div class="box">
                     <input type="text" name="item_name" id="nameItem" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="box">
+                    <label for="imgItem">Image</label>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="box">
+                    <input type="file" name="item_img" id="imgItem" />
                 </div>
             </div>
         </div>

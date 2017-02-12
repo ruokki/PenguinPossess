@@ -20,7 +20,7 @@ class item_model extends CI_Model {
         }
         else {
             $this->db->where('item_id', $idItem)
-                    ->update('item');
+                    ->update('item', $info);
         }
         
         return $idItem;

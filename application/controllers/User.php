@@ -65,21 +65,54 @@ class User extends CI_Controller {
             if($this->input->post()) {
                 $item = $this->input->post();
                 
+                // Gestion des pistes pour un album
                 if(isset($item['track'])) {
                     $item['item_tracklist'] = implode(',', $item['track']);
                     unset($item['track']);
                 }
                 
+                // Date création
                 $item['item_date_create'] = date('Ymd');
-                $item['item_img'] = '';
                 
+                // Gestion de l'id
                 $idItem = 0;
                 if(isset($item['item_id'])) {
                     $idItem = $item['item_id'];
                     unset($item['item_id']);
                 }
                 
-                $this->Item->setItem($item, $idItem);
+                // Gestion de l'upload de l'image
+                $item['item_img'] = '';
+                $config = array();
+                $this->load->library('upload', $config);
+                
+                $config['upload_path']          = './userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 2048;
+                $config['max_width']            = 1260;
+                $config['max_height']           = 1260;
+                $config['file_ext_tolower']     = TRUE;
+                $config['file_name']            = uniqid($this->session->user['id'] . '_');
+                
+                $this->upload->initialize($config);
+                
+                // On tente d'insérer le produit
+                $item['item_img'] = '';
+                $idItem = $this->Item->setItem($item, $idItem);
+                
+                // Si l'insertion se fait, on finit l'upload du fichier
+                if(!is_dir($config['upload_path'])) {
+                    mkdir($config['upload_path'], 0777, TRUE);
+                }
+                
+                if ( ! $this->upload->do_upload('item_img')) {
+                    $error = $this->upload->display_errors();
+                }
+                else {
+                    $data = array('upload_data' => $this->upload->data());
+                }
+                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                
             }
             
             $data = array(
