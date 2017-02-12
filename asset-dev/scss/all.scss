@@ -16,6 +16,10 @@ body {
     }
 }
 
+/***************/
+/* CSS général */
+/***************/
+
 * {
     box-sizing: border-box;
 }
@@ -40,23 +44,51 @@ input, select, textarea {
     width: 100%;
 }
 
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+/******************/
+/* Menu principal */
+/******************/
+
 #topMenu {
-    $topBackground: #FBFCFF;
-    
     width: 100%;
-    display: flex;
-    background: $topBackground;
-    justify-content: space-between;
-    align-items: stretch;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 2;
+    background-color: #FBFCFF;
+    
+    > div {
+        padding: 10px;
+    }
+}
+
+#mainMenu {
+    $topBackground: darken(#FFFFFF, 10%);
+        
+    width: 300px;
+    height: 100%;
+    background: $topBackground;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    padding-top: 150px;
+    transition: left $transitionTime+.20;
+    
+    &.show {
+        left: 0;
+    }
 
     .menu {
-        width: percentage(1/5);
+        width: 100%;
         margin: auto;
         position: relative;
-        text-align: center;
         cursor: pointer;
         color: black;
         
@@ -64,6 +96,7 @@ input, select, textarea {
             display: inline-block;
             width: 100%;
             padding: 10px;
+            padding-left: 40px;
             background: $topBackground;
             transition: background-color $transitionTime, color $transitionTime;
             
@@ -79,18 +112,39 @@ input, select, textarea {
         }
         
         .submenu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            transition: max-height $transitionTime;
             max-height: 0;
             overflow: hidden;
+            transition: max-height $transitionTime+.2;
+            
+            > a {
+                padding-left: 70px;
+                position: relative;
+                left: -100%;
+                transition: left $transitionTime;
+                
+                @for $i from 0 through 9 {
+                    &:nth-child(#{$i + 1}) {
+                        transition-delay: ($transitionTime - .20)*$i;
+                    }
+                }
+            }
         }
         
-        &:hover {
+        &.open {
+            
+            > a {
+                background-color: $hoverColor;
+                font-weight: bold;
+            }
+            
             .submenu {
-                max-height: 300px;
+                border-top: 1px solid $hoverColor;
+                border-bottom: 1px solid $hoverColor;
+                max-height: 400px;
+                
+                > a {
+                    left: 0;
+                }
             }
         }
     }

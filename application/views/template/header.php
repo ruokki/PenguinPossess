@@ -28,7 +28,18 @@
         
     </head>
     <body <?php echo $this->session->user !== NULL ? 'class="topMenu"' : ''; ?>>
-<?php if($this->session->user !== NULL) : ?>
-    <?php echo generateMainMenu(isset($active) ? $active : ''); ?>
-<?php endif; ?>
+        <?php if($this->session->user !== NULL) : ?>
+            <div id="topMenu">
+                <div id="getMenu" class="float-left">M</div>
+                <div id="shortcut" class="float-right">
+                    <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">+</a>
+                    <a href="" title="Ma wishlist">*</a>
+                    <a href="<?php echo site_url('home/index'); ?>">Home</a>
+                </div>
+                <div id="search" class="float-right">
+                    <input type="text" name="searchItem" item="searchItem" placeholder="Recherche..." />
+                </div>
+            </div>
+            <?php echo generateMainMenu(isset($active) ? $active : ''); ?>
+        <?php endif; ?>
         <div id="wrapper">
