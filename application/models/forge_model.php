@@ -51,7 +51,11 @@ class Forge_model extends CI_Model {
             'user_pwd' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255'
-            )
+            ),
+            'user_active' => array(
+                'type' => 'INT',
+                'constraint' => '1'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('user_id', TRUE);
@@ -254,7 +258,8 @@ class Forge_model extends CI_Model {
         $this->db->insert('user', array(
             'role_id' => '1',
             'user_name' => 'admin',
-            'user_pwd' => password_hash('admin', PASSWORD_DEFAULT)
+            'user_pwd' => password_hash('admin', PASSWORD_DEFAULT),
+            'user_active' => 1
         ));
     }
     

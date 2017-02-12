@@ -39,9 +39,9 @@ class Home extends CI_Controller {
                 if(password_verify($pass, $user['user_pwd'])) {
                     $this->session->set_userdata(array(
                         'user' => array(
-                            'id' => $user['user_id'],
-                            'name' => $user['user_name'],
-                            'role' => $user['role_id']
+                            'id' => intval($user['user_id']),
+                            'name' => intval($user['user_name']),
+                            'role' => intval($user['role_id'])
                         )
                     ));
                     redirect('home/index');

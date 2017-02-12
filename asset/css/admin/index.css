@@ -1,0 +1,14 @@
+form {
+  width: 100%;
+  height: 100%; }
+
+table {
+  width: 100%; }
+  table thead th, table thead td, table tbody th, table tbody td {
+    padding: 8px;
+    border: 1px solid white; }
+  table tfoot td {
+    padding: 8px; }
+  table tfoot button {
+    width: 100%;
+    padding: 8px; }
