@@ -252,7 +252,7 @@ class Forge_model extends CI_Model {
      */
     public function populateUser() {
         $this->db->insert('user', array(
-            'role_id' => '2',
+            'role_id' => '1',
             'user_name' => 'admin',
             'user_pwd' => password_hash('admin', PASSWORD_DEFAULT)
         ));
@@ -263,11 +263,11 @@ class Forge_model extends CI_Model {
      */
     public function populateRole() {
         $this->db->insert('role', array(
-            'role_name' => 'utilisateur'
-        ));
-        $this->db->insert('role', array(
             'role_name' => 'admin'
         ));
+        $this->db->insert('role', array(
+            'role_name' => 'utilisateur'
+        ));        
     }
     
     /**

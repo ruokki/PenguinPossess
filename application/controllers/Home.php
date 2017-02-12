@@ -40,7 +40,8 @@ class Home extends CI_Controller {
                     $this->session->set_userdata(array(
                         'user' => array(
                             'id' => $user['user_id'],
-                            'name' => $user['user_name']
+                            'name' => $user['user_name'],
+                            'role' => $user['role_id']
                         )
                     ));
                     redirect('home/index');
@@ -120,5 +121,13 @@ class Home extends CI_Controller {
     public function createDB() {
         $this->load->model('forge_model', 'Forge', TRUE);
         $this->Forge->setDB();
+    }
+    
+    /**
+     * Déconnexion de l'utilisateur en cours
+     */
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect('home/login');
     }
 }

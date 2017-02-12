@@ -33,9 +33,10 @@
                 <div id="getMenu" class="float-left">M</div>
                 <div id="currenttMenu" class="float-left"></div>
                 <div id="shortcut" class="float-right">
+                    <a href="<?php echo site_url('home/index'); ?>">Home</a>
                     <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">+</a>
                     <a href="" title="Ma wishlist">*</a>
-                    <a href="<?php echo site_url('home/index'); ?>">Home</a>
+                    <a href="<?php echo site_url('home/logout'); ?>">Deco</a>
                 </div>
                 <div id="search" class="float-right">
                     <input type="text" name="searchItem" item="searchItem" placeholder="Recherche..." />
