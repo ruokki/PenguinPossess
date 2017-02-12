@@ -15,7 +15,7 @@
             </div>
             <div class="col-xs-8">
                 <div class="box">
-                    <input type="text" name="item_name" id="nameItem" />
+                    <input type="text" name="item_name" id="nameItem" maxlength="255" />
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-xs-4">
                 <div class="box">
-                    <label for="imgItem">Image</label>
+                    <label for="imgItem">Image (2Mo max.)</label>
                 </div>
             </div>
             <div class="col-xs-8">

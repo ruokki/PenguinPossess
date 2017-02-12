@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_creator" id="creatorItem" />
+                <input type="text" name="item_creator" id="creatorItem" maxlength="100" />
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_universe" id="universeItem" />
+                <input type="text" name="item_universe" id="universeItem" maxlength="100" />
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_editor" id="editorItem" />
+                <input type="text" name="item_editor" id="editorItem" maxlength="100" />
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_release" id="releaseItem" />
+                <input type="text" name="item_release" id="releaseItem" maxlength="4" />
             </div>
         </div>
     </div>

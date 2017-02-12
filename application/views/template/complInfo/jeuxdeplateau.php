@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_creator" id="creatorItem" />
+                <input type="text" name="item_creator" id="creatorItem" maxlength="100" />
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-xs-4">
             <div class="box">
-                <label for="siblingsItem">Tomes</label>
+                <label for="siblingsItem">Nb joueurs</label>
             </div>
         </div>
         <div class="col-xs-8">
@@ -35,7 +35,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_release" id="releaseItem" />
+                <input type="text" name="item_release" id="releaseItem" maxlength="4" />
             </div>
         </div>
     </div>
