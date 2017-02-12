@@ -43,6 +43,7 @@ a {
   text-decoration: none; }
 
 button, .button {
+  display: inline-block;
   border: none;
   background-color: #8FB339;
   padding: 15px;
@@ -58,6 +59,9 @@ input, select, textarea {
 
 .float-right {
   float: right; }
+
+.clearfix {
+  clear: both; }
 
 /******************/
 /* Menu principal */

@@ -207,6 +207,10 @@ class Forge_model extends CI_Model {
      */
     public function createItemTag() {
         $fields = array(
+            'link_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
             'item_id' => array(
                 'type' => 'INT'
             ),
@@ -215,6 +219,7 @@ class Forge_model extends CI_Model {
             )
         );
         $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('link_id', TRUE);
         $this->dbforge->create_table('itemTag', TRUE, $this->attributes);
     }
     
@@ -223,6 +228,10 @@ class Forge_model extends CI_Model {
      */
     public function createItemUser() {
         $fields = array(
+            'link_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
             'item_id' => array(
                 'type' => 'INT'
             ),
@@ -231,6 +240,7 @@ class Forge_model extends CI_Model {
             )
         );
         $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('link_id', TRUE);
         $this->dbforge->create_table('itemUser', TRUE, $this->attributes);
     }
     

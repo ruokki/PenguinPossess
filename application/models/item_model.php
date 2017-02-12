@@ -33,7 +33,7 @@ class item_model extends CI_Model {
      */
     public function setItemUserLink($idItem, $idUser) {
         $this->db->insert('itemUser', array(
-            'item_id' => $idUser,
+            'item_id' => $idItem,
             'user_id' => $idUser
         ));
     }
@@ -43,15 +43,23 @@ class item_model extends CI_Model {
      * @param Integer $idCat
      * @return Array
      */
-    public function getItemFromCategory($idCat = NULL) {
+    public function getItem($cond) {
         
-        if($idCat !== NULL) {
-            $this->db->where('category_id', $idCat)
-                ->or_where('subcategory_id', $idCat);
+        if(isset($cond['where'])) {
+            $this->db->where($cond['where']);
+        }
+        
+        if(isset($cond['orWhere'])) {
+            $this->db->or_where($cond['orWhere']);
+        }
+        
+        if(isset($cond['orderBy'])) {
+            $this->db->order_by($cond['orderBy']);
         }
         
         return $this->db->select('*')
-                ->from('item')
+                ->from('item I')
+                ->join('itemuser IU', 'I.item_id = IU.item_id', 'left')
                 ->get()->result_array();
     }
     

@@ -12,29 +12,6 @@ class Home extends CI_Controller {
             redirect('home/login');
         }
     }
-
-    /**
-     * Page d'accueil
-     * Affichage des derniers items saisis
-     */
-    public function index() {
-        $this->load->model('Item_model', 'Item', TRUE);
-        
-        $data = array(
-            'active' => 'home',
-            'items' => $this->Item->getItemFromCategory(),
-            'css' => array(
-                'listItem.css'
-            ),
-            'js' => array(
-                'listItem.js'
-            )
-        );
-        
-        $this->load->view('template/header', $data);
-        $this->load->view('template/listItem', $data);
-        $this->load->view('template/footer', $data);
-    }
     
     /**
      * Page de login
@@ -81,6 +58,31 @@ class Home extends CI_Controller {
         $this->load->view('home/login');
         $this->load->view('template/footer', $data);
     }
+
+    /**
+     * Page d'accueil
+     * Affichage des derniers items saisis
+     */
+    public function index() {
+        $this->load->model('Item_model', 'Item', TRUE);
+        
+        $data = array(
+            'active' => 'home',
+            'items' => $this->Item->getItem(array(
+                'limit' => 500
+            )),
+            'css' => array(
+                'listItem.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            )
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('template/listItem', $data);
+        $this->load->view('template/footer', $data);
+    }
     
     /**
      * Affichage des items correspondant à une catégorie
@@ -97,10 +99,15 @@ class Home extends CI_Controller {
             'js' => array(
                 'listItem.js'
             ),
-            'active' => $id
+            'active' => $id,
+            'items' => $this->Item->getItem(array(
+                'orWhere' => array(
+                    'category_id' => $id,
+                    'subcategory_id' => $id
+                ),
+                'limit' => 500
+            ))
         );
-        
-        $data['items'] = $this->Item->getItemFromCategory($id);
         
         $this->load->view('template/header', $data);
         $this->load->view('template/listItem', $data);

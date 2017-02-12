@@ -1,23 +1,25 @@
-#listItem .item {
-  width: 150px;
-  height: 150px;
-  position: relative;
-  margin-right: 25px;
-  float: left; }
-  #listItem .item .background, #listItem .item .front {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden; }
-  #listItem .item .background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2; }
-    #listItem .item .background img {
-      width: 100%; }
-  #listItem .item .front {
-    padding: 7px;
-    z-index: 3; }
+#listItem {
+  width: 100%; }
+  #listItem .item {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin-right: 25px;
+    float: left; }
+    #listItem .item .background, #listItem .item .front {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden; }
+    #listItem .item .background {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2; }
+      #listItem .item .background img {
+        width: 100%; }
+    #listItem .item .front {
+      padding: 7px;
+      z-index: 3; }

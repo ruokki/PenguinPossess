@@ -30,6 +30,7 @@ a {
 }
 
 button, .button {
+    display: inline-block;
     border: none;
     background-color: $defaultColor;
     padding: 15px;
@@ -50,6 +51,10 @@ input, select, textarea {
 
 .float-right {
     float: right;
+}
+
+.clearfix {
+    clear: both;
 }
 
 /******************/

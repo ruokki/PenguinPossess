@@ -1,7 +1,7 @@
-<div class="row">
-    <div class="col-xs">
-        <div class="box">
-            <a id="addItem" class="button" href="<?php echo site_url('user/manageItem/create'); ?>">Ajouter des produits</a>
-        </div>
+<div id="actions">
+    <div class="float-left">
+        <a id="addItem" class="button" href="<?php echo site_url('user/manageItem/create'); ?>">Ajouter des items</a>
     </div>
+    <div class="clearfix"></div>
 </div>
+<?php $this->view('template/listItem'); ?>

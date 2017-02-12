@@ -27,8 +27,24 @@ class User extends CI_Controller {
      *  - Ajout d'un produit
      */
     public function index() {
-        $data['title'] = 'Mon compte';
-        $data['active'] = 'user';
+        $this->load->model('item_model', 'Item', TRUE);
+        
+        $data = array(
+            'title' => 'Mon compte',
+            'active' => 'user',
+            'css' => array(
+                'listItem.css',
+                'user/index.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            ),
+            'items' => $this->Item->getItem(array(
+                'where' => array(
+                    'user_id' => $this->session->user['id']
+                )
+            ))
+        );
         
         $this->load->view('template/header', $data);
         $this->load->view('user/index', $data);
