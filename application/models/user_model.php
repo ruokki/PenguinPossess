@@ -36,7 +36,7 @@ class User_model extends CI_Model {
         return $this->db->select('*')
                 ->from('user')
                 ->where('user_name', $name)
-                ->hwere('user_active', 1)
+                ->where('user_active', 1)
                 ->get()->result_array();
     }
     

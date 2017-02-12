@@ -1,6 +1,9 @@
 #wrapper {
   align-items: center;
   justify-content: center; }
+  #wrapper h1 {
+    margin-bottom: 10px;
+    font-size: 20px; }
   #wrapper form {
     padding: 20px;
     background: white;
@@ -8,6 +11,10 @@
     #wrapper form button, #wrapper form input {
       width: 100%;
       margin: 7px 0; }
+    #wrapper form #crea {
+      text-align: right; }
+      #wrapper form #crea a {
+        margin: 7px 0; }
     #wrapper form label {
       display: inline-block;
       margin: 7px 0; }

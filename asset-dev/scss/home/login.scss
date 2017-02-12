@@ -2,6 +2,11 @@
     align-items: center;
     justify-content: center;
     
+    h1 {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+    
     form {
         padding: 20px;
         background: white;
@@ -10,6 +15,14 @@
         button, input {
             width: 100%;
             margin: 7px 0;
+        }
+        
+        #crea {
+            text-align: right;
+            
+            a {
+                margin: 7px 0;
+            }
         }
         
         label {

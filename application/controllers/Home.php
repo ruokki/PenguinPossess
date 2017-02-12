@@ -8,7 +8,7 @@ class Home extends CI_Controller {
         
         $uri = uri_string();
         
-        if($this->session->user === NULL && !in_array($uri, array('home/login', 'home/createDB'))) {
+        if($this->session->user === NULL && !in_array($uri, array('home/login', 'home/createDB', 'home/createUser'))) {
             redirect('home/login');
         }
     }
@@ -57,6 +57,45 @@ class Home extends CI_Controller {
         
         $this->load->view('template/header', $data);
         $this->load->view('home/login');
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Page de demande de création d'un utilisateur
+     */
+    public function createUser() {
+        $data = array(
+            'title' => 'Demande de création',
+            'error' => FALSE,
+            'css' => array(
+                'home/login.css'
+            )
+        );
+        
+        if($this->input->post()) {
+            $this->load->model('User_model', 'User', TRUE);
+            $name = $this->input->post('userName');
+            $pass = $this->input->post('userPass');
+            
+            $user = $this->User->getUserFromName($name);
+            
+            if(count($user) > 0) {
+                $data['error'] = 'Nom déjà utilisé';
+            }
+            else {
+                $this->User->setUser(array(
+                    'user_name' => $name,
+                    'user_pwd' => password_hash($pass, PASSWORD_DEFAULT),
+                    'role_id' => $this->config->item('user_id'),
+                    'user_active' => 0
+                ));
+                
+                redirect('home/login');
+            }
+        }
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('home/createUser');
         $this->load->view('template/footer', $data);
     }
 

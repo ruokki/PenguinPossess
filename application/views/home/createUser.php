@@ -4,11 +4,12 @@
         <div class="box"><?php echo $error; ?></div>
     </div>
     <?php endif; ?>
+    <h1>Demande de création de compte</h1>
     <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-3">
                 <div class="box">
-                    <label for="userName">Utilisateur</label>
+                    <label for="userName">Nom d'utilisateur</label>
                 </div>
             </div>
             <div class="col-xs-9">
@@ -36,12 +37,12 @@
         <div class="row">
             <div class="col-xs-3">
                 <div class="box">
-                    <button type="submit">Connexion</button>
+                    <button type="submit">Demander</button>
                 </div>
             </div>
             <div class="col-xs-9">
                 <div id="crea" class="box">
-                    <a href="<?php echo site_url('home/createUser'); ?>" class="button">Création de compte</a>
+                    <a href="<?php echo site_url('home/login'); ?>" class="button">Retour</a>
                 </div>
             </div>
         </div>
