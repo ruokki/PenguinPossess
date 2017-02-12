@@ -61,6 +61,17 @@ class User extends CI_Controller {
             echo json_encode($return);
         }
         else {
+            $data = array(
+                'categories' => $this->Category->getCategory(),
+                'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',
+                'active' => 'user',
+                'cmd' => $cmd,
+                'js' => array(
+                    'user/manageItem.js'
+                ),
+                'result' => array()
+            );
+            
             // Enregistrement de l'item
             if($this->input->post()) {
                 $item = $this->input->post();
@@ -86,7 +97,7 @@ class User extends CI_Controller {
                 $config = array();
                 $this->load->library('upload', $config);
                 
-                $config['upload_path']          = './userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
+                $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 2048;
                 $config['max_width']            = 1260;
@@ -105,25 +116,15 @@ class User extends CI_Controller {
                     mkdir($config['upload_path'], 0777, TRUE);
                 }
                 
-                if ( ! $this->upload->do_upload('item_img')) {
-                    $error = $this->upload->display_errors();
+                if (!$this->upload->do_upload('item_img')) {
+                    $data['result'] = array('error' => TRUE);
                 }
                 else {
-                    $data = array('upload_data' => $this->upload->data());
+                    $data['result'] = array('success' => TRUE);
                 }
                 $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                
             }
-            
-            $data = array(
-                'categories' => $this->Category->getCategory(),
-                'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',
-                'active' => 'user',
-                'cmd' => $cmd,
-                'js' => array(
-                    'user/manageItem.js'
-                )
-            );
+
             $this->load->view('template/header', $data);
             $this->load->view('user/manageItem', $data);
             $this->load->view('template/footer', $data);

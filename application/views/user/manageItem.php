@@ -93,3 +93,15 @@
         </div>
     </div>
 </form>
+<script>
+<?php if(isset($result['error']) && $result['error'] === TRUE) : ?>
+    var alert = "Erreur lors de l'enregistrement";
+    var type = "error";
+<?php elseif(isset($result['success']) && $result['success'] === TRUE) : ?>
+    var alert = "Item créé avec succès";
+    var type = "success";
+<?php else : ?>
+    var alert = null;
+    var type = "default";
+<?php endif; ?>
+</script>

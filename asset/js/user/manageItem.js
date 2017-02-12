@@ -42,4 +42,9 @@
         });
     });
     
+    console.log(alert, type);
+    if(alert !== null) {
+        showAlertBox(alert, type);
+    }
+    
 });
