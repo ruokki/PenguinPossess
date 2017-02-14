@@ -75,6 +75,13 @@ input, select, textarea {
   background-color: #FBFCFF; }
   #topMenu > div {
     padding: 10px; }
+  #topMenu .float-right [class^="icon-"], #topMenu .float-right [class*=" icon-"] {
+    display: inline-block;
+    margin-right: 15px; }
+  #topMenu a {
+    transition: color 0.35s; }
+    #topMenu a:hover {
+      color: #B7CE63; }
 
 #mainMenu {
   width: 300px;
@@ -107,6 +114,9 @@ input, select, textarea {
       #mainMenu .menu a:hover {
         color: inherit;
         background-color: #B7CE63; }
+      #mainMenu .menu a [class^="icon-"], #mainMenu .menu a [class*=" icon-"] {
+        display: inline-block;
+        margin-right: 10px; }
     #mainMenu .menu .submenu {
       max-height: 0;
       overflow: hidden;

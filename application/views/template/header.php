@@ -15,6 +15,7 @@
         <!-- CSS par défaut -->
         <link href="<?php echo base_url('asset/css/lib/reset.css'); ?>" rel="stylesheet" />
         <link href="<?php echo base_url('asset/css/lib/flexboxgrid.min.css'); ?>" rel="stylesheet" />
+        <link href="<?php echo base_url('asset/css/icomoon.css'); ?>" rel="stylesheet" />
         <link href="<?php echo base_url('asset/css/all.css'); ?>" rel="stylesheet" />
         
         <!-- Chargement des CSS de la vue -->
@@ -30,13 +31,23 @@
     <body <?php echo $this->session->user !== NULL ? 'class="topMenu"' : ''; ?>>
         <?php if($this->session->user !== NULL) : ?>
             <div id="topMenu">
-                <div id="getMenu" class="float-left">M</div>
+                <div id="getMenu" class="float-left">
+                    <span class="icon-menu"></span>
+                </div>
                 <div id="currenttMenu" class="float-left"></div>
                 <div id="shortcut" class="float-right">
-                    <a href="<?php echo site_url('home/index'); ?>">Home</a>
-                    <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">+</a>
-                    <a href="" title="Ma wishlist">*</a>
-                    <a href="<?php echo site_url('home/logout'); ?>">Deco</a>
+                    <a href="<?php echo site_url('home/index'); ?>">
+                        <span class="icon-home"></span>
+                    </a>
+                    <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">
+                        <span class="icon-plus"></span>
+                    </a>
+                    <a href="" title="Ma wishlist">
+                        <span class="icon-heart"></span>
+                    </a>
+                    <a href="<?php echo site_url('home/logout'); ?>" title="Déconnexion">
+                        <span class="icon-exit"></span>
+                    </a>
                 </div>
                 <div id="search" class="float-right">
                     <input type="text" name="searchItem" item="searchItem" placeholder="Recherche..." />

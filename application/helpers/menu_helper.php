@@ -18,6 +18,7 @@ function generateMainMenu($activeCat = '') {
         $param = array(
             'id' => $cat['category_id'], 
             'name' => $cat['category_name'], 
+            'icon' => $cat['category_icon'],
             'subCat' => '',
             'active' => $activeCat
         );
@@ -27,6 +28,7 @@ function generateMainMenu($activeCat = '') {
             $param['subCat'] .= $CI->load->view('template/menu/child_category', array(
                 'id'    => $childCat['category_id'],
                 'name'  => $childCat['category_name'],
+                'icon' => $childCat['category_icon'],
                 'active' => $activeCat
             ), TRUE);
         }
@@ -36,5 +38,5 @@ function generateMainMenu($activeCat = '') {
         array_push($final, $html);
     }
     
-    return $CI->load->view('template/top-menu', array('categories' => $final, 'active' => $activeCat), TRUE);
+    return $CI->load->view('template/main-menu', array('categories' => $final, 'active' => $activeCat), TRUE);
 }

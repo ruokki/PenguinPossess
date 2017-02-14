@@ -106,7 +106,11 @@ class Forge_model extends CI_Model {
             'category_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100'
-            )
+            ),
+            'category_icon' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '25'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('category_id', TRUE);
@@ -281,37 +285,51 @@ class Forge_model extends CI_Model {
     public function populateCategory() {
         $categories = array(
             'Audio' => array(
-                'Album',
-                'Audiobook',
-                'Saga'
+                'icon' => 'music',
+                'sub' => array(
+                    'Album' => '',
+                    'Audiobook' => '',
+                    'Saga' => ''
+                )
             ),
             'Vidéo' => array(
-                'Série',
-                'Anime',
-                'Film'
+                'icon' => 'film',
+                'sub' => array(
+                    'Série' => '',
+                    'Anime' => '',
+                    'Film' => ''
+                )
             ),
             'Livre' => array(
-                'Livre',
-                'Comics',
-                'Manga',
-                'BD'
+                'icon' => 'books',
+                'sub' => array(
+                    'Livre' => '',
+                    'Comics' => '',
+                    'Manga' => '',
+                    'BD' => ''
+                )
             ),
             'Jeux' => array(
-                'Jeux vidéo',
-                'Jeux de plateau'
+                'icon' => 'pacman',
+                'sub' => array(
+                    'Jeux vidéo' => '',
+                    'Jeux de plateau' => ''
+                )
             )
         );
         
         foreach($categories as $parent => $children) {
             $this->db->insert('category', array(
-                'category_name' => $parent
+                'category_name' => $parent,
+                'category_icon' => $children['icon']
             ));
             $idParent = $this->db->insert_id();
             
-            foreach($children as $category) {
+            foreach($children['sub'] as $category => $icon) {
                 $this->db->insert('category', array(
                     'category_name' => $category,
-                    'category_parent_id' => $idParent
+                    'category_parent_id' => $idParent,
+                    'category_icon' => $icon
                 ));
             }
         }

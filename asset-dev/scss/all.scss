@@ -72,6 +72,22 @@ input, select, textarea {
     > div {
         padding: 10px;
     }
+    
+    .float-right {
+        [class^="icon-"], [class*=" icon-"] {
+            display: inline-block;
+            margin-right: 15px;
+        }
+    }
+    
+    
+    a {
+        transition: color $transitionTime;
+        
+        &:hover {
+            color: $hoverColor;
+        }
+    }
 }
 
 #mainMenu {
@@ -114,6 +130,11 @@ input, select, textarea {
             &:hover {
                 color: inherit;
                 background-color: $hoverColor;
+            }
+            
+            [class^="icon-"], [class*=" icon-"] {
+                display: inline-block;
+                margin-right: 10px;
             }
         }
         
