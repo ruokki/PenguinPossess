@@ -37,7 +37,7 @@
             dataType: "JSON",
             success: function(data) {
                 $(".compl").remove();
-                $(data.html).addClass("compl").insertBefore("#submitWrapper");
+                $(data.html).insertBefore("#submitWrapper");
             }
         });
     });

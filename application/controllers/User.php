@@ -91,6 +91,7 @@ class User extends CI_Controller {
             // Enregistrement de l'item
             if($this->input->post()) {
                 $item = $this->input->post();
+                $oldItem = array();
                 $isNew = FALSE;
                 
                 // Gestion des pistes pour un album
@@ -100,22 +101,33 @@ class User extends CI_Controller {
                 }
                 
                 // Date création
-                $item['item_date_create'] = date('Ymd H:m:s');
+                $item['item_date_create'] = date('Ymd H:i:s');
                 
                 // Gestion de l'id
                 $idItem = 0;
                 if(isset($item['item_id'])) {
                     $idItem = $item['item_id'];
                     unset($item['item_id']);
+                    $oldItem = $this->Item->getItem(array(
+                        'item_id' => $idItem
+                    ));
+                    $oldItem = $oldItem[0];
                 }
                 else {
                     $isNew = TRUE;
                 }
                 
+                if($idItem !== 0) {
+                    $userPossess = explode(',', $oldItem['user_id_possess']);
+                }
+                else {
+                    $userPossess = array($this->session->user['id']);
+                }
+                
                 // Gestion de l'upload de l'image
                 $config = array();
                 $this->load->library('upload', $config);
-                
+
                 $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 2048;
@@ -123,38 +135,57 @@ class User extends CI_Controller {
                 $config['max_height']           = 1260;
                 $config['file_ext_tolower']     = TRUE;
                 $config['file_name']            = uniqid($this->session->user['id'] . '_');
-                
+
                 $this->upload->initialize($config);
                 
-                // On tente d'insérer le produit
-                if($idItem === 0) {
-                    $item['item_img'] = '';
-                }
-                $idItem = $this->Item->setItem($item, $idItem);
-                
-                // Si l'insertion se fait, on finit l'upload du fichier
-                if(!is_dir($config['upload_path'])) {
-                    mkdir($config['upload_path'], 0777, TRUE);
-                }
-                
-                if($idItem === 0) {
-                    if (!$this->upload->do_upload('item_img')) {
-                        $data['result'] = array('error' => TRUE);
+                // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
+                // et on attend la validation par un admin
+                if(count($userPossess) > 1) {
+                    $this->load->helper('file');
+                    $validateFolder = $this->config->item('validateFolder');
+                    
+                    if(!is_dir($validateFolder['root'] . '/' . $validateFolder['img'])) {
+                        mkdir($validateFolder['root'] . '/' . $validateFolder['img'], 0777, TRUE);
                     }
-                    else {
-                        $data['result'] = array('success' => TRUE);
-                        $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                    }
+                    $config['upload_path'] = $validateFolder['root'] . '/' . $validateFolder['img'];
+                    $this->upload->initialize($config);
+                    $this->upload->do_upload('item_img');
+                    
+                    write_file($validateFolder['root'] . '/pendingEdit', serialize($item) . '##', 'a');
                 }
                 else {
-                    if ($this->upload->do_upload('item_img')) {
-                        $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+
+                    // On tente d'insérer le produit
+                    if($idItem === 0) {
+                        $item['item_img'] = '';
                     }
-                    $data['result'] = array('success' => TRUE);
-                }
-                
-                if($isNew === TRUE) {
-                    $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                    $idItem = $this->Item->setItem($item, $idItem);
+
+                    // Si l'insertion se fait, on finit l'upload du fichier
+                    if(!is_dir($config['upload_path'])) {
+                        mkdir($config['upload_path'], 0777, TRUE);
+                    }
+
+                    if($idItem === 0) {
+                        if (!$this->upload->do_upload('item_img')) {
+                            $data['result'] = array('error' => TRUE);
+                        }
+                        else {
+                            $data['result'] = array('success' => TRUE);
+                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                        }
+                    }
+                    else {
+                        if ($this->upload->do_upload('item_img')) {
+                            unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                        }
+                        $data['result'] = array('success' => TRUE);
+                    }
+
+                    if($isNew === TRUE) {
+                        $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                    }
                 }
             }
             
@@ -166,6 +197,16 @@ class User extends CI_Controller {
                 if(count($item) > 0) {
                     $data['item'] = $item[0];
                     $data['subCategories'] = $this->Category->getCategory($data['item']['category_id']);
+                    
+                    $userPossess = explode(',', $data['item']['user_id_possess']);
+                    if(!in_array($this->session->user['id'] . '', $userPossess)) {
+                        redirect('home/index');
+                    }
+                    else {
+                        if(count($userPossess) > 1) {
+                            $data['multiUser'] = true;
+                        }
+                    }
                 }
                 else {
                     

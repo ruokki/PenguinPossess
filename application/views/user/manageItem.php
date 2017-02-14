@@ -6,6 +6,9 @@
         Modification de l'item 
         <?php endif; ?>
     </h1>
+    <?php if(isset($multiUser) &&  $multiUser === true) : ?>
+    <h2>CET ITEM APPARTIENT &Agrave; PLUSIEURS PERSONNES. TOUTE MODIFICATION DEVRA ÊTRE VALIDÉE PAR UN ADMINISTRATEUR</h2>
+    <?php endif; ?>
     <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-4">
