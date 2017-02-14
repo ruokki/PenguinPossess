@@ -56,7 +56,7 @@ class User extends CI_Controller {
      *  - Ajout d'un item
      *  - Édition d'un item
      */
-    public function manageItem($cmd = 'create') {
+    public function manageItem($cmd = 'create', $id = 0) {
         $this->load->model('category_model', 'Category', TRUE);
         $this->load->model('item_model', 'Item', TRUE);
         
@@ -113,7 +113,6 @@ class User extends CI_Controller {
                 }
                 
                 // Gestion de l'upload de l'image
-                $item['item_img'] = '';
                 $config = array();
                 $this->load->library('upload', $config);
                 
@@ -128,7 +127,9 @@ class User extends CI_Controller {
                 $this->upload->initialize($config);
                 
                 // On tente d'insérer le produit
-                $item['item_img'] = '';
+                if($idItem === 0) {
+                    $item['item_img'] = '';
+                }
                 $idItem = $this->Item->setItem($item, $idItem);
                 
                 // Si l'insertion se fait, on finit l'upload du fichier
@@ -136,19 +137,41 @@ class User extends CI_Controller {
                     mkdir($config['upload_path'], 0777, TRUE);
                 }
                 
-                if (!$this->upload->do_upload('item_img')) {
-                    $data['result'] = array('error' => TRUE);
+                if($idItem === 0) {
+                    if (!$this->upload->do_upload('item_img')) {
+                        $data['result'] = array('error' => TRUE);
+                    }
+                    else {
+                        $data['result'] = array('success' => TRUE);
+                        $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                    }
                 }
                 else {
+                    if ($this->upload->do_upload('item_img')) {
+                        $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                    }
                     $data['result'] = array('success' => TRUE);
                 }
-                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
                 
                 if($isNew === TRUE) {
                     $this->Item->setItemUserLink($idItem, $this->session->user['id']);
                 }
             }
-
+            
+            if($id !== 0) {
+                $item = $this->Item->getItem(array(
+                    'item_id' => $id
+                ));
+                
+                if(count($item) > 0) {
+                    $data['item'] = $item[0];
+                    $data['subCategories'] = $this->Category->getCategory($data['item']['category_id']);
+                }
+                else {
+                    
+                }
+            }
+            
             $this->load->view('template/header', $data);
             $this->load->view('user/manageItem', $data);
             $this->load->view('template/footer', $data);

@@ -57,8 +57,10 @@ class item_model extends CI_Model {
             $this->db->order_by($cond['orderBy']);
         }
         
-        return $this->db->select('*')
+        return $this->db->select('I.*, C.category_name AS main_category, SC.category_name AS sub_category')
                 ->from('item I')
+                ->join('category C', 'I.category_id = C.category_id', 'left')
+                ->join('category SC', 'I.subcategory_id = SC.category_id', 'left')
                 ->join('itemuser IU', 'I.item_id = IU.item_id', 'left')
                 ->get()->result_array();
     }

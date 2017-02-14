@@ -9,6 +9,7 @@
             </div>
             <div class="front">
                 <p><?php echo $item['item_name']; ?></p>
+                <a href="<?php echo site_url('user/manageItem/edit/' . $item['item_id']); ?>">Edit</a>
             </div>
         </div>
         <?php endforeach; ?>

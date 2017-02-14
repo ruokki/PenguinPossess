@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_creator" id="creatorItem" maxlength="100" />
+                <input type="text" name="item_creator" id="creatorItem" maxlength="100" <?php echo isset($item) ? 'value="' . $item['item_creator'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_release" id="releaseItem" maxlength="4" />
+                <input type="text" name="item_release" id="releaseItem" maxlength="4" <?php echo isset($item) ? 'value="' . $item['item_release'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_siblings" id="totalItem" />
+                <input type="text" name="item_siblings" id="totalItem" <?php echo isset($item) ? 'value="' . $item['item_siblings'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_length" id="lengthItem" />
+                <input type="text" name="item_length" id="lengthItem" <?php echo isset($item) ? 'value="' . $item['item_length'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_seasons" id="seasonItem" />
+                <input type="text" name="item_seasons" id="seasonItem" <?php echo isset($item) ? 'value="' . $item['item_seasons'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_type" id="typeItem" maxlength="100" />
+                <input type="text" name="item_type" id="typeItem" maxlength="100" <?php echo isset($item) ? 'value="' . $item['item_type'] . '"' : ''; ?> />
             </div>
         </div>
     </div>
