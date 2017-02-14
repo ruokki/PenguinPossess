@@ -82,6 +82,9 @@ class User extends CI_Controller {
                 'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',
                 'active' => 'user',
                 'cmd' => $cmd,
+                'css' => array(
+                    'user/manageItem.css'
+                ),
                 'js' => array(
                     'user/manageItem.js'
                 ),
