@@ -63,6 +63,9 @@ input, select, textarea {
 .clearfix {
   clear: both; }
 
+.hidden {
+  display: none; }
+
 /******************/
 /* Menu principal */
 /******************/

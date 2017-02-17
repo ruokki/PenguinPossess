@@ -153,6 +153,22 @@ class Home extends CI_Controller {
         $this->load->view('template/listItem', $data);
         $this->load->view('template/footer', $data);
     }
+    
+    public function managePossess() {
+        if($this->input->is_ajax_request()) {
+            $this->load->model('item_model', 'Item', TRUE);
+            
+            $cmd = $this->input->post('cmd');
+            $id = $this->input->post('item');
+            
+            if($cmd === 'add') {
+                $this->Item->setItemUserLink($id, $this->session->user['id']);
+            }
+            else if($cmd === 'del') {
+                $this->Item->delItemUserLink($id, $this->session->user['id']);
+            }
+        }
+    }
 
     /**
      * Créer la base de données

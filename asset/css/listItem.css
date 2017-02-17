@@ -21,5 +21,16 @@
       #listItem .item .background img {
         width: 100%; }
     #listItem .item .front {
+      position: relative;
+      color: black;
+      background: rgba(255, 255, 255, 0.8);
       padding: 7px;
-      z-index: 3; }
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.35s; }
+      #listItem .item .front .icon-action {
+        position: absolute;
+        bottom: 7px;
+        right: 7px; }
+      #listItem .item .front:hover {
+        opacity: 1; }

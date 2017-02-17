@@ -39,6 +39,19 @@ class item_model extends CI_Model {
     }
     
     /**
+     * Supprimer un lien entre un item et un utilisateur
+     * @param Integer $idItem
+     * @param Integer $idUser
+     */
+    public function delItemUserLink($idItem, $idUser) {
+        $this->db->where(array(
+                    'item_id' => $idItem,
+                    'user_id' => $idUser
+                ))
+              ->delete('itemUser');
+    }
+    
+    /**
      * Récupère les items appartenant à une catégorie spécifique
      * @param Integer $idCat
      * @return Array
