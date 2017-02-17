@@ -200,7 +200,9 @@ class User extends CI_Controller {
             
             if($id !== 0) {
                 $item = $this->Item->getItem(array(
-                    'item_id' => $id
+                    'where' => array(
+                        'I.item_id' => $id
+                    )
                 ));
                 
                 if(count($item) > 0) {
