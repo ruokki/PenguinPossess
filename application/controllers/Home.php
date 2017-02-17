@@ -155,6 +155,35 @@ class Home extends CI_Controller {
     }
     
     /**
+     * Affichage des items correspondant à un user
+     * @param String $id
+     */
+    public function user($id) {
+        $this->load->model('Item_model', 'Item', TRUE);
+        
+        $data = array(
+            'title' => '',
+            'css' => array(
+                'listItem.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            ),
+            'active' => $id,
+            'items' => $this->Item->getItem(array(
+                'where' => array(
+                    'U.user_id' => $id
+                ),
+                'limit' => 500
+            ))
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('template/listItem', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
      * Affichage du détail d'un item
      * @param Integer $id
      */
