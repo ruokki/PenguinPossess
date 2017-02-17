@@ -180,7 +180,9 @@ class User extends CI_Controller {
                     }
                     else {
                         if ($this->upload->do_upload('item_img')) {
-                            unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+                            if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
+                                unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+                            }
                             $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
                         }
                         $data['result'] = array('success' => TRUE);
