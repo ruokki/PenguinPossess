@@ -41,7 +41,7 @@ class User extends CI_Controller {
             ),
             'items' => $this->Item->getItem(array(
                 'where' => array(
-                    'user_id' => $this->session->user['id']
+                    'U.user_id' => $this->session->user['id']
                 )
             ))
         );
@@ -59,6 +59,7 @@ class User extends CI_Controller {
     public function manageItem($cmd = 'create', $id = 0) {
         $this->load->model('category_model', 'Category', TRUE);
         $this->load->model('item_model', 'Item', TRUE);
+        $this->load->helper('formatCatName');
         
         if($this->input->is_ajax_request()) {
             $cmd = $this->input->post('cmd');
@@ -71,7 +72,9 @@ class User extends CI_Controller {
                 $category = $this->input->post('category');
                 $return['html'] = '';
                 
-                $return['html'] = $this->load->view('template/complInfo/' . $category, array(), TRUE);
+                $return['html'] = $this->load->view('template/complInfo/' . formatCatName($category), array(
+                    'typeView' => 'form'
+                ), TRUE);
             }
             
             echo json_encode($return);
@@ -88,7 +91,8 @@ class User extends CI_Controller {
                 'js' => array(
                     'user/manageItem.js'
                 ),
-                'result' => array()
+                'result' => array(),
+                'typeView' => 'form'
             );
             
             // Enregistrement de l'item

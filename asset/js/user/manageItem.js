@@ -24,9 +24,6 @@
     
     document.querySelector("#subcategoryItem").addEventListener("change", function(){
         var category = $(this).find(":selected").text();
-        category = category.toLowerCase();
-        category = category.replace(" ", "");
-        category = category.replace("é", "e");
         
         $.ajax({
             type: "POST",

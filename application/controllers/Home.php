@@ -154,6 +154,58 @@ class Home extends CI_Controller {
         $this->load->view('template/footer', $data);
     }
     
+    /**
+     * Affichage du détail d'un item
+     * @param Integer $id
+     */
+    public function item($id = 0) {
+        if($id === 0) {
+            redirect('home/index');
+        }
+        $this->load->model('item_model', 'Item', TRUE);
+        $this->load->helper('formatCatName');
+        
+        $item = $this->Item->getItem(array(
+            'where' => array(
+                'I.item_id' => $id
+            )
+        ));
+        
+        if(count($item) === 0) {
+            $item = array('error' => TRUE);
+        }
+        else {
+            $item = $item[0];
+        }
+        
+        $possessors = explode(',', $item['user_possess']);
+        
+        $item['possessors'] = array();
+        foreach($possessors as $user) {
+            $tmp = explode('|', $user);
+            array_push(
+                $item['possessors'], 
+                '<a href="' . site_url('home/user/' . $tmp[0]) . '">' . $tmp[1] . '</a>'
+            );
+        }
+        
+        $data = array(
+            'css' => array(
+                'home/item.css'
+            ),
+            'js' => array(),
+            'item' => $item,
+            'typeView' => 'print'
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('home/item', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Gestion des liens entre utilisateur et item
+     */
     public function managePossess() {
         if($this->input->is_ajax_request()) {
             $this->load->model('item_model', 'Item', TRUE);

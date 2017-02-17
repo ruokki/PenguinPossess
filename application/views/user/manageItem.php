@@ -97,7 +97,7 @@
         </div>
     </div>
     <?php if(isset($item)) : ?>
-        <?php $this->load->view('template/complInfo/' . $item['sub_category']); ?>
+        <?php $this->load->view('template/complInfo/' . formatCatName($item['sub_category'])); ?>
         <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>" />
     <?php endif; ?>
     <div id="submitWrapper" class="col-xs-12">

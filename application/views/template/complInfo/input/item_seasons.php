@@ -1,3 +1,4 @@
+<?php if($typeView === 'form') : ?>
 <div class="col-xs-12 compl">
     <div class="row">
         <div class="col-xs-4">
@@ -12,3 +13,6 @@
         </div>
     </div>
 </div>
+<?php elseif($typeView === 'print') : ?>
+<p>Nb saison : <?php echo $item['item_seasons']; ?></p>
+<?php endif; ?>
