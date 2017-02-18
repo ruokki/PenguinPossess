@@ -44,7 +44,7 @@
             </div>
             <div class="col-xs-9">
                 <div id="crea" class="box">
-                    <a href="<?php echo site_url('home/createUser'); ?>" class="button">Création de compte</a>
+                    <a href="<?php echo site_url('home/createUser'); ?>">Création de compte</a>
                 </div>
             </div>
         </div>

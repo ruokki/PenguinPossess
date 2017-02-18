@@ -34,7 +34,7 @@
         <?php if($this->session->user !== NULL) : ?>
             <div id="topMenu">
                 <div id="shortcut" class="float-left">
-                    <a href="<?php echo site_url('home/index'); ?>">
+                    <a href="<?php echo site_url('home/index'); ?>" title="Accueil">
                         <span class="icon-home"></span>
                     </a>
                     <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">

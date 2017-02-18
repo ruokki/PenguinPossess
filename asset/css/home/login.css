@@ -21,3 +21,13 @@
   #wrapper .logo {
     width: 100%;
     margin-bottom: 15px; }
+  #wrapper a {
+    display: block;
+    padding-top: 14px;
+    font-size: 18px;
+    color: #A1C6EA;
+    text-decoration: underline;
+    transition: color 0.35s; }
+    #wrapper a:hover {
+      color: #507DBC;
+      text-decoration: none; }

@@ -1,3 +1,5 @@
+@import '../_commonVar.scss';
+
 #wrapper {
     align-items: center;
     justify-content: center;
@@ -34,5 +36,19 @@
     .logo {
         width: 100%;
         margin-bottom: 15px;
+    }
+    
+    a {
+        display: block;
+        padding-top: 14px;
+        font-size: 18px;
+        color: $defaultColor;
+        text-decoration: underline;
+        transition: color $transitionTime;
+        
+        &:hover {
+            color: $hoverColor;
+            text-decoration: none;
+        }
     }
 }
