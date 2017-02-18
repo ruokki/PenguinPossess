@@ -37,20 +37,6 @@
         <div class="row">
             <div class="col-xs-3">
                 <div class="box">
-                    <label for="userLast">Nom</label>
-                </div>
-            </div>
-            <div class="col-xs-9">
-                <div class="box">
-                    <input type="text" id="userLast" name="user_lastname" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="col-xs-3">
-                <div class="box">
                     <label for="userEmail">Email</label>
                 </div>
             </div>

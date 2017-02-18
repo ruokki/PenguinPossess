@@ -52,10 +52,6 @@ class Forge_model extends CI_Model {
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ),
-            'user_lastname' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ),
             'user_email' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255'
