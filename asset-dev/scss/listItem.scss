@@ -40,6 +40,19 @@
             opacity: 0;
             transition: opacity $transitionTime;
             
+            .icon-misc, .icon-action {
+                position: absolute;
+                
+                > * {
+                    cursor: pointer;
+                    transition: color $transitionTime;
+                    
+                    &:hover {
+                        color: $activeColor;
+                    }
+                }
+            }
+            
             .icon-action {
                 position: absolute;
                 bottom: 7px;
@@ -47,7 +60,6 @@
             }
             
             .icon-misc {
-                position: absolute;
                 bottom: 7px;
                 left: 7px;
             }

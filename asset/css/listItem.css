@@ -29,12 +29,18 @@
       z-index: 3;
       opacity: 0;
       transition: opacity 0.35s; }
+      #listItem .item .front .icon-misc, #listItem .item .front .icon-action {
+        position: absolute; }
+        #listItem .item .front .icon-misc > *, #listItem .item .front .icon-action > * {
+          cursor: pointer;
+          transition: color 0.35s; }
+          #listItem .item .front .icon-misc > *:hover, #listItem .item .front .icon-action > *:hover {
+            color: #7C98B3; }
       #listItem .item .front .icon-action {
         position: absolute;
         bottom: 7px;
         right: 7px; }
       #listItem .item .front .icon-misc {
-        position: absolute;
         bottom: 7px;
         left: 7px; }
       #listItem .item .front:hover {

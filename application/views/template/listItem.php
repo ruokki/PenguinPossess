@@ -11,7 +11,9 @@
             <div class="front" data-href="<?php echo 'home/item/' . $item['item_id']; ?>">
                 <p><?php echo $item['item_name']; ?></p>
                 <div class="icon-misc">
-                    <span class="icon-<?php echo $item['category_icon']; ?>" title="<?php echo $item['main_category'] . ' - ' . $item['sub_category']; ?>"></span>
+                    <a href="<?php echo site_url('home/category/' . $item['subcategory_id']); ?>">
+                        <span class="icon-<?php echo $item['category_icon']; ?>" title="<?php echo $item['main_category'] . ' - ' . $item['sub_category']; ?>"></span>
+                    </a>
                 </div>
                 <div class="icon-action">
                     <a href="<?php echo site_url('user/manageItem/edit/' . $item['item_id']); ?>" 
