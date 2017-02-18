@@ -16,7 +16,12 @@
         color: red;
     }
     
-    form > div {
+    form > div, [name*='track'] {
         margin-bottom: 15px;
     }
+    
+    #manageTrack button {
+        padding: 5px;
+    }
+    
 }

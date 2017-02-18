@@ -41,6 +41,32 @@
         });
     });
     
+    // Gestion de l'ajout/suppression des pistes d'un album
+    var trackTemplate = $(
+    '<div class="row">' + 
+        '<div class="col-xs-offset-4 col-xs-8">' +
+            '<div class="box">' +
+                '<input type="text" name="track[]" />' +
+            '</div>' +
+        '</div>' +
+    '</div>');
+    
+    document.querySelector("body").addEventListener("click", function(e){
+        var $target = $(e.target);
+        if($target.is("#addTrack")) {
+            $target.parents("#manageTrack").before(trackTemplate.clone());
+        }
+        else if ($target.is("#delTrack")) {
+            var allTrack = $target.parents(".compl").find("[name*='track']");
+            if(allTrack.length === 1) {
+                showAlertBox("Impossible de supprimer la dernière piste", "error");
+            }
+            else {
+                allTrack.last().parent().parent().parent().remove();
+            }
+        }
+    });
+    
     if(alert !== null) {
         showAlertBox(alert, type);
     }

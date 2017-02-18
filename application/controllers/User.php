@@ -103,7 +103,7 @@ class User extends CI_Controller {
                 
                 // Gestion des pistes pour un album
                 if(isset($item['track'])) {
-                    $item['item_tracklist'] = implode(',', $item['track']);
+                    $item['item_tracklist'] = implode('|', $item['track']);
                     unset($item['track']);
                 }
                 
@@ -116,14 +116,16 @@ class User extends CI_Controller {
                     $idItem = $item['item_id'];
                     unset($item['item_id']);
                     $oldItem = $this->Item->getItem(array(
-                        'item_id' => $idItem
+                        'where' => array(
+                            'I.item_id' => $idItem
+                        )
                     ));
                     $oldItem = $oldItem[0];
                 }
                 else {
                     $isNew = TRUE;
                 }
-                
+
                 if($idItem !== 0) {
                     $userPossess = explode(',', $oldItem['user_id_possess']);
                 }
@@ -145,7 +147,7 @@ class User extends CI_Controller {
 
                 $this->upload->initialize($config);
                 // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
-                // et on attend la validation par un admin
+                // et on attend la validation par un admin*
                 if(count($userPossess) > 1) {
                     $this->load->helper('file');
                     $validateFolder = $this->config->item('validateFolder');
