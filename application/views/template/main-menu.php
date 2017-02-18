@@ -13,6 +13,12 @@
             </a>
         </div>
         <div class="menu">
+            <a href="<?php echo site_url('home/search'); ?>" <?php if($active === 'search') { echo 'class="active"'; } ?>>
+                <span class="icon-search"></span>
+                Recherche avancée
+            </a>
+        </div>
+        <div class="menu">
             <?php echo implode('</div><div class="menu">', $categories); ?>
         </div>
         <?php if($this->session->user['role'] === $this->config->item('admin_id')) : ?>

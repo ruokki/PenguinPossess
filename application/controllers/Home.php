@@ -223,9 +223,47 @@ class Home extends CI_Controller {
                 'home/item.css'
             ),
             'js' => array(),
+            'title' => $item['item_name'],
             'item' => $item,
             'typeView' => 'print'
         );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('home/item', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Page de recherche
+     * Utilisé aussi pour récupérer les infos du champ de recherche dans le top-menu
+     */
+    public function search() {
+        $this->load->model('item_model', 'Item', TRUE);
+        
+        $data = array(
+            'active' => 'search'
+        );
+        
+        if($this->input->post()) {
+            $postSearch = $this->input->post('search');
+            $search = array();
+            
+            foreach($postSearch as $field => $value) {
+                $tmp = str_replace('item_', 'I.item_', $field);
+                $search[$tmp] = $value;
+            }
+            
+            $data['result'] = $item = $this->Item->getItem(array(
+                'where' => $search
+            ));
+
+            // La requête vient du champ de recherche, on envoie juste les 
+            // infos en JSON et on arète le traitement
+            if($this->input->is_ajax_request()) {
+                echo json_encode($data);
+                return;
+            }
+        }
         
         $this->load->view('template/header', $data);
         $this->load->view('home/item', $data);
@@ -265,5 +303,5 @@ class Home extends CI_Controller {
     public function logout() {
         $this->session->sess_destroy();
         redirect('home/login');
-    }
+    }    
 }

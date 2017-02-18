@@ -1,0 +1,54 @@
+.ui-autocomplete {
+    z-index: 400;
+    width: 400px;
+    max-height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    .ui-menu-item {
+        > .ui-state-active {
+            margin: 0;
+        }
+        
+        > div {
+            padding: 4px;
+            
+            .img {
+                width: 30%;
+                height: 100px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                img {
+                    max-height: 100px;
+                }
+            }
+            
+            .info {
+                padding-left: 10px;
+                width: 70%;
+                height: 100px;
+                
+                p {
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    white-space: nowrap;
+                    margin-bottom: 7px;
+                    
+                    &:first-child {
+                        margin-top: 7px;
+                    }
+                    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

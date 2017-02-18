@@ -15,6 +15,8 @@
         <!-- CSS par défaut -->
         <link href="<?php echo base_url('asset/css/lib/reset.css'); ?>" rel="stylesheet" />
         <link href="<?php echo base_url('asset/css/lib/flexboxgrid.min.css'); ?>" rel="stylesheet" />
+        <link href="<?php echo base_url('asset/css/lib/jquery-ui.min.css'); ?>" rel="stylesheet" />
+        <link href="<?php echo base_url('asset/css/jquery-ui.overload.css'); ?>" rel="stylesheet" />
         <link href="<?php echo base_url('asset/css/icomoon.css'); ?>" rel="stylesheet" />
         <link href="<?php echo base_url('asset/css/all.css'); ?>" rel="stylesheet" />
         
@@ -50,7 +52,7 @@
                     </a>
                 </div>
                 <div id="search" class="float-right">
-                    <input type="text" name="searchItem" item="searchItem" placeholder="Recherche..." />
+                    <input type="text" name="searchItem" id="searchItem" placeholder="Recherche..." />
                 </div>
             </div>
             <?php echo generateMainMenu(isset($active) ? $active : ''); ?>
