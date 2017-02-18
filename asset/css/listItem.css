@@ -32,5 +32,9 @@
         position: absolute;
         bottom: 7px;
         right: 7px; }
+      #listItem .item .front .icon-misc {
+        position: absolute;
+        bottom: 7px;
+        left: 7px; }
       #listItem .item .front:hover {
         opacity: 1; }

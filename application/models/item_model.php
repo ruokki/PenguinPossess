@@ -76,7 +76,7 @@ class item_model extends CI_Model {
         
         return $this->db->select("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript,"
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
-                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type,"
+                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon, "
                     . "C.category_name AS main_category, SC.category_name AS sub_category, GROUP_CONCAT(U.user_id) AS user_id_possess,"
                     . "GROUP_CONCAT(CONCAT(U.user_id, '|', user_name)) AS user_possess")
                 ->from('item I')
@@ -86,7 +86,7 @@ class item_model extends CI_Model {
                 ->join('user U', 'U.user_id = IU.user_id', 'left')
                 ->group_by("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript,"
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
-                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type,"
+                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon,"
                     . "C.category_name, SC.category_name")
                 ->get()->result_array();
     }
