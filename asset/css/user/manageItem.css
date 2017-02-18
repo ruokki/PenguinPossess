@@ -1,6 +1,13 @@
 #wrapper {
-  justify-content: flex-start; }
+  display: block; }
   #wrapper h1, #wrapper h2 {
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 20px; }
+  #wrapper h1 {
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: bold; }
   #wrapper h2 {
     color: red; }
+  #wrapper form > div {
+    margin-bottom: 15px; }

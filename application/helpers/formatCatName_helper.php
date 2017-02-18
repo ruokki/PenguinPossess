@@ -17,5 +17,5 @@ function formatCatName($category) {
         'e'
     ), $category);
     
-    return $category;
+    return trim($category);
 }

@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_seasons" id="seasonItem" <?php echo isset($item) ? 'value="' . $item['item_seasons'] . '"' : ''; ?> />
+                <input type="number" name="item_seasons" id="seasonItem" <?php echo isset($item) ? 'value="' . $item['item_seasons'] . '"' : ''; ?> />
             </div>
         </div>
     </div>

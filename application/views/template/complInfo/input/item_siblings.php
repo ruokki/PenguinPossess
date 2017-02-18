@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_siblings" id="totalItem" <?php echo isset($item) ? 'value="' . $item['item_siblings'] . '"' : ''; ?> />
+                <input type="number" name="item_siblings" id="totalItem" <?php echo isset($item) && $item['item_siblings'] > 0 ? 'value="' . $item['item_siblings'] . '"' : ''; ?> placeholder="Par saison" />
             </div>
         </div>
     </div>

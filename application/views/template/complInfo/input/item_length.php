@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-8">
             <div class="box">
-                <input type="text" name="item_length" id="lengthItem" <?php echo isset($item) ? 'value="' . $item['item_length'] . '"' : ''; ?> />
+                <input type="number" name="item_length" id="lengthItem" <?php echo isset($item) > 0 ? 'value="' . $item['item_length'] . '"' : ''; ?> placeholder="En minutes" />
             </div>
         </div>
     </div>

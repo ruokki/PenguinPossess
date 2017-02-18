@@ -8,13 +8,13 @@
         </div>
         <div class="col-xs-3">
             <div class="box">
-                <input type="text" name="item_idx_sibling" id="idxSiblingsItem" <?php echo isset($item) ? 'value="' . $item['item_idx_sibling'] . '"' : ''; ?> />
+                <input type="number" name="item_idx_sibling" id="idxSiblingsItem" <?php echo isset($item) && $item['item_idx_sibling'] > 0 ? 'value="' . $item['item_idx_sibling'] . '"' : ''; ?> />
             </div>
         </div>
         <div class="col-xs-1">/</div>
         <div class="col-xs-4">
             <div class="box">
-                <input type="text" name="item_siblings" id="siblingsItem" <?php echo isset($item) ? 'value="' . $item['item_siblings'] . '"' : ''; ?> />
+                <input type="number" name="item_siblings" id="siblingsItem" <?php echo isset($item) && $item['item_siblings'] > 0 ? 'value="' . $item['item_siblings'] . '"' : ''; ?> placeholder="Laisser vide si en cours" />
             </div>
         </div>
     </div>

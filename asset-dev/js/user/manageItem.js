@@ -1,5 +1,6 @@
 (jQuery)(function($){
     
+    // Chargement des sous-catégories
     document.querySelector("#categoryItem").addEventListener("change", function(){
         $.ajax({
             type: "POST",
@@ -22,6 +23,7 @@
         });
     });
     
+    // Chargement du HTML spécifique à une sous-catégorie
     document.querySelector("#subcategoryItem").addEventListener("change", function(){
         var category = $(this).find(":selected").text();
         

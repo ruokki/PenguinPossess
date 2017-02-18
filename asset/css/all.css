@@ -54,6 +54,9 @@ button, .button {
 input, select, textarea {
   width: 100%; }
 
+textarea {
+  font-family: inherit; }
+
 .float-left {
   float: left; }
 
