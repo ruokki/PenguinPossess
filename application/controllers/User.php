@@ -42,7 +42,8 @@ class User extends CI_Controller {
             'items' => $this->Item->getItem(array(
                 'where' => array(
                     'U.user_id' => $this->session->user['id']
-                )
+                ),
+                'orderBy' => 'item_date_create DESC'
             ))
         );
         

@@ -111,7 +111,8 @@ class Home extends CI_Controller {
         $data = array(
             'active' => 'home',
             'items' => $this->Item->getItem(array(
-                'limit' => 500
+                'limit' => 500,
+                'orderBy' => 'item_date_create DESC'
             )),
             'css' => array(
                 'listItem.css'

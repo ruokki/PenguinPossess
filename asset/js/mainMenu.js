@@ -34,4 +34,7 @@
             $mainMenu.removeClass("show").find(".open").removeClass("open");
         }
     });
+    
+    // Mise en place des tooltips custom
+    $(document).tooltip();
 });

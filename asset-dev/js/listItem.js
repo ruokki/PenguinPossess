@@ -3,7 +3,7 @@
         
         // On veut ajouter/enlever la possession d'un objet
         if($(e.target).hasClass("possess")) {
-            var $possess = $(e.target)
+            var $possess = $(e.target),
                 cmd = $possess.hasClass("icon-checkbox-checked") ? "del" : "add",
                 id = $possess.data("id");
                 
@@ -18,12 +18,16 @@
                     var text = "";
                     if(cmd === "del") {
                         text = "supprimé de";
-                        $possess.removeClass("icon-checkbox-checked").addClass("icon-checkbox-unchecked");
+                        $possess.removeClass("icon-checkbox-checked")
+                            .addClass("icon-checkbox-unchecked")
+                            .attr("title", "Ajouter à ma collection");
                         $possess.prev(".edit").addClass("hidden");
                     }
                     else if (cmd === "add") {
                         text = "ajouté à";
-                        $possess.removeClass("icon-checkbox-unchecked").addClass("icon-checkbox-checked");
+                        $possess.removeClass("icon-checkbox-unchecked")
+                            .addClass("icon-checkbox-checked")
+                            .attr("title", "Supprimer de ma collection");
                         $possess.prev(".edit").removeClass("hidden");
                     }
                     showAlertBox("Item " + text + " votre collection", "success");

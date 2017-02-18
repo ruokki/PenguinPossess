@@ -11,14 +11,17 @@
             <div class="front" data-href="<?php echo 'home/item/' . $item['item_id']; ?>">
                 <p><?php echo $item['item_name']; ?></p>
                 <div class="icon-misc">
-                    <span class="icon-<?php echo $item['category_icon']; ?>"></span>
+                    <span class="icon-<?php echo $item['category_icon']; ?>" title="<?php echo $item['main_category'] . ' - ' . $item['sub_category']; ?>"></span>
                 </div>
                 <div class="icon-action">
                     <a href="<?php echo site_url('user/manageItem/edit/' . $item['item_id']); ?>" 
-                       class="edit <?php echo in_array($this->session->user['id'], $tmp) ? '' : 'hidden'; ?>">
+                       class="edit <?php echo in_array($this->session->user['id'], $tmp) ? '' : 'hidden'; ?>"
+                       title="Modifier l'item">
                         <span class="icon-pencil"></span>
                     </a>
-                    <span class="<?php echo in_array($this->session->user['id'], $tmp) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess" data-id="<?php echo $item['item_id']; ?>"></span>
+                    <span class="<?php echo in_array($this->session->user['id'], $tmp) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess"
+                          data-id="<?php echo $item['item_id']; ?>"
+                          title="<?php echo in_array($this->session->user['id'], $tmp) ? 'Supprimer de ma collection' : 'Ajouter à ma collection' ?>"></span>
                 </div>
             </div>
         </div>
