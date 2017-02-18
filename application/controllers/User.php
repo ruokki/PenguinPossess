@@ -98,104 +98,132 @@ class User extends CI_Controller {
             
             // Enregistrement de l'item
             if($this->input->post()) {
-                $item = $this->input->post();
-                $oldItem = array();
-                $isNew = FALSE;
+                $this->load->library('form_validation');
                 
-                // Gestion des pistes pour un album
-                if(isset($item['track'])) {
-                    $item['item_tracklist'] = implode('|', $item['track']);
-                    unset($item['track']);
-                }
+                $config = array(
+                    array(
+                        'field' => 'item_name',
+                        'label' => 'Nom',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'category_id',
+                        'label' => 'Catégorie',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'subcategory_id',
+                        'label' => 'Sous-catégorie',
+                        'rules' => 'required'
+                    ),
+                );
                 
-                // Date création
-                $item['item_date_create'] = date('Y-m-d H:i:s');
+                $this->form_validation->set_rules($config);
                 
-                // Gestion de l'id
-                $idItem = 0;
-                if(isset($item['item_id'])) {
-                    $idItem = $item['item_id'];
-                    unset($item['item_id']);
-                    $oldItem = $this->Item->getItem(array(
-                        'where' => array(
-                            'I.item_id' => $idItem
-                        )
-                    ));
-                    $oldItem = $oldItem[0];
+                if($this->form_validation->run() === FALSE) {
+                    $data['errors'] = $this->form_validation->error_array();
                 }
                 else {
-                    $isNew = TRUE;
-                }
+                    $item = $this->input->post();
+                    $oldItem = array();
+                    $isNew = FALSE;
 
-                if($idItem !== 0) {
-                    $userPossess = explode(',', $oldItem['user_id_possess']);
-                }
-                else {
-                    $userPossess = array($this->session->user['id']);
-                }
-                
-                // Gestion de l'upload de l'image
-                $config = array();
-                $this->load->library('upload', $config);
-
-                $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 2048;
-                $config['max_width']            = 1260;
-                $config['max_height']           = 1260;
-                $config['file_ext_tolower']     = TRUE;
-                $config['file_name']            = uniqid($this->session->user['id'] . '_');
-
-                $this->upload->initialize($config);
-                // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
-                // et on attend la validation par un admin*
-                if(count($userPossess) > 1) {
-                    $this->load->helper('file');
-                    $validateFolder = $this->config->item('validateFolder');
-                    
-                    if(!is_dir($validateFolder['root'] . '/' . $validateFolder['img'])) {
-                        mkdir($validateFolder['root'] . '/' . $validateFolder['img'], 0777, TRUE);
-                    }
-                    $config['upload_path'] = $validateFolder['root'] . '/' . $validateFolder['img'];
-                    $this->upload->initialize($config);
-                    $this->upload->do_upload('item_img');
-                    
-                    write_file($validateFolder['root'] . '/pendingEdit', serialize($item) . '##', 'a');
-                }
-                else {
-
-                    // On tente d'insérer le produit
-                    if($idItem === 0) {
-                        $item['item_img'] = '';
-                    }
-                    $idItem = $this->Item->setItem($item, $idItem);
-
-                    // Si l'insertion se fait, on finit l'upload du fichier
-                    if(!is_dir($config['upload_path'])) {
-                        mkdir($config['upload_path'], 0777, TRUE);
+                    // Gestion des pistes pour un album
+                    if(isset($item['track'])) {
+                        $item['item_tracklist'] = implode('|', $item['track']);
+                        unset($item['track']);
                     }
 
-                    if($idItem === 0) {
-                        if (!$this->upload->do_upload('item_img')) {
-                            $data['result'] = array('error' => TRUE);
-                        }
-                        else {
-                            $data['result'] = array('success' => TRUE);
-                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                        }
+                    // Date création
+                    $item['item_date_create'] = date('Y-m-d H:i:s');
+
+                    // Gestion de l'id
+                    $idItem = 0;
+                    if(isset($item['item_id'])) {
+                        $idItem = $item['item_id'];
+                        unset($item['item_id']);
+                        $oldItem = $this->Item->getItem(array(
+                            'where' => array(
+                                'I.item_id' => $idItem
+                            )
+                        ));
+                        $oldItem = $oldItem[0];
                     }
                     else {
-                        if ($this->upload->do_upload('item_img')) {
-                            if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
-                                unlink($config['upload_path'] . '/' . $oldItem['item_img']);
-                            }
-                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                        }
-                        $data['result'] = array('success' => TRUE);
+                        $isNew = TRUE;
                     }
 
-                    if($isNew === TRUE) {
-                        $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                    if($idItem !== 0) {
+                        $userPossess = explode(',', $oldItem['user_id_possess']);
+                    }
+                    else {
+                        $userPossess = array($this->session->user['id']);
+                    }
+
+                    // Gestion de l'upload de l'image
+                    $config = array();
+                    $this->load->library('upload', $config);
+
+                    $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
+                    $config['allowed_types']        = 'gif|jpg|png';
+                    $config['max_size']             = 2048;
+                    $config['max_width']            = 1260;
+                    $config['max_height']           = 1260;
+                    $config['file_ext_tolower']     = TRUE;
+                    $config['file_name']            = uniqid($this->session->user['id'] . '_');
+
+                    $this->upload->initialize($config);
+                    // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
+                    // et on attend la validation par un admin*
+                    if(count($userPossess) > 1) {
+                        $this->load->helper('file');
+                        $validateFolder = $this->config->item('validateFolder');
+
+                        if(!is_dir($validateFolder['root'] . '/' . $validateFolder['img'])) {
+                            mkdir($validateFolder['root'] . '/' . $validateFolder['img'], 0777, TRUE);
+                        }
+                        $config['upload_path'] = $validateFolder['root'] . '/' . $validateFolder['img'];
+                        $this->upload->initialize($config);
+                        $this->upload->do_upload('item_img');
+
+                        write_file($validateFolder['root'] . '/pendingEdit', serialize($item) . '##', 'a');
+                    }
+                    else {
+
+                        // On tente d'insérer le produit
+                        if($idItem === 0) {
+                            $item['item_img'] = '';
+                        }
+                        $idItem = $this->Item->setItem($item, $idItem);
+
+                        // Si l'insertion se fait, on finit l'upload du fichier
+                        if(!is_dir($config['upload_path'])) {
+                            mkdir($config['upload_path'], 0777, TRUE);
+                        }
+
+                        if($idItem === 0) {
+                            if (!$this->upload->do_upload('item_img')) {
+                                $data['result'] = array('error' => TRUE);
+                                $data['errors'] = array('Veuiller sélectionner une image pour cette item');
+                            }
+                            else {
+                                $data['result'] = array('success' => TRUE);
+                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                            }
+                        }
+                        else {
+                            if ($this->upload->do_upload('item_img')) {
+                                if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
+                                    unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+                                }
+                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                            }
+                            $data['result'] = array('success' => TRUE);
+                        }
+
+                        if($isNew === TRUE) {
+                            $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                        }
                     }
                 }
             }

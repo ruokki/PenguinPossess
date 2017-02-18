@@ -6,6 +6,14 @@
         Modification de l'item 
         <?php endif; ?>
     </h1>
+    <?php if(isset($errors)) : ?>
+    <ul id="errors">
+        <span id="closeError" class="icon-cross"></span>
+        <?php foreach($errors as $txt) : ?>
+        <li><?php echo $txt; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
     <?php if(isset($multiUser) &&  $multiUser === true) : ?>
     <h2>CET ITEM APPARTIENT &Agrave; PLUSIEURS PERSONNES. TOUTE MODIFICATION DEVRA ÊTRE VALIDÉE PAR UN ADMINISTRATEUR</h2>
     <?php endif; ?>
