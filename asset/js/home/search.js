@@ -41,8 +41,4 @@
         });
     });
     
-    if(alert !== null) {
-        showAlertBox(alert, type);
-    }
-    
 });
