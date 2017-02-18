@@ -118,12 +118,14 @@ textarea {
 /******************/
 
 #topMenu {
+    $topBackground: #FBFBFB;
+    
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 200;
-    background-color: #FBFCFF;
+    background-color: rgba($topBackground, .90);
     color: black;
     
     > div {
@@ -134,6 +136,23 @@ textarea {
         [class^="icon-"], [class*=" icon-"] {
             display: inline-block;
             margin-right: 15px;
+        }
+    }
+    
+    #currenttMenu {
+        line-height: 18px;
+    }
+    
+    #search {
+        padding: 6px;
+        padding-right: 25px;
+        position: relative;
+        
+        input {
+            border: none;
+            height: 26px;
+            padding: 0 5px;
+            background: darken($topBackground, 5);
         }
     }
     
@@ -241,4 +260,7 @@ textarea {
     padding: 30px;
     display: flex;
     box-sizing: border-box;
+    background-image: url('../background.jpg');
+    background-size: cover;
+    background-position: center;
 }

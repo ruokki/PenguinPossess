@@ -40,7 +40,7 @@
     
     
     // Fermeture de la liste des erreurs
-    document.querySelector("#closeError").addEventListener("click", function(){
+    $("#closeError").on("click", function(){
         $(this).parent().fadeOut(350, function(){
             $(this).remove();
         });
