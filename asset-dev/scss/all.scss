@@ -10,6 +10,8 @@ html, body {
 body {
     background-color: #D0CCD0;
     position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
     
     &.topMenu {
         padding-top: 36px;
@@ -81,7 +83,7 @@ textarea {
         padding: 10px;
     }
     
-    .float-right {
+    #shortcut {
         [class^="icon-"], [class*=" icon-"] {
             display: inline-block;
             margin-right: 15px;
@@ -106,13 +108,13 @@ textarea {
     background: $topBackground;
     position: absolute;
     top: 0;
-    left: -100%;
+    right: -100%;
     z-index: 150;
     padding-top: 150px;
-    transition: left $transitionTime+.20;
+    transition: right $transitionTime+.20;
     
     &.show {
-        left: 0;
+        right: 0;
     }
 
     .menu {
