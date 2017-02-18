@@ -52,6 +52,14 @@ class User_model extends CI_Model {
     }
     
     /**
+     * Récupère le nombre d'utilisateur total
+     * @return Integer
+     */
+    public function getNbUser() {
+        return $this->db->count_all('user');
+    }
+    
+    /**
      * Récupère les rôles
      * @return Array
      */

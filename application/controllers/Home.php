@@ -74,21 +74,23 @@ class Home extends CI_Controller {
         
         if($this->input->post()) {
             $this->load->model('User_model', 'User', TRUE);
-            $name = $this->input->post('userName');
-            $pass = $this->input->post('userPass');
+            $futureUser = $this->input->post();
             
-            $user = $this->User->getUserFromName($name);
+            $user = $this->User->getUserFromName($futureUser['user_name']);
+            $totalUser = $this->User->getNbUser();
             
             if(count($user) > 0) {
                 $data['error'] = 'Nom déjà utilisé';
             }
+            else if ($totalUser > 10) {
+                $data['error'] = "Nombre d'utilisateur max atteint";
+            }
             else {
-                $this->User->setUser(array(
-                    'user_name' => $name,
-                    'user_pwd' => password_hash($pass, PASSWORD_DEFAULT),
-                    'role_id' => $this->config->item('user_id'),
-                    'user_active' => 0
-                ));
+                $futureUser['user_pwd'] = password_hash($futureUser['user_pwd'], PASSWORD_DEFAULT);
+                $futureUser['role_id'] = $this->config->item('user_id');
+                $futureUser['user_active'] = 1;
+                
+                $this->User->setUser($futureUser);
                 
                 redirect('home/login');
             }

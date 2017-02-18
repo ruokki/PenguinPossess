@@ -14,7 +14,49 @@
             </div>
             <div class="col-xs-9">
                 <div class="box">
-                    <input type="text" id="userName" name="userName" />
+                    <input type="text" id="userName" name="user_name" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="box">
+                    <label for="userFirst">Prénom</label>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <div class="box">
+                    <input type="text" id="userFirst" name="user_firstname" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="box">
+                    <label for="userLast">Nom</label>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <div class="box">
+                    <input type="text" id="userLast" name="user_lastname" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="box">
+                    <label for="userEmail">Email</label>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <div class="box">
+                    <input type="text" id="userEmail" name="user_email" />
                 </div>
             </div>
         </div>
@@ -28,7 +70,7 @@
             </div>
             <div class="col-xs-9">
                 <div class="box">
-                    <input type="password" id="userPass" name="userPass" />
+                    <input type="password" id="userPass" name="user_pwd" />
                 </div>
             </div>
         </div>
@@ -37,7 +79,7 @@
         <div class="row">
             <div class="col-xs-3">
                 <div class="box">
-                    <button type="submit">Demander</button>
+                    <button type="submit">Créer</button>
                 </div>
             </div>
             <div class="col-xs-9">
