@@ -82,13 +82,6 @@
         }
     });
     
-    // Fermeture de la liste des erreurs
-    document.querySelector("#closeError").addEventListener("click", function(){
-        $(this).parent().fadeOut(350, function(){
-            $(this).remove();
-        });
-    });
-    
     if(alert !== null) {
         showAlertBox(alert, type);
     }

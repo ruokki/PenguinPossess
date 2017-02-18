@@ -64,6 +64,8 @@ class Home extends CI_Controller {
      * Page de demande de création d'un utilisateur
      */
     public function createUser() {
+        $this->load->library('form_validation');
+        
         $data = array(
             'title' => 'Demande de création',
             'error' => FALSE,
@@ -76,23 +78,54 @@ class Home extends CI_Controller {
             $this->load->model('User_model', 'User', TRUE);
             $futureUser = $this->input->post();
             
-            $user = $this->User->getUserFromName($futureUser['user_name']);
-            $totalUser = $this->User->getNbUser();
-            
-            if(count($user) > 0) {
-                $data['error'] = 'Nom déjà utilisé';
-            }
-            else if ($totalUser > 10) {
-                $data['error'] = "Nombre d'utilisateur max atteint";
-            }
-            else {
-                $futureUser['user_pwd'] = password_hash($futureUser['user_pwd'], PASSWORD_DEFAULT);
-                $futureUser['role_id'] = $this->config->item('user_id');
-                $futureUser['user_active'] = 1;
+            $config = array(
+                    array(
+                        'field' => 'user_name',
+                        'label' => 'Nom',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'user_firstname',
+                        'label' => 'Prénom',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'user_email',
+                        'label' => 'Email',
+                        'rules' => 'required|valid_email'
+                    ),
+                    array(
+                        'field' => 'user_pwd',
+                        'label' => 'Mot de passe',
+                        'rules' => 'required'
+                    ),
+                );
                 
-                $this->User->setUser($futureUser);
+                $this->form_validation->set_rules($config);
                 
-                redirect('home/login');
+                if($this->form_validation->run() === FALSE) {
+                    $data['errors'] = $this->form_validation->error_array();
+                }
+                else {
+                    
+                    $user = $this->User->getUserFromName($futureUser['user_name']);
+                $totalUser = $this->User->getNbUser();
+
+                if (count($user) > 0) {
+                    $data['errors'] = array('Nom déjà utilisé');
+                }
+                else if ($totalUser > 10) {
+                    $data['errors'] = array("Nombre d'utilisateur max atteint");
+                }
+                else {
+                    $futureUser['user_pwd'] = password_hash($futureUser['user_pwd'], PASSWORD_DEFAULT);
+                    $futureUser['role_id'] = $this->config->item('user_id');
+                    $futureUser['user_active'] = 1;
+
+                    $this->User->setUser($futureUser);
+
+                    redirect('home/login');
+                }
             }
         }
         

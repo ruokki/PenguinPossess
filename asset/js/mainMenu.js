@@ -37,4 +37,12 @@
     
     // Mise en place des tooltips custom
     $(document).tooltip();
+    
+    
+    // Fermeture de la liste des erreurs
+    document.querySelector("#closeError").addEventListener("click", function(){
+        $(this).parent().fadeOut(350, function(){
+            $(this).remove();
+        });
+    });
 });

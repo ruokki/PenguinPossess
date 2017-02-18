@@ -15,19 +15,3 @@
     padding: 5px; }
   #wrapper #imgContainer img {
     max-height: 200px; }
-  #wrapper #errors {
-    width: 100%;
-    position: relative;
-    border-radius: 5px;
-    background: #ffcccc;
-    border: 1px solid #ff6666;
-    padding: 5px; }
-    #wrapper #errors #closeError {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      opacity: .4; }
-    #wrapper #errors li {
-      padding-bottom: 6px; }
-      #wrapper #errors li:last-child {
-        padding-bottom: 0; }
