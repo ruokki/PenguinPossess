@@ -82,7 +82,7 @@ class item_model extends CI_Model {
                 ->from('item I')
                 ->join('category C', 'I.category_id = C.category_id', 'left')
                 ->join('category SC', 'I.subcategory_id = SC.category_id', 'left')
-                ->join('itemuser IU', 'I.item_id = IU.item_id', 'left')
+                ->join('itemUser IU', 'I.item_id = IU.item_id', 'left')
                 ->join('user U', 'U.user_id = IU.user_id', 'left')
                 ->group_by("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript,"
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
