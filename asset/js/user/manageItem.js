@@ -41,6 +41,21 @@
         });
     });
     
+    // Gestion de la prévisualisation de l'image
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+        $('#imgContainer img').attr('src', e.target.result);
+    }
+        
+    document.querySelector("#imgItem").addEventListener("change", function(){
+        var files = this.files;
+        
+        if(files && files[0]) {
+            reader.readAsDataURL(files[0]);
+        }
+    });
+    
     // Gestion de l'ajout/suppression des pistes d'un album
     var trackTemplate = $(
     '<div class="row">' + 

@@ -9,6 +9,13 @@
     <?php if(isset($multiUser) &&  $multiUser === true) : ?>
     <h2>CET ITEM APPARTIENT &Agrave; PLUSIEURS PERSONNES. TOUTE MODIFICATION DEVRA ÊTRE VALIDÉE PAR UN ADMINISTRATEUR</h2>
     <?php endif; ?>
+    <div id="imgContainer" class="col-xs-12">
+        <?php if(isset($item)) : ?>
+        <img src="<?php echo base_url('asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'] . '/' . $item['item_img']) ?>" title="<?php echo $item['item_name']; ?>" />
+        <?php else : ?>
+        <img src="" />
+        <?php endif; ?>
+    </div>
     <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-4">

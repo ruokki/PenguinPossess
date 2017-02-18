@@ -13,3 +13,5 @@
     margin-bottom: 15px; }
   #wrapper #manageTrack button {
     padding: 5px; }
+  #wrapper #imgContainer img {
+    max-height: 200px; }
