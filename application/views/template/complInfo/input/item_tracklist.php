@@ -1,5 +1,5 @@
-<?php if($typeView === 'form') : ?>
 <?php $tracks = explode('|', $item['item_tracklist']); $nbTrack = count($tracks); ?>
+<?php if($typeView === 'form') : ?>
 <div class="col-xs-12 compl">
     <div class="row">
         <div class="col-xs-4">
@@ -32,5 +32,7 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-
+    <?php for($i = 0; $i < $nbTrack; $i++) : ?>
+        <p><?php echo $i + 1; ?> - <?php echo $tracks[$i]; ?></p>
+    <?php endfor; ?>
 <?php endif; ?>

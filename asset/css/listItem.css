@@ -5,6 +5,7 @@
     height: 150px;
     position: relative;
     margin-right: 25px;
+    margin-bottom: 25px;
     float: left; }
     #listItem .item .background, #listItem .item .front {
       width: 100%;
