@@ -1,4 +1,7 @@
 <form class="row" name="login" method="POST" action="">
+    <div class="text-center logo">
+        <img src="<?php echo base_url('asset/logo.png'); ?>" title="Penguin Possess" />
+    </div>
     <?php if($error !== FALSE) : ?>
     <div class="col-xs-12">
         <div class="box"><?php echo $error; ?></div>

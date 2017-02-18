@@ -27,7 +27,7 @@ html, body {
   font-family: Arial; }
 
 body {
-  background-color: #D0CCD0;
+  background-color: #191919;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto; }
@@ -64,6 +64,15 @@ textarea {
 
 .float-right {
   float: right; }
+
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.text-left {
+  text-align: left; }
 
 .clearfix {
   clear: both; }

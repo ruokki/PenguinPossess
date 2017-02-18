@@ -33,9 +33,6 @@
     <body <?php echo $this->session->user !== NULL ? 'class="topMenu"' : ''; ?>>
         <?php if($this->session->user !== NULL) : ?>
             <div id="topMenu">
-                <div id="getMenu" class="float-right">
-                    <span class="icon-menu"></span>
-                </div>
                 <div id="shortcut" class="float-left">
                     <a href="<?php echo site_url('home/index'); ?>">
                         <span class="icon-home"></span>
@@ -51,6 +48,9 @@
                     </a>
                 </div>
                 <div id="currenttMenu" class="float-left"></div>
+                <div id="getMenu" class="float-right">
+                    <span class="icon-menu"></span>
+                </div>
                 <div id="search" class="float-right">
                     <input type="text" name="searchItem" id="searchItem" placeholder="Recherche..." />
                 </div>
