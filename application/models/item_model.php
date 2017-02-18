@@ -66,6 +66,10 @@ class item_model extends CI_Model {
             $this->db->or_where($cond['orWhere']);
         }
         
+        if(isset($cond['like'])) {
+            $this->db->like($cond['like']);
+        }
+        
         if(isset($cond['orderBy'])) {
             $this->db->order_by($cond['orderBy']);
         }

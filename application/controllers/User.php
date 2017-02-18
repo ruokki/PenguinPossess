@@ -108,7 +108,7 @@ class User extends CI_Controller {
                 }
                 
                 // Date création
-                $item['item_date_create'] = date('Ymd H:i:s');
+                $item['item_date_create'] = date('Y-m-d H:i:s');
                 
                 // Gestion de l'id
                 $idItem = 0;
@@ -144,7 +144,6 @@ class User extends CI_Controller {
                 $config['file_name']            = uniqid($this->session->user['id'] . '_');
 
                 $this->upload->initialize($config);
-                
                 // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
                 // et on attend la validation par un admin
                 if(count($userPossess) > 1) {

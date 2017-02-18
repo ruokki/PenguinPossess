@@ -254,7 +254,7 @@ class Home extends CI_Controller {
             }
             
             $data['result'] = $item = $this->Item->getItem(array(
-                'where' => $search
+                'like' => $search
             ));
 
             // La requête vient du champ de recherche, on envoie juste les 
