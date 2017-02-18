@@ -145,8 +145,8 @@ class Home extends CI_Controller {
             'active' => $id,
             'items' => $this->Item->getItem(array(
                 'orWhere' => array(
-                    'category_id' => $id,
-                    'subcategory_id' => $id
+                    'I.category_id' => $id,
+                    'I.subcategory_id' => $id
                 ),
                 'limit' => 500
             ))
