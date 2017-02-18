@@ -3,11 +3,6 @@
     var $mainMenu = $("#mainMenu"),
         currentMenu = $("#mainMenu .active").text();
     
-    // Si on est en visu d'item, on va récupérer le nom dans la page
-    if(currentMenu === "") {
-        currentMenu = $("#wrapper .info h1").text();
-    }
-    
     $("#currenttMenu").text(currentMenu);
     
     // Affichage du menu principal
@@ -54,9 +49,7 @@
                 url: siteUrl + "/home/search",
                 type: "POST",
                 data: {
-                    search: {
-                        "item_name": term
-                    }
+                    "item_name": term
                 },
                 dataType: "JSON",
                 beforeSend: function() {

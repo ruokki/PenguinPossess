@@ -239,23 +239,35 @@ class Home extends CI_Controller {
      */
     public function search() {
         $this->load->model('item_model', 'Item', TRUE);
+        $this->load->model('category_model', 'Category', TRUE);
         
         $data = array(
-            'active' => 'search'
+            'active' => 'search',
+            'categories' => $this->Category->getCategory(),
+            'css' => array(
+                'listItem.css'
+            ),
+            'js' => array(
+                'home/search.js'
+            )
         );
+        $view = 'search';
         
         if($this->input->post()) {
-            $postSearch = $this->input->post('search');
+            array_push($data['css'], 'home/result.css');
+            
+            $postSearch = $this->input->post();
             $search = array();
             
             foreach($postSearch as $field => $value) {
-                $tmp = str_replace('item_', 'I.item_', $field);
+                $tmp = 'I.' . $field;
                 $search[$tmp] = $value;
             }
             
-            $data['result'] = $item = $this->Item->getItem(array(
+            $data['result'] = $data['items'] = $this->Item->getItem(array(
                 'like' => $search
             ));
+            $view = 'result';
 
             // La requête vient du champ de recherche, on envoie juste les 
             // infos en JSON et on arète le traitement
@@ -264,9 +276,12 @@ class Home extends CI_Controller {
                 return;
             }
         }
+        else {
+            array_push($data['css'], 'home/search.css');
+        }
         
         $this->load->view('template/header', $data);
-        $this->load->view('home/item', $data);
+        $this->load->view('home/' . $view, $data);
         $this->load->view('template/footer', $data);
     }
     

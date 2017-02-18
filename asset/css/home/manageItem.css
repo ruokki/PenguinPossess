@@ -1,0 +1,4 @@
+#wrapper {
+  justify-content: flex-start; }
+  #wrapper h1, #wrapper h2 {
+    width: 100%; }
