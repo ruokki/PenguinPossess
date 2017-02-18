@@ -194,7 +194,7 @@ class Home extends CI_Controller {
         if($id === 0) {
             redirect('home/index');
         }
-        $this->load->model('item_model', 'Item', TRUE);
+        $this->load->model('Item_model', 'Item', TRUE);
         $this->load->helper('formatCatName');
         
         $item = $this->Item->getItem(array(
@@ -241,8 +241,8 @@ class Home extends CI_Controller {
      * Utilisé aussi pour récupérer les infos du champ de recherche dans le top-menu
      */
     public function search() {
-        $this->load->model('item_model', 'Item', TRUE);
-        $this->load->model('category_model', 'Category', TRUE);
+        $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
         
         $data = array(
             'active' => 'search',
@@ -295,7 +295,7 @@ class Home extends CI_Controller {
      */
     public function managePossess() {
         if($this->input->is_ajax_request()) {
-            $this->load->model('item_model', 'Item', TRUE);
+            $this->load->model('Item_model', 'Item', TRUE);
             
             $cmd = $this->input->post('cmd');
             $id = $this->input->post('item');
@@ -313,7 +313,7 @@ class Home extends CI_Controller {
      * Créer la base de données
      */
     public function createDB() {
-        $this->load->model('forge_model', 'Forge', TRUE);
+        $this->load->model('Forge_model', 'Forge', TRUE);
         $this->Forge->setDB();
     }
     

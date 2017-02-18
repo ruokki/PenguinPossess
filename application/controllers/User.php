@@ -27,7 +27,7 @@ class User extends CI_Controller {
      *  - Ajout d'un produit
      */
     public function index() {
-        $this->load->model('item_model', 'Item', TRUE);
+        $this->load->model('Item_model', 'Item', TRUE);
         
         $data = array(
             'title' => 'Mon compte',
@@ -58,8 +58,8 @@ class User extends CI_Controller {
      *  - Édition d'un item
      */
     public function manageItem($cmd = 'create', $id = 0) {
-        $this->load->model('category_model', 'Category', TRUE);
-        $this->load->model('item_model', 'Item', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
+        $this->load->model('Item_model', 'Item', TRUE);
         $this->load->helper('formatCatName');
         
         if($this->input->is_ajax_request()) {
