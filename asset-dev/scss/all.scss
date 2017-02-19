@@ -220,6 +220,14 @@ textarea {
                 display: inline-block;
                 margin-right: 10px;
             }
+            
+            &.disabled {
+                color: grey;
+
+                &:hover {
+                    color: grey;
+                }
+            }
         }
         
         .submenu {

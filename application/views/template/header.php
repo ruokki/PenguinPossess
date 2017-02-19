@@ -37,12 +37,18 @@
                     <a href="<?php echo site_url('home/index'); ?>" title="Accueil">
                         <span class="icon-home"></span>
                     </a>
-                    <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">
+                    <!--<a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">
                         <span class="icon-plus"></span>
                     </a>
                     <a href="" class="disabled" title="Ma wishlist">
                         <span class="icon-heart"></span>
                     </a>
+                    <a href="" class="disabled" title="Mes prêts">
+                        <span class="icon-box-remove"></span>
+                    </a>
+                    <a href="" class="disabled" title="Mes emprunts">
+                        <span class="icon-box-add"></span>
+                    </a>-->
                     <a href="<?php echo site_url('home/logout'); ?>" title="Déconnexion">
                         <span class="icon-exit"></span>
                     </a>

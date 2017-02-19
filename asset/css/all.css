@@ -176,6 +176,10 @@ textarea {
       #mainMenu .menu a [class^="icon-"], #mainMenu .menu a [class*=" icon-"] {
         display: inline-block;
         margin-right: 10px; }
+      #mainMenu .menu a.disabled {
+        color: grey; }
+        #mainMenu .menu a.disabled:hover {
+          color: grey; }
     #mainMenu .menu .submenu {
       max-height: 0;
       overflow: hidden;

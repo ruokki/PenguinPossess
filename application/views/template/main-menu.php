@@ -11,6 +11,24 @@
                 <span class="icon-user"></span>
                 Mon compte
             </a>
+            <div class="submenu">
+                <a href="<?php echo site_url('user/index'); ?>">
+                    <span class="icon-database"></span>
+                    Ma collection
+                </a>
+                <a href="" class="disabled">
+                    <span class="icon-heart"></span>
+                    Ma wishlist
+                </a>
+                <a href="" class="disabled">
+                    <span class="icon-box-remove"></span>
+                    Mes prêts
+                </a>
+                <a href="" class="disabled">
+                    <span class="icon-box-add"></span>
+                    Mes emprunts
+                </a>
+            </div>
         </div>
         <div class="menu">
             <a href="<?php echo site_url('home/search'); ?>" <?php if($active === 'search') { echo 'class="active"'; } ?>>
