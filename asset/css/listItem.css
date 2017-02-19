@@ -1,11 +1,11 @@
 #listItem {
   width: 100%; }
   #listItem .item {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     position: relative;
-    margin-right: 25px;
-    margin-bottom: 25px;
+    margin-right: 40px;
+    margin-bottom: 40px;
     float: left; }
     #listItem .item .background, #listItem .item .front {
       width: 100%;
@@ -25,23 +25,28 @@
       position: relative;
       color: black;
       background: rgba(255, 255, 255, 0.8);
-      padding: 7px;
       z-index: 3;
       opacity: 0;
+      cursor: pointer;
       transition: opacity 0.35s; }
-      #listItem .item .front .icon-misc, #listItem .item .front .icon-action {
-        position: absolute; }
-        #listItem .item .front .icon-misc > *, #listItem .item .front .icon-action > * {
+      #listItem .item .front .info {
+        padding: 7px;
+        height: 168px;
+        overflow: hidden; }
+        #listItem .item .front .info p {
+          margin-bottom: 7px; }
+          #listItem .item .front .info p:last-child {
+            margin-bottom: 0; }
+      #listItem .item .front .icons {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 7px; }
+        #listItem .item .front .icons > * {
           cursor: pointer;
           transition: color 0.35s; }
-          #listItem .item .front .icon-misc > *:hover, #listItem .item .front .icon-action > *:hover {
+          #listItem .item .front .icons > *:hover {
             color: #7C98B3; }
-      #listItem .item .front .icon-action {
-        position: absolute;
-        bottom: 7px;
-        right: 7px; }
-      #listItem .item .front .icon-misc {
-        bottom: 7px;
-        left: 7px; }
       #listItem .item .front:hover {
         opacity: 1; }

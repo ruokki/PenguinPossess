@@ -4,11 +4,11 @@
     width: 100%;
     
     .item {
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         position: relative;
-        margin-right: 25px;
-        margin-bottom: 25px;
+        margin-right: 40px;
+        margin-bottom: 40px;
         float: left;
         
         .background, .front {
@@ -35,13 +35,31 @@
             position: relative;
             color: black;
             background: rgba(white, .8);
-            padding: 7px;
             z-index: 3;
             opacity: 0;
+            cursor: pointer;
             transition: opacity $transitionTime;
             
-            .icon-misc, .icon-action {
+            .info {
+                padding: 7px;
+                height: 168px;
+                overflow: hidden;
+                
+                p {
+                    margin-bottom: 7px;
+                    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            
+            .icons {
+                width: 100%;
                 position: absolute;
+                bottom: 0;
+                left: 0;
+                padding: 7px;
                 
                 > * {
                     cursor: pointer;
@@ -51,17 +69,6 @@
                         color: $activeColor;
                     }
                 }
-            }
-            
-            .icon-action {
-                position: absolute;
-                bottom: 7px;
-                right: 7px;
-            }
-            
-            .icon-misc {
-                bottom: 7px;
-                left: 7px;
             }
             
             &:hover {

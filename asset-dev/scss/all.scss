@@ -162,6 +162,14 @@ textarea {
         &:hover {
             color: $hoverColor;
         }
+        
+        &.disabled {
+            color: grey;
+            
+            &:hover {
+                color: grey;
+            }
+        }
     }
 }
 

@@ -136,6 +136,10 @@ textarea {
     transition: color 0.35s; }
     #topMenu a:hover {
       color: #507DBC; }
+    #topMenu a.disabled {
+      color: grey; }
+      #topMenu a.disabled:hover {
+        color: grey; }
 
 #mainMenu {
   width: 300px;

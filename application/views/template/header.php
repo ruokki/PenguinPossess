@@ -40,7 +40,7 @@
                     <a href="<?php echo site_url('user/manageItem/create'); ?>" title="Ajouter un item">
                         <span class="icon-plus"></span>
                     </a>
-                    <a href="" title="Ma wishlist">
+                    <a href="" class="disabled" title="Ma wishlist">
                         <span class="icon-heart"></span>
                     </a>
                     <a href="<?php echo site_url('home/logout'); ?>" title="Déconnexion">
