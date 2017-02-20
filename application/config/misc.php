@@ -12,3 +12,5 @@ $config['validateFolder'] = array(
     'root' => './asset/userfile/validate',
     'img' => 'img'
 );
+
+$config['version'] = '0.1';
