@@ -125,7 +125,7 @@ textarea {
     top: 0;
     left: 0;
     z-index: 200;
-    background-color: rgba($topBackground, .90);
+    background-color: $defaultColor;
     color: black;
     
     > div {
@@ -152,7 +152,7 @@ textarea {
             border: none;
             height: 26px;
             padding: 0 5px;
-            background: darken($topBackground, 5);
+            background: rgba($topBackground, .6);
         }
     }
     
