@@ -68,7 +68,7 @@
             </div>
             <div class="col-xs-9">
                 <div id="crea" class="box">
-                    <a href="<?php echo site_url('home/login'); ?>" class="button">Retour</a>
+                    <a href="<?php echo site_url('home/login'); ?>" >Retour</a>
                 </div>
             </div>
         </div>

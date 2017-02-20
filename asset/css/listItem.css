@@ -46,7 +46,15 @@
         #listItem .item .front .icons a, #listItem .item .front .icons span {
           cursor: pointer;
           transition: color 0.35s; }
+          #listItem .item .front .icons a.disabled, #listItem .item .front .icons span.disabled {
+            color: grey; }
+            #listItem .item .front .icons a.disabled:hover, #listItem .item .front .icons span.disabled:hover {
+              color: grey; }
           #listItem .item .front .icons a:hover, #listItem .item .front .icons span:hover {
             color: #7C98B3; }
+        #listItem .item .front .icons .float-right > a, #listItem .item .front .icons .float-right > span {
+          margin-right: 7px; }
+          #listItem .item .front .icons .float-right > a:last-child, #listItem .item .front .icons .float-right > span:last-child {
+            margin-right: 0; }
       #listItem .item .front:hover {
         opacity: 1; }

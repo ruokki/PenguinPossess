@@ -29,6 +29,7 @@ class Forge_model extends CI_Model {
         $this->createTag();
         $this->createItemTag();
         $this->createItemUser();
+        $this->createBorrow();
     }
     
     /**
@@ -69,9 +70,9 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_key('user_id', TRUE);
         $created = $this->dbforge->create_table('user', TRUE, $this->attributes);
         
-        if($created === TRUE) {
-            $this->populateUser();
-        }
+//        if($created === TRUE) {
+//            $this->populateUser();
+//        }
     }
     
     /**
@@ -92,9 +93,9 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_key('role_id', TRUE);
         $created = $this->dbforge->create_table('role', TRUE, $this->attributes);
         
-        if($created === TRUE) {
-            $this->populateRole();
-        }
+//        if($created === TRUE) {
+//            $this->populateRole();
+//        }
     }
         
     /**
@@ -124,9 +125,9 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_key('category_id', TRUE);
         $created = $this->dbforge->create_table('category', TRUE, $this->attributes);
         
-        if($created === TRUE) {
-            $this->populateCategory();
-        }
+//        if($created === TRUE) {
+//            $this->populateCategory();
+//        }
     }
     
     /**
@@ -241,6 +242,7 @@ class Forge_model extends CI_Model {
     
     /**
      * Création de la table ItemUser
+     * Lien de possession entre un item et un user
      */
     public function createItemUser() {
         $fields = array(
@@ -258,6 +260,38 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('link_id', TRUE);
         $this->dbforge->create_table('itemUser', TRUE, $this->attributes);
+    }
+    
+    /**
+     * Création de la table Borrow
+     * Item emprunté par une personne à une autre
+     */
+    public function createBorrow() {
+        $fields = array(
+            'borrow_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
+            'item_id' => array(
+                'type' => 'INT'
+            ),
+            'lender_id' => array(
+                'type' => 'INT'
+            ),
+            'borrower_id' => array(
+                'type' => 'INT'
+            ),
+            'borrow_state' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '2'
+            ),
+            'borrow_date_end' => array(
+                'type' => 'DATE'
+            )
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('borrow_id', TRUE);
+        $this->dbforge->create_table('borrow', TRUE, $this->attributes);
     }
     
     

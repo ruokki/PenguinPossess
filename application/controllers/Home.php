@@ -154,7 +154,7 @@ class Home extends CI_Controller {
                 'listItem.js'
             )
         );
-        
+
         $this->load->view('template/header', $data);
         $this->load->view('template/listItem', $data);
         $this->load->view('template/footer', $data);
@@ -332,13 +332,26 @@ class Home extends CI_Controller {
             
             $cmd = $this->input->post('cmd');
             $id = $this->input->post('item');
+            $return = '';
             
-            if($cmd === 'add') {
+            // Ajoute la possession d'un item
+            if($cmd === 'addPossess') {
                 $this->Item->setItemUserLink($id, $this->session->user['id']);
             }
-            else if($cmd === 'del') {
+            // Enlève la possession d'un item
+            else if($cmd === 'delPossess') {
                 $this->Item->delItemUserLink($id, $this->session->user['id']);
             }
+            // Ajoute une demande d'emprunt
+            else if($cmd === 'addBorrow') {
+                $this->Item->setBorrow(array(
+                    'item_id' => $id,
+                    'borrower_id' => $this->session->user['id'],
+                    'borrow_state' => 'WA'
+                ));
+            }
+            
+            echo json_encode($return);
         }
     }
 

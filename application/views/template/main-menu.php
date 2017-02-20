@@ -20,11 +20,11 @@
                     <span class="icon-heart"></span>
                     Ma wishlist
                 </a>
-                <a href="" class="disabled">
+                <a href="<?php echo site_url('user/lent'); ?>">
                     <span class="icon-box-remove"></span>
                     Mes prêts
                 </a>
-                <a href="" class="disabled">
+                <a href="<?php echo site_url('user/borrowed'); ?>">
                     <span class="icon-box-add"></span>
                     Mes emprunts
                 </a>

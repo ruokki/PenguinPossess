@@ -3,7 +3,10 @@
         <p>Aucun item à afficher</p>
     <?php else : ?>
         <?php foreach($items as $item) : ?>
-        <?php $tmp = explode(',', $item['user_id_possess']); ?>
+        <?php 
+            $possessors = explode(',', $item['user_id_possess']); 
+            $borrowers = explode(',', $item['borrowers_id']);
+        ?>
         <div class="item">
             <div class="background">
                 <img src="<?php echo base_url('asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'] . '/' . $item['item_img']) ?>" title="<?php echo $item['item_name']; ?>" />
@@ -21,13 +24,18 @@
                     </div>
                     <div class="float-right">
                         <a href="<?php echo site_url('user/manageItem/edit/' . $item['item_id']); ?>" 
-                           class="edit <?php echo in_array($this->session->user['id'], $tmp) ? '' : 'hidden'; ?>"
+                           class="edit <?php echo in_array($this->session->user['id'], $possessors) ? '' : 'hidden'; ?>"
                            title="Modifier l'item">
                             <span class="icon-pencil"></span>
                         </a>
-                        <span class="<?php echo in_array($this->session->user['id'], $tmp) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess"
+                        <?php if(!in_array($this->session->user['id'], $possessors)) : ?>
+                        <span class="icon-box-add borrow <?php echo !in_array($this->session->user['id'], $borrowers) ? '' : 'disabled'; ?>" 
                               data-id="<?php echo $item['item_id']; ?>"
-                              title="<?php echo in_array($this->session->user['id'], $tmp) ? 'Supprimer de ma collection' : 'Ajouter à ma collection' ?>"></span>
+                              title="Demander l'emprunt de l'item"></span>
+                        <?php endif; ?>
+                        <span class="<?php echo in_array($this->session->user['id'], $possessors) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess"
+                              data-id="<?php echo $item['item_id']; ?>"
+                              title="<?php echo in_array($this->session->user['id'], $possessors) ? 'Supprimer de ma collection' : 'Ajouter à ma collection' ?>"></span>
                     </div>
                     <div class="clearfix"></div>
                 </div>

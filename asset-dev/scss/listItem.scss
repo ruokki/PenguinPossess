@@ -65,8 +65,26 @@
                     cursor: pointer;
                     transition: color $transitionTime;
                     
+                    &.disabled {
+                        color: grey;
+            
+                        &:hover {
+                            color: grey;
+                        }
+                    }
+                    
                     &:hover {
                         color: $activeColor;
+                    }
+                }
+                
+                .float-right {
+                    > a, > span {
+                        margin-right: 7px;
+                        
+                        &:last-child {
+                            margin-right: 0;
+                        }
                     }
                 }
             }

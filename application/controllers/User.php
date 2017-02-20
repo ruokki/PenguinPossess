@@ -259,4 +259,30 @@ class User extends CI_Controller {
         }
     }
     
+    /**
+     * Liste des items empruntés
+     */
+    public function borrowed() {
+        $data = array(
+            'items' => array()
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('user/index', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Liste des items prétés
+     */
+    public function lent() {
+        $data = array(
+            'items' => array()
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('user/index', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
 }
