@@ -43,10 +43,10 @@
         bottom: 0;
         left: 0;
         padding: 7px; }
-        #listItem .item .front .icons > * {
+        #listItem .item .front .icons a, #listItem .item .front .icons span {
           cursor: pointer;
           transition: color 0.35s; }
-          #listItem .item .front .icons > *:hover {
+          #listItem .item .front .icons a:hover, #listItem .item .front .icons span:hover {
             color: #7C98B3; }
       #listItem .item .front:hover {
         opacity: 1; }

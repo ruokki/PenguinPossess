@@ -61,7 +61,7 @@
                 left: 0;
                 padding: 7px;
                 
-                > * {
+                a, span {
                     cursor: pointer;
                     transition: color $transitionTime;
                     
