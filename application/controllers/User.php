@@ -134,9 +134,6 @@ class User extends CI_Controller {
                         unset($item['track']);
                     }
 
-                    // Date création
-                    $item['item_date_create'] = date('Y-m-d H:i:s');
-
                     // Gestion de l'id
                     $idItem = 0;
                     if(isset($item['item_id'])) {
@@ -151,6 +148,8 @@ class User extends CI_Controller {
                     }
                     else {
                         $isNew = TRUE;
+                        // Date création
+                        $item['item_date_create'] = date('Y-m-d H:i:s');
                     }
 
                     if($idItem !== 0) {
