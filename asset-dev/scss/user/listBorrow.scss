@@ -8,16 +8,25 @@ table {
     }
     
     thead {
-        background: darken(white, 50);
+        background: $defaultColor;
+        color: black;
     }
     
     tbody {
         tr:nth-child(odd) {
-            background: $activeColor;
+            background: darken(white, 70);
         }
         
         tr:nth-child(even) {
-            background: $hoverColor;
+            background: darken(white, 80);
+        }
+        
+        td {
+            border-right: 1px solid darken(white, 65);
+            
+            &:last-child {
+                border-right: 0;
+            }
         }
     }
 }

@@ -3,8 +3,13 @@ table {
   table td, table th {
     padding: 12px; }
   table thead {
-    background: gray; }
+    background: #A1C6EA;
+    color: black; }
   table tbody tr:nth-child(odd) {
-    background: #7C98B3; }
+    background: #4d4d4d; }
   table tbody tr:nth-child(even) {
-    background: #507DBC; }
+    background: #333333; }
+  table tbody td {
+    border-right: 1px solid #595959; }
+    table tbody td:last-child {
+      border-right: 0; }
