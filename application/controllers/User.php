@@ -60,7 +60,7 @@ class User extends CI_Controller {
     public function manageItem($cmd = 'create', $id = 0) {
         $this->load->model('Category_model', 'Category', TRUE);
         $this->load->model('Item_model', 'Item', TRUE);
-        $this->load->helper('formatCatName');
+        $this->load->helper('formatcatname');
         
         if($this->input->is_ajax_request()) {
             $cmd = $this->input->post('cmd');
