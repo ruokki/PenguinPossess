@@ -84,6 +84,14 @@ textarea {
     display: none;
 }
 
+.disabled {
+    color: grey;
+
+    &:hover {
+        color: grey;
+    }
+}
+
 #errors {
     width: 100%;
     position: relative;
@@ -143,6 +151,16 @@ textarea {
         line-height: 18px;
     }
     
+    #notif {
+        > span {
+            margin-right: 20px;
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    
     #search {
         padding: 6px;
         padding-right: 25px;
@@ -161,14 +179,6 @@ textarea {
         
         &:hover {
             color: $hoverColor;
-        }
-        
-        &.disabled {
-            color: grey;
-            
-            &:hover {
-                color: grey;
-            }
         }
     }
 }
@@ -219,14 +229,6 @@ textarea {
             [class^="icon-"], [class*=" icon-"] {
                 display: inline-block;
                 margin-right: 10px;
-            }
-            
-            &.disabled {
-                color: grey;
-
-                &:hover {
-                    color: grey;
-                }
             }
         }
         

@@ -85,6 +85,11 @@ textarea {
 .hidden {
   display: none; }
 
+.disabled {
+  color: grey; }
+  .disabled:hover {
+    color: grey; }
+
 #errors {
   width: 100%;
   position: relative;
@@ -123,6 +128,10 @@ textarea {
     margin-right: 15px; }
   #topMenu #currenttMenu {
     line-height: 18px; }
+  #topMenu #notif > span {
+    margin-right: 20px; }
+    #topMenu #notif > span:last-child {
+      margin-right: 0; }
   #topMenu #search {
     padding: 6px;
     padding-right: 25px;
@@ -136,10 +145,6 @@ textarea {
     transition: color 0.35s; }
     #topMenu a:hover {
       color: #507DBC; }
-    #topMenu a.disabled {
-      color: grey; }
-      #topMenu a.disabled:hover {
-        color: grey; }
 
 #mainMenu {
   width: 300px;
@@ -176,10 +181,6 @@ textarea {
       #mainMenu .menu a [class^="icon-"], #mainMenu .menu a [class*=" icon-"] {
         display: inline-block;
         margin-right: 10px; }
-      #mainMenu .menu a.disabled {
-        color: grey; }
-        #mainMenu .menu a.disabled:hover {
-          color: grey; }
     #mainMenu .menu .submenu {
       max-height: 0;
       overflow: hidden;
