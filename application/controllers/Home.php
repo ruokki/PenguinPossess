@@ -228,7 +228,7 @@ class Home extends CI_Controller {
             redirect('home/index');
         }
         $this->load->model('Item_model', 'Item', TRUE);
-        $this->load->helper('formatCatName');
+        $this->load->helper('formatcatname');
         
         $item = $this->Item->getItem(array(
             'where' => array(
