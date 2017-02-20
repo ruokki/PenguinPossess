@@ -13,4 +13,22 @@ $config['validateFolder'] = array(
     'img' => 'img'
 );
 
+// Version de l'application
 $config['version'] = '0.1';
+
+// État des demandes d'emprunt (lisible pour l'homme) en fonction du type
+// de l'utilisateur (emprunteur ou prêteur)
+$config['borrowState'] = array(
+    'borrower' => array(
+        'WA' => 'En attente de réponse',
+        'TB' => 'Demande acceptée',
+        'BO' => 'Item emprunté',
+        'GB' => 'Item rendu'
+    ),
+    'lender' => array(
+        'WA' => 'En attente de réponse',
+        'TB' => 'À prêter',
+        'BO' => 'Item prété',
+        'GB' => 'Item récupéré'
+    )
+);

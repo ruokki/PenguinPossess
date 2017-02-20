@@ -105,15 +105,25 @@ class item_model extends CI_Model {
     /**
      * Récupère les emprunts/prêts 
      * @param Array $cond
+     * @param String
      * @return Array
      */
-    public function getBorrow($cond = NULL) {
+    public function getBorrow($cond = NULL, $orderBy = NULL) {
         if($cond !== NULL) {
             $this->db->where($cond);
         }
         
-        return $this->db->select('*')
-                ->from('borrow')
+        if($orderBy !== NULL) {
+            $this->db->order_by($orderBy);
+        }
+        
+        return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_state,'
+                . 'GROUP_CONCAT(UB.user_name) AS lenders_name')
+                ->from('borrow B')
+                ->join('item I', 'B.item_id = I.item_id', 'left')
+                ->join('itemuser IU', 'B.item_id = IU.item_id', 'left')
+                ->join('user UB', 'IU.user_id = UB.user_id', 'left')
+                ->group_by('borrow_id, item_name, borrow_date_create, borrow_state')
                 ->get()->result_array();
     }
     

@@ -37,6 +37,7 @@
         // On souhaite emprunter l'item
         else if($(e.target).hasClass("borrow")) {
             var $possess = $(e.target),
+                cmd = "addBorrow",
                 id = $possess.data("id");
                 
             if($possess.hasClass("disabled")) {
@@ -51,6 +52,7 @@
                         item: id
                     },
                     success: function(data){
+                        console.log(data);
                         $possess.addClass("disabled");
                         showAlertBox("Demande d'emprunt effectuée", "success");
                     }

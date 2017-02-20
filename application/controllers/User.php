@@ -263,12 +263,20 @@ class User extends CI_Controller {
      * Liste des items empruntés
      */
     public function borrowed() {
+        $this->load->model('Item_model', 'Item', TRUE);
+        
         $data = array(
-            'items' => array()
+            'css' => array(
+                'user/listBorrow.css'
+            ),
+            'items' => $this->Item->getBorrow(array(
+                'borrower_id' => $this->session->user['id']
+            ), 'borrow_state'),
+            'state' => $this->config->item('borrowState')['borrower']
         );
         
         $this->load->view('template/header', $data);
-        $this->load->view('user/index', $data);
+        $this->load->view('user/listBorrow', $data);
         $this->load->view('template/footer', $data);
     }
     

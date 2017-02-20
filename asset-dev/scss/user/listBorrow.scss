@@ -1,0 +1,23 @@
+@import "../_commonVar.scss";
+
+table {
+    width: 100%;
+    
+    td, th {
+        padding: 12px;
+    }
+    
+    thead {
+        background: darken(white, 50);
+    }
+    
+    tbody {
+        tr:nth-child(odd) {
+            background: $activeColor;
+        }
+        
+        tr:nth-child(even) {
+            background: $hoverColor;
+        }
+    }
+}

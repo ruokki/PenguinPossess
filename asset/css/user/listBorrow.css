@@ -1,0 +1,10 @@
+table {
+  width: 100%; }
+  table td, table th {
+    padding: 12px; }
+  table thead {
+    background: gray; }
+  table tbody tr:nth-child(odd) {
+    background: #7C98B3; }
+  table tbody tr:nth-child(even) {
+    background: #507DBC; }

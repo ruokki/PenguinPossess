@@ -287,6 +287,9 @@ class Forge_model extends CI_Model {
             ),
             'borrow_date_end' => array(
                 'type' => 'DATE'
+            ),
+            'borrow_date_create' => array(
+                'type' => 'DATE'
             )
         );
         $this->dbforge->add_field($fields);
