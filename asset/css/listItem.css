@@ -58,3 +58,28 @@
             margin-right: 0; }
       #listItem .item .front:hover {
         opacity: 1; }
+
+#modalBorrow .listUser .user {
+  width: 75px;
+  height: 75px;
+  border: 1px solid white;
+  margin-right: 10px;
+  margin-top: 10px;
+  float: left;
+  position: relative;
+  transition: border-color 0.35s; }
+  #modalBorrow .listUser .user:nth-child(7n) {
+    margin-right: 0; }
+  #modalBorrow .listUser .user:hover {
+    border-color: #7C98B3; }
+  #modalBorrow .listUser .user.active {
+    border-color: #7C98B3; }
+  #modalBorrow .listUser .user img {
+    width: 100%;
+    height: 100%; }
+  #modalBorrow .listUser .user p {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 7px 0; }

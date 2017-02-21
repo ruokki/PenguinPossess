@@ -31,7 +31,7 @@ class item_model extends CI_Model {
      * @param Integer $idCat
      * @return Array
      */
-    public function getItem($cond) {
+    public function getItem($cond = array()) {
         
         if(isset($cond['where'])) {
             $this->db->where($cond['where']);
@@ -108,21 +108,30 @@ class item_model extends CI_Model {
      * @param String
      * @return Array
      */
-    public function getBorrow($cond = NULL, $orderBy = NULL) {
-        if($cond !== NULL) {
-            $this->db->where($cond);
+    public function getBorrow($cond = array()) {
+        if(isset($cond['where'])) {
+            $this->db->where($cond['where']);
         }
         
-        if($orderBy !== NULL) {
-            $this->db->order_by($orderBy);
+        if(isset($cond['like'])) {
+            foreach($cond['like'] as $field => $val) {
+                $this->db->like($field, $val);
+            }
         }
         
-        return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_state,'
-                . 'GROUP_CONCAT(UB.user_name) AS lenders_name')
+        if(isset($cond['orWhere'])) {
+            $this->db->or_where($cond['orWhere']);
+        }
+        
+        if(isset($cond['orderBy'])) {
+            $this->db->order_by($cond['orderBy']);
+        }
+        
+        return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_state, '
+                . 'lender_id, borrower_id, user_name AS borrower_name')
                 ->from('borrow B')
                 ->join('item I', 'B.item_id = I.item_id', 'left')
-                ->join('itemuser IU', 'B.item_id = IU.item_id', 'left')
-                ->join('user UB', 'IU.user_id = UB.user_id', 'left')
+                ->join('user U', 'B.borrower_id = U.user_id', 'left')
                 ->group_by('borrow_id, item_name, borrow_date_create, borrow_state')
                 ->get()->result_array();
     }

@@ -276,7 +276,8 @@ class Forge_model extends CI_Model {
                 'type' => 'INT'
             ),
             'lender_id' => array(
-                'type' => 'INT'
+                'type' => 'VARCHAR',
+                'constraint' => '255'
             ),
             'borrower_id' => array(
                 'type' => 'INT'

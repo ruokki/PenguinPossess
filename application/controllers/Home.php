@@ -344,11 +344,42 @@ class Home extends CI_Controller {
             }
             // Ajoute une demande d'emprunt
             else if($cmd === 'addBorrow') {
+                $item = $this->Item->getItem(array(
+                    'where' => array(
+                        'I.item_id' => $id
+                    )
+                ));
+                $item = $item[0];
+                $nbPossessor = explode(',', $item['user_id_possess']);
+                if(count($nbPossessor) === 1) {
+                    $this->Item->setBorrow(array(
+                        'item_id' => $id,
+                        'borrower_id' => $this->session->user['id'],
+                        'borrow_state' => 'WA',
+                        'borrow_date_create' => date('Y-m-d'),
+                        'lender_id' => ',' . $nbPossessor[0] . ','
+                    ));
+                    $return = array(
+                        'created' => TRUE,
+                        'possessors' => array($item['user_possess'])
+                    );
+                }
+                else {
+                    $possessors = explode(',', $item['user_possess']);
+                    $return = array(
+                        'created' => false,
+                        'possessors' => $possessors
+                    );
+                }
+            }
+            else if ($cmd === 'createBorrow') {
+                $users = $this->input->post('users');
                 $this->Item->setBorrow(array(
                     'item_id' => $id,
                     'borrower_id' => $this->session->user['id'],
                     'borrow_state' => 'WA',
-                    'borrow_date_create' => date('Y-m-d')
+                    'borrow_date_create' => date('Y-m-d'),
+                    'lender_id' => ',' . implode(',', $users) . ','
                 ));
             }
             

@@ -264,14 +264,31 @@ class User extends CI_Controller {
      */
     public function borrowed() {
         $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('User_model', 'User', TRUE);
+        
+        $items = $this->Item->getBorrow(array(
+            'where' => array(
+                'borrower_id' => $this->session->user['id']
+            ),
+            'orderBy' => 'borrow_state'
+        ));
+
+        foreach($items as &$item) {
+            $lenders = substr($item['lender_id'], 1, strlen($item['lender_id']) - 2);
+            $lendersName = $this->User->getLender(explode(',', $lenders));
+            if($lendersName === FALSE) {
+                $item['lenders_name'] = '';
+            }
+            else {
+                $item['lenders_name'] = $lendersName['names'];
+            }
+        }
         
         $data = array(
             'css' => array(
                 'user/listBorrow.css'
             ),
-            'items' => $this->Item->getBorrow(array(
-                'borrower_id' => $this->session->user['id']
-            ), 'borrow_state'),
+            'items' => $items,
             'state' => $this->config->item('borrowState')['borrower']
         );
         
@@ -284,12 +301,21 @@ class User extends CI_Controller {
      * Liste des items prétés
      */
     public function lent() {
+        $this->load->model('Item_model', 'Item', TRUE);
         $data = array(
-            'items' => array()
+            'css' => array(
+                'user/listBorrow.css'
+            ),
+            'items' => $this->Item->getBorrow(array(
+                'like' => array(
+                    'lender_id' => ',' . $this->session->user['id'] . ','
+                )
+            ), 'borrow_state'),
+            'state' => $this->config->item('borrowState')['lender']
         );
-        
+
         $this->load->view('template/header', $data);
-        $this->load->view('user/index', $data);
+        $this->load->view('user/listLend', $data);
         $this->load->view('template/footer', $data);
     }
     

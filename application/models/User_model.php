@@ -42,13 +42,41 @@ class User_model extends CI_Model {
     
     /**
      * Récupère l'ensemble des utilisateurs
+     * @param Array
      * @return Array
      */
-    public function getUser() {
+    public function getUser($cond = array()) {
+        
+        if(isset($cond['where'])) {
+            $this->db->where($cond['where']);
+        }
+        
+        if(isset($cond['orWhere'])) {
+            $this->db->or_where($cond['orWhere']);
+        }
+        
+        if(isset($cond['orderBy'])) {
+            $this->db->order_by($cond['orderBy']);
+        }
+        
         return $this->db->select('*')
                 ->from('user U')
                 ->join('role R', 'U.role_id = R.role_id', 'left')
                 ->get()->result_array();
+    }
+    
+    public function getLender($ids) {
+        $result = $this->db->select('GROUP_CONCAT(user_name) AS names')
+                ->from('user')
+                ->where_in('user_id', $ids)
+                ->get()->result_array();
+        
+        if(count($result) > 0) {
+            return $result[0];
+        }
+        else {
+            return FALSE;
+        }
     }
     
     /**

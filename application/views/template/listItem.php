@@ -44,3 +44,9 @@
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+<div id="modalBorrow">
+    <p>Veuiller choisir auprès de qui faire la demande (plusieurs choix possibles)</p>
+    <div class="listUser">
+        <div class="clearfix"></div>
+    </div>
+</div>
