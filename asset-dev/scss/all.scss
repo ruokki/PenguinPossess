@@ -294,6 +294,8 @@ textarea {
     bottom: 0;
     left: 0;
     padding: 7px;
+    z-index: 4;
+    background: $defaultColor;
 }
 
 /*******************/
@@ -309,4 +311,6 @@ textarea {
     background-image: url('../background.jpg');
     background-size: cover;
     background-position: center;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
