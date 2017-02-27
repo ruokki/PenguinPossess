@@ -36,6 +36,24 @@
         $modalBorrowBegin.dialog("open");
     });
     
+    $("#nbJourLend").on("change", function(){
+        var value = $(this).val();
+        
+        if($.trim(value) === "" || parseInt(value) === 0) {
+            value = 15;
+            $(this).val(value);
+        }
+        
+        var today = new Date(),
+            endBorrow = new Date(today.getTime() + value * 24 * 60 * 60 * 1000);
+        
+        var day = endBorrow.getDate(),
+            month = endBorrow.getMonth() + 1,
+            year = endBorrow.getFullYear();
+        $("#modalBorrowBegin p > span").text((day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year);
+    });
+    $("#nbJourLend").change();
+    
     // Modal d'information concernant le fdonctionnement des prêts
     var $modalRuleBorrow = $("#modalRuleBorrow");
     $modalRuleBorrow.dialog({

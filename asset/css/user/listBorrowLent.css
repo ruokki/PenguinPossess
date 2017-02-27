@@ -31,3 +31,8 @@ table {
 #modalRuleBorrow li {
   padding-left: 15px;
   margin-bottom: 10px; }
+
+#modalBorrowBegin p {
+  padding: 7px 0; }
+  #modalBorrowBegin p span {
+    font-weight: bold; }

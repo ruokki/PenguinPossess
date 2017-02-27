@@ -27,7 +27,7 @@
                 <span class="given icon-truck" title="Item prété"></span>
                 <?php elseif($item['borrow_state'] === 'BO') : ?>
                 <span class="renew icon-spinner11" title="Renouveler le prêt"></span>
-                <span class="icon-stop2" title="Terminer le prêt"></span>
+                <span class="stop icon-stop2" title="Terminer le prêt"></span>
                 <?php endif; ?>
             </td>
         </tr>
@@ -74,5 +74,6 @@
 <div id="modalBorrowBegin">
     <label for="nbJourLend">Combien de jours prêtez-vous l'item ?</label>
     <input type="integer" id="nbJourLend" name="nbJourLend" min="0" value="15" />
+    <p>Retour le <span></span></p>
     <input type="hidden" id="idBorrowBegin" name="idBorrowBegin" />
 </div>
