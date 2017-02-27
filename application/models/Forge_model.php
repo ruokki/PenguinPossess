@@ -291,7 +291,13 @@ class Forge_model extends CI_Model {
             ),
             'borrow_date_create' => array(
                 'type' => 'DATE'
-            )
+            ),
+            'borrow_deny' => array(
+                'type' => 'TEXT'
+            ),
+            'borrow_length' => array(
+                'type' => 'INT'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('borrow_id', TRUE);

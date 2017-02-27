@@ -94,12 +94,18 @@ class item_model extends CI_Model {
     
     
     /**
-     * Établit un lien entre un item et un utilisateur
-     * @param Integer $idItem
-     * @param Integer $idUser
+     * Ajoute une demande d'emprunt dans la base
+     * @param Array $info
+     * @param Integer $idBorrow
      */
-    public function setBorrow($info) {
-        $this->db->insert('borrow', $info);
+    public function setBorrow($info, $idBorrow = 0) {
+        if($idBorrow === 0) {
+            $this->db->insert('borrow', $info);
+        }
+        else {
+            $this->db->where('borrow_id', $idBorrow)
+                    ->update('borrow', $info);
+        }
     }
     
     /**
@@ -111,6 +117,12 @@ class item_model extends CI_Model {
     public function getBorrow($cond = array()) {
         if(isset($cond['where'])) {
             $this->db->where($cond['where']);
+        }
+        
+        if(isset($cond['notIn'])) {
+            foreach($cond['notIn'] as $field => $val) {
+                $this->db->where_not_in($field, $val);
+            }
         }
         
         if(isset($cond['like'])) {

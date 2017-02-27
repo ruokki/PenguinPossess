@@ -286,7 +286,7 @@ class User extends CI_Controller {
         
         $data = array(
             'css' => array(
-                'user/listBorrow.css'
+                'user/listBorrowLent.css'
             ),
             'items' => $items,
             'state' => $this->config->item('borrowState')['borrower']
@@ -302,21 +302,69 @@ class User extends CI_Controller {
      */
     public function lent() {
         $this->load->model('Item_model', 'Item', TRUE);
-        $data = array(
-            'css' => array(
-                'user/listBorrow.css'
-            ),
-            'items' => $this->Item->getBorrow(array(
-                'like' => array(
-                    'lender_id' => ',' . $this->session->user['id'] . ','
-                )
-            ), 'borrow_state'),
-            'state' => $this->config->item('borrowState')['lender']
-        );
+        
+        if($this->input->is_ajax_request()) {
+            $cmd = $this->input->post('cmd');
+            $infos = array();
+            $error = FALSE;
+            
+            if($cmd === 'accept') {
+                $idBorrow = $this->input->post('idBorrow');
+                if(intval($idBorrow) > 0) {
+                    $infos = array(
+                        'borrow_state' => 'TB',
+                        'lender_id' => ',' . $this->session->user['id'] . ','
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
+            else if ($cmd === 'deny') {
+                $idBorrow = $this->input->post('idBorrow');
+                if(intval($idBorrow) > 0) {
+                    $infos = array(
+                        'borrow_state' => 'DE',
+                        'lender_id' => ',' . $this->session->user['id'] . ',',
+                        'borrow_deny' => $this->input->post('motive')
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
+            
+            if($error === FALSE) {
+                $this->Item->setBorrow($infos, $this->input->post('idBorrow'));
+            }
+            else {
+                echo 'ERROR';
+            }
+        }
+        else {
+            $data = array(
+                'css' => array(
+                    'user/listBorrowLent.css'
+                ),
+                'js' => array(
+                    'user/listLent.js'
+                ),
+                'items' => $this->Item->getBorrow(array(
+                    'like' => array(
+                        'lender_id' => ',' . $this->session->user['id'] . ','
+                    ),
+                    'notIn' => array(
+                        'borrow_state' => array('DE', 'GB')
+                    ),
+                    'orderBy' => 'borrow_state'
+                )),
+                'state' => $this->config->item('borrowState')['lender']
+            );
 
-        $this->load->view('template/header', $data);
-        $this->load->view('user/listLend', $data);
-        $this->load->view('template/footer', $data);
+            $this->load->view('template/header', $data);
+            $this->load->view('user/listLend', $data);
+            $this->load->view('template/footer', $data);
+        }
     }
     
 }

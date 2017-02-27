@@ -3,6 +3,11 @@
 table {
     width: 100%;
     
+    caption {
+        padding: 7px;
+        cursor: pointer;
+    }
+    
     td, th {
         padding: 12px;
     }
@@ -28,5 +33,29 @@ table {
                 border-right: 0;
             }
         }
+        
+        [class*=icon-] {
+            margin-right: 20px;
+            transition: color $transitionTime;
+            cursor: pointer;
+            
+            &:hover {
+                color: $hoverColor;
+            }
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+#modalRuleBorrow {
+    p {
+        margin-bottom: 15px;
+    }
+    li {
+        padding-left: 15px;
+        margin-bottom: 10px;
     }
 }
