@@ -215,7 +215,7 @@
                         },
                         success: function (data) {
                             if (data === "ERROR") {
-                                showAlertBox("Erreur lors de l'arrêt du prêt", "error");
+                                showAlertBox("Erreur lors de la modification du prêt", "error");
                             }
                             else {
                                 window.location.reload();

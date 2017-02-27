@@ -369,22 +369,27 @@ class User extends CI_Controller {
                 $idBorrow = $this->input->post('idBorrow');
                 $newDate = $this->input->post('newDate');
                 
-                $borrow = $this->Item->getBorrow(array(
-                    'where' => array(
-                        'borrow_id' => $idBorrow
-                    )
-                ));
+                if(preg_match('/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/', $newDate) === 1) {
+                    $borrow = $this->Item->getBorrow(array(
+                        'where' => array(
+                            'borrow_id' => $idBorrow
+                        )
+                    ));
 
-                if(count($borrow) === 1) {
-                    $borrow = $borrow[0];
-                    $beginDate = new DateTime($borrow['borrow_date_begin']);
-                    $endDate = DateTime::createFromFormat('d/m/Y', $newDate);
-                    $diffDate = $beginDate->diff($endDate);
-                    
-                    $infos = array(
-                        'borrow_date_end' => $endDate->format('Y-m-d'),
-                        'borrow_length' => $diffDate->format('%a')
-                    );
+                    if (count($borrow) === 1) {
+                        $borrow = $borrow[0];
+                        $beginDate = new DateTime($borrow['borrow_date_begin']);
+                        $endDate = DateTime::createFromFormat('d/m/Y', $newDate);
+                        $diffDate = $beginDate->diff($endDate);
+
+                        $infos = array(
+                            'borrow_date_end' => $endDate->format('Y-m-d'),
+                            'borrow_length' => $diffDate->format('%a')
+                        );
+                    }
+                    else {
+                        $error = TRUE;
+                    }
                 }
                 else {
                     $error = TRUE;
