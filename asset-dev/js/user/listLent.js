@@ -30,6 +30,12 @@
         $modalJustifDeny.dialog("open");
     });
     
+    // L'item a été transmis au demandeur
+    $(".given").on("click", function(){
+        $("#idBorrowBegin").val($(this).parents("tr").data("id"));
+        $modalBorrowBegin.dialog("open");
+    });
+    
     // Modal d'information concernant le fdonctionnement des prêts
     var $modalRuleBorrow = $("#modalRuleBorrow");
     $modalRuleBorrow.dialog({
@@ -92,7 +98,22 @@
                     showAlertBox("Impossible de faire un prêt de 0 jours", "error");
                 }
                 else {
-                    
+                    $.ajax({
+                        url: siteUrl + "/user/lent",
+                        type: "POST",
+                        data: {
+                            cmd: "given",
+                            idBorrow: $("#idBorrowBegin").val(),
+                            length: nbJour
+                        },
+                        success: function (data) {
+                            if (data === "ERROR") {
+                                showAlertBox("Erreur lors de la validation de l'emprunt", "error");
+                            } else {
+                                window.location.reload();
+                            }
+                        }
+                    })
                 }
             },
             Annuler: function(){

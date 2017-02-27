@@ -63,6 +63,7 @@
     </ul>
 </div>
 
+<!-- Demande refusée, ajout d'un motif -->
 <div id="modalJustifDeny">
     <p>Veuiller indiquer un motif du refus</p>
     <textarea id="textDeny"></textarea>
@@ -71,7 +72,7 @@
 
 <!-- Item prété, configuration du nombre de jour -->
 <div id="modalBorrowBegin">
-    <label for="nbJourLend">Combien de jours voulez-vous prêter votre item ?</label>
+    <label for="nbJourLend">Combien de jours prêtez-vous l'item ?</label>
     <input type="integer" id="nbJourLend" name="nbJourLend" min="0" value="15" />
-    <input type="hidden" id="idDemandeAccept" name="idDemandeAccept" />
+    <input type="hidden" id="idBorrowBegin" name="idBorrowBegin" />
 </div>

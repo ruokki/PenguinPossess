@@ -333,6 +333,24 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
+            else if ($cmd === 'given') {
+                $idBorrow = $this->input->post('idBorrow');
+                $nbJour = $this->input->post('length');
+                if(intval($nbJour) > 0 && intval($idBorrow) > 0) {
+                    $infos = array(
+                        'borrow_state' => 'BO',
+                        'borrow_length' => $nbJour,
+                        'borrow_date_begin' => date('Y-m-d'),
+                        'borrow_date_end' => date('Y-m-d', strtotime('+' . $nbJour . ' days'))
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
+            else {
+                $error = TRUE;
+            }
             
             if($error === FALSE) {
                 $this->Item->setBorrow($infos, $this->input->post('idBorrow'));
