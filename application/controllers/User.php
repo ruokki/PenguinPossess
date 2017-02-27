@@ -348,6 +348,18 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
+            else if ($cmd === 'stop') {
+                $idBorrow = $this->input->post('idBorrow');
+                if(intval($idBorrow) > 0) {
+                    $infos = array(
+                        'borrow_state' => 'GB',
+                        'borrow_date_end' => date('Y-m-d')
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
             else {
                 $error = TRUE;
             }

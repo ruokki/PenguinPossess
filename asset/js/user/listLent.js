@@ -36,6 +36,7 @@
         $modalBorrowBegin.dialog("open");
     });
     
+    // Affichage de la date prévisuonnelle de rendu
     $("#nbJourLend").on("change", function(){
         var value = $(this).val();
         
@@ -53,6 +54,12 @@
         $("#modalBorrowBegin p > span").text((day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year);
     });
     $("#nbJourLend").change();
+    
+    // L'item a été rendu à son propriétaire
+    $(".stop").on("click", function(){
+        $("#idBorrowEnd").val($(this).parents("tr").data("id"));
+        $modalConfirmEnd.dialog("open");
+    });
     
     // Modal d'information concernant le fdonctionnement des prêts
     var $modalRuleBorrow = $("#modalRuleBorrow");
@@ -135,6 +142,37 @@
                 }
             },
             Annuler: function(){
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+    // Modal de confirmation de rendu
+    var $modalConfirmEnd = $("#modalConfirmEnd");
+    $modalConfirmEnd.dialog({
+        title: "Confirmation de fin",
+        modal: true,
+        autoOpen: false,
+        buttons: {
+            Oui: function() {
+                $.ajax({
+                    url: siteUrl + "/user/lent",
+                    type: "POST",
+                    data: {
+                        cmd: "stop",
+                        idBorrow: $("#idBorrowEnd").val()
+                    },
+                    success: function(data) {
+                        if(data === "ERROR") {
+                            showAlertBox("Erreur lors de l'arrêt du prêt", "error");
+                        }
+                        else {
+                            window.location.reload();
+                        }
+                    }
+                });
+            },
+            Non: function() {
                 $(this).dialog("close");
             }
         }
