@@ -65,6 +65,11 @@ class User_model extends CI_Model {
                 ->get()->result_array();
     }
     
+    /**
+     * Récupère le nom des emprunteurs d'un item
+     * @param Array $ids
+     * @return Array
+     */
     public function getLender($ids) {
         $result = $this->db->select('GROUP_CONCAT(user_name) AS names')
                 ->from('user')
@@ -95,6 +100,27 @@ class User_model extends CI_Model {
         return $this->db->select('*')
                 ->from('role')
                 ->get()->result_array();
+    }
+    
+    /**
+     * Récupère les demandes d'emprunts faites à un utilisateur
+     * @param Integer $idUser
+     */
+    public function getNbBorrowNotif($idUser) {
+        return $this->db->like('lender_id', ',' . $idUser . ',', 'both')
+                ->where('borrow_state', 'WA')
+                ->count_all_results('borrow');
+    }
+    
+    /**
+     * Récupère les emprunts arrivant à expiration d'un utilisateur
+     * @param Integer $idUser
+     */
+    public function getExpiringBorrow($idUser) {
+        return $this->db->where('borrower_id', $idUser)
+                ->where('borrow_state', 'BO')
+                ->where('`borrow_date_end` <= CURDATE() + INTERVAL 30 DAY')
+                ->count_all_results('borrow');
     }
     
 }

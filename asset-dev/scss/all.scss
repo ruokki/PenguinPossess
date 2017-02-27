@@ -152,8 +152,20 @@ textarea {
     }
     
     #notif {
-        > span {
+        > div {
             margin-right: 20px;
+            position: relative;
+            
+            .nb  {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: red;
+                color: white;
+                padding: 2px;
+                font-size: 10px;
+                font-family: Arial, 'sans serif';
+            }
             
             &:last-child {
                 margin-right: 0;

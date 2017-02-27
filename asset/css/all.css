@@ -128,9 +128,19 @@ textarea {
     margin-right: 15px; }
   #topMenu #currenttMenu {
     line-height: 18px; }
-  #topMenu #notif > span {
-    margin-right: 20px; }
-    #topMenu #notif > span:last-child {
+  #topMenu #notif > div {
+    margin-right: 20px;
+    position: relative; }
+    #topMenu #notif > div .nb {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      color: white;
+      padding: 2px;
+      font-size: 10px;
+      font-family: Arial, 'sans serif'; }
+    #topMenu #notif > div:last-child {
       margin-right: 0; }
   #topMenu #search {
     padding: 6px;

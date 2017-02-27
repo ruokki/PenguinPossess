@@ -46,8 +46,7 @@
                     <span class="icon-menu"></span>
                 </div>
                 <div id="notif" class="float-right">
-                    <span class="icon-bell disabled" title="Aucun emprunt bientôt à expiration"></span>
-                    <span class="icon-drawer2 disabled" title="Aucune demande de prêt"></span>
+                    <?php echo getNotification($this->session->user['id']); ?>
                 </div>
                 <div id="search" class="float-right">
                     <input type="text" name="searchItem" id="searchItem" placeholder="Recherche..." />
