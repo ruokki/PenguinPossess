@@ -26,7 +26,7 @@
                 <?php elseif($item['borrow_state'] === 'TB') : ?>
                 <span class="given icon-truck" title="Item prété"></span>
                 <?php elseif($item['borrow_state'] === 'BO') : ?>
-                <span class="renew icon-spinner11" title="Modifier la date de fin du prêt"></span>
+                <span class="renew icon-spinner11" data-old="<?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?>" title="Modifier la date de fin du prêt"></span>
                 <span class="stop icon-stop2" title="Terminer le prêt"></span>
                 <?php endif; ?>
             </td>
@@ -82,4 +82,12 @@
 <div id="modalConfirmEnd">
     <p>L'item a-t-il été récupéré ?</p>
     <input type="hidden" id="idBorrowEnd" name="idBorrowEnd" />
+</div>
+
+<!-- Modification de la date de fin -->
+<div id="modalRenewBorrow">
+    <p>Date de fin actuelle : <span></span></p>
+    <label for="newEndDate">Veuillez indiquer la nouvelle date de fin</label>
+    <input type="text" id="newEndDate" name="newEndDate" placeholder="jj/mm/aaaa" />
+    <input type="hidden" id="idBorrowRenew" name="idBorrowRenew" />
 </div>

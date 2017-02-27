@@ -61,6 +61,19 @@
         $modalConfirmEnd.dialog("open");
     });
     
+    // Modification de la date de fin du prêt
+    $(".renew").on("click", function(){
+        $("#idBorrowRenew").val($(this).parents("tr").data("id"));
+        $modalRenewBorrow.find("p > span").text($(this).data("old"));
+        $modalRenewBorrow.dialog("open");
+    });
+    
+    // Ajout d'un datepicker
+    $("#newEndDate").datepicker({
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+    });
+    
     // Modal d'information concernant le fdonctionnement des prêts
     var $modalRuleBorrow = $("#modalRuleBorrow");
     $modalRuleBorrow.dialog({
@@ -173,6 +186,45 @@
                 });
             },
             Non: function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+    // Modal de modification de la date de fin
+    var $modalRenewBorrow = $("#modalRenewBorrow");
+    $modalRenewBorrow.dialog({
+        title: "Modification de la date de fin",
+        modal: true,
+        autoOpen: false,
+        buttons: {
+            Valider: function() {
+                var newDate = $("#newEndDate").val();
+                
+                if(newDate.match(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/) === null) {
+                    showAlertBox("Le format de la date est jj/mm/aaaa");
+                }
+                else {
+                    $.ajax({
+                        url: siteUrl + "/user/lent",
+                        type: "POST",
+                        data: {
+                            cmd: "renew",
+                            idBorrow: $("#idBorrowRenew").val(),
+                            newDate: $("#newEndDate").val()
+                        },
+                        success: function (data) {
+                            if (data === "ERROR") {
+                                showAlertBox("Erreur lors de l'arrêt du prêt", "error");
+                            }
+                            else {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            },
+            Annuler: function() {
                 $(this).dialog("close");
             }
         }

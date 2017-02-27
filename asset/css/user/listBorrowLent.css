@@ -32,7 +32,7 @@ table {
   padding-left: 15px;
   margin-bottom: 10px; }
 
-#modalBorrowBegin p {
+#modalBorrowBegin p, #modalRenewBorrow p {
   padding: 7px 0; }
-  #modalBorrowBegin p span {
+  #modalBorrowBegin p span, #modalRenewBorrow p span {
     font-weight: bold; }

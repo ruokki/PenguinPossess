@@ -308,6 +308,7 @@ class User extends CI_Controller {
             $infos = array();
             $error = FALSE;
             
+            // Acceptation de la demande
             if($cmd === 'accept') {
                 $idBorrow = $this->input->post('idBorrow');
                 if(intval($idBorrow) > 0) {
@@ -320,6 +321,7 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
+            // Refus de la demande
             else if ($cmd === 'deny') {
                 $idBorrow = $this->input->post('idBorrow');
                 if(intval($idBorrow) > 0) {
@@ -333,6 +335,7 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
+            // Item transmis au demandeur
             else if ($cmd === 'given') {
                 $idBorrow = $this->input->post('idBorrow');
                 $nbJour = $this->input->post('length');
@@ -348,12 +351,39 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
+            // Fin du prêt
             else if ($cmd === 'stop') {
                 $idBorrow = $this->input->post('idBorrow');
                 if(intval($idBorrow) > 0) {
                     $infos = array(
                         'borrow_state' => 'GB',
                         'borrow_date_end' => date('Y-m-d')
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
+            // Modification de la date de fin
+            else if ($cmd === 'renew') {
+                $idBorrow = $this->input->post('idBorrow');
+                $newDate = $this->input->post('newDate');
+                
+                $borrow = $this->Item->getBorrow(array(
+                    'where' => array(
+                        'borrow_id' => $idBorrow
+                    )
+                ));
+
+                if(count($borrow) === 1) {
+                    $borrow = $borrow[0];
+                    $beginDate = new DateTime($borrow['borrow_date_begin']);
+                    $endDate = DateTime::createFromFormat('d/m/Y', $newDate);
+                    $diffDate = $beginDate->diff($endDate);
+                    
+                    $infos = array(
+                        'borrow_date_end' => $endDate->format('Y-m-d'),
+                        'borrow_length' => $diffDate->format('%a')
                     );
                 }
                 else {
