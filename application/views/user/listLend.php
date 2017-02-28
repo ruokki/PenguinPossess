@@ -1,13 +1,14 @@
 <table>
     <caption class="text-left">
         <span class="icon-info"></span>
-        Fonctionnement des prêts
+        <span class="title">Fonctionnement des prêts</span>
     </caption>
     <thead>
         <tr>
             <th>Nom de l'item</th>
             <th>Date de la demande</th>
             <th>État de la demande</th>
+            <th>Date de fin</th>
             <th>Demandeur</th>
             <th>Actions</th>
         </tr>
@@ -18,6 +19,7 @@
             <td><?php echo $item['item_name']; ?></td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_create'])); ?></td>
             <td><?php echo $state[$item['borrow_state']]; ?></td>
+            <td><?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?></td>
             <td class="borrower"><?php echo $item['borrower_name']; ?></td>
             <td class="text-center">
                 <?php if($item['borrow_state'] === 'WA') : ?>
@@ -90,4 +92,5 @@
     <label for="newEndDate">Veuillez indiquer la nouvelle date de fin</label>
     <input type="text" id="newEndDate" name="newEndDate" placeholder="jj/mm/aaaa" />
     <input type="hidden" id="idBorrowRenew" name="idBorrowRenew" />
+    <input type="hidden" id="cmdRenew" name="cmdRenew" value="renew" />
 </div>

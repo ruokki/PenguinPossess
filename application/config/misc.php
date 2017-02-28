@@ -22,7 +22,8 @@ $config['borrowState'] = array(
     'borrower' => array(
         'WA' => 'En attente de réponse',
         'TB' => 'Demande acceptée',
-        'BO' => 'Item emprunté',
+        'BO' => 'Emprunt en cours',
+        'AR' => 'Rallonge demandée',
         'GB' => 'Item rendu',
         'DE' => 'Demande refusée'
     ),
@@ -30,6 +31,7 @@ $config['borrowState'] = array(
         'WA' => 'En attente de réponse',
         'TB' => 'À prêter',
         'BO' => 'Item prété',
+        'AR' => 'Rallonge demandée',
         'GB' => 'Item récupéré',
         'DE' => 'Demande refusée'
     )

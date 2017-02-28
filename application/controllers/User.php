@@ -288,6 +288,9 @@ class User extends CI_Controller {
             'css' => array(
                 'user/listBorrowLent.css'
             ),
+            'js' => array(
+                'user/listLent.js'
+            ),
             'items' => $items,
             'state' => $this->config->item('borrowState')['borrower']
         );
@@ -365,7 +368,7 @@ class User extends CI_Controller {
                 }
             }
             // Modification de la date de fin
-            else if ($cmd === 'renew') {
+            else if ($cmd === 'renew' || $cmd === 'askRenew') {
                 $idBorrow = $this->input->post('idBorrow');
                 $newDate = $this->input->post('newDate');
                 
@@ -381,11 +384,19 @@ class User extends CI_Controller {
                         $beginDate = new DateTime($borrow['borrow_date_begin']);
                         $endDate = DateTime::createFromFormat('d/m/Y', $newDate);
                         $diffDate = $beginDate->diff($endDate);
-
-                        $infos = array(
-                            'borrow_date_end' => $endDate->format('Y-m-d'),
-                            'borrow_length' => $diffDate->format('%a')
-                        );
+                        
+                        if($cmd === 'renew') {
+                            $infos = array(
+                                'borrow_date_end' => $endDate->format('Y-m-d'),
+                                'borrow_length' => $diffDate->format('%a')
+                            );
+                        }
+                        else if($cmd === 'askRenew') {
+                            $infos = array(
+                                'borrow_date_renew_asked' => $endDate->format('Y-m-d'),
+                                'borrow_state' => 'AR'
+                            );
+                        }
                     }
                     else {
                         $error = TRUE;

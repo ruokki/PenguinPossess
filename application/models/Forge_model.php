@@ -301,6 +301,9 @@ class Forge_model extends CI_Model {
             'borrow_length' => array(
                 'type' => 'INT'
             ),
+            'borrow_date_renew_asked' => array(
+                'type' => 'DATE'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('borrow_id', TRUE);

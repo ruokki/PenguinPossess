@@ -1,6 +1,7 @@
 (jQuery)(function($){
     
     $("table caption").on("click", function(){
+        $modalRuleBorrow.dialog("option", "title", $(this).find(".title").text());
         $modalRuleBorrow.dialog("open");
     });
     
@@ -63,6 +64,13 @@
     
     // Modification de la date de fin du prêt
     $(".renew").on("click", function(){
+        $("#idBorrowRenew").val($(this).parents("tr").data("id"));
+        $modalRenewBorrow.find("p > span").text($(this).data("old"));
+        $modalRenewBorrow.dialog("open");
+    });
+    
+    // Demande de rallonge
+    $(".askRenew").on("click", function(){
         $("#idBorrowRenew").val($(this).parents("tr").data("id"));
         $modalRenewBorrow.find("p > span").text($(this).data("old"));
         $modalRenewBorrow.dialog("open");
@@ -209,7 +217,7 @@
                         url: siteUrl + "/user/lent",
                         type: "POST",
                         data: {
-                            cmd: "renew",
+                            cmd: $("#cmdRenew").val(),
                             idBorrow: $("#idBorrowRenew").val(),
                             newDate: $("#newEndDate").val()
                         },

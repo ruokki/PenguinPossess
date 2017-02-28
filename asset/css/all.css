@@ -145,7 +145,7 @@ textarea {
   height: 100%;
   background: #E8F1F2;
   float: left;
-  z-index: 150;
+  z-index: 99;
   padding-top: 25px;
   position: relative;
   transition: right 0.55s;
