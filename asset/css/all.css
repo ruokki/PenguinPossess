@@ -25,15 +25,18 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: Arial;
-  color: white; }
+  color: white;
+  font-size: 15px; }
+
+@media (max-width: 1601px) {
+  html, body {
+    font-size: 12px; } }
 
 body {
   background-color: #191919;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto; }
-  body.topMenu {
-    padding-top: 36px; }
 
 /***************/
 /* CSS général */
@@ -113,84 +116,59 @@ textarea {
 /******************/
 /* Menu principal */
 /******************/
-#topMenu {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 200;
-  background-color: #A1C6EA;
-  color: black; }
-  #topMenu > div {
-    padding: 10px; }
-  #topMenu #shortcut [class^="icon-"], #topMenu #shortcut [class*=" icon-"] {
-    display: inline-block;
-    margin-right: 15px; }
-  #topMenu #currenttMenu {
-    line-height: 18px; }
-  #topMenu #notif > div {
-    margin-right: 20px;
-    position: relative; }
-    #topMenu #notif > div .nb {
-      position: absolute;
-      top: -5px;
-      right: -5px;
+#mainMenu {
+  width: 30%;
+  height: 100%;
+  background: #E8F1F2;
+  float: left;
+  z-index: 150;
+  padding-top: 25px;
+  position: relative;
+  transition: right 0.55s;
+  color: black;
+  overflow: hidden; }
+  #mainMenu #logoWrapper img {
+    max-width: 150px; }
+  #mainMenu #commonMenu {
+    font-size: 2rem;
+    padding: 20px 0; }
+    #mainMenu #commonMenu a {
+      padding: 5px;
+      margin: 0 15px; }
+  #mainMenu a {
+    position: relative;
+    transition: background-color 0.35s, color 0.35s; }
+    #mainMenu a.active {
+      color: #7C98B3;
+      font-weight: bold; }
+    #mainMenu a:hover {
+      color: #507DBC; }
+    #mainMenu a .nb {
       background: red;
       color: white;
-      padding: 2px;
-      font-size: 10px;
-      font-family: Arial, 'sans serif'; }
-    #topMenu #notif > div:last-child {
-      margin-right: 0; }
-  #topMenu #search {
-    padding: 6px;
-    padding-right: 25px;
-    position: relative; }
-    #topMenu #search input {
-      border: none;
-      height: 26px;
-      padding: 0 5px;
-      background: rgba(251, 251, 251, 0.6); }
-  #topMenu a {
-    transition: color 0.35s; }
-    #topMenu a:hover {
-      color: #507DBC; }
-
-#mainMenu {
-  width: 300px;
-  height: 100%;
-  background: #e6e6e6;
-  position: absolute;
-  top: 0;
-  right: -100%;
-  z-index: 150;
-  padding-top: 150px;
-  transition: right 0.55s; }
-  #mainMenu.show {
-    right: 0; }
+      padding: 2px 4px;
+      position: absolute;
+      top: 8px;
+      right: 20px;
+      font-size: .8rem; }
+  #mainMenu .menuList {
+    padding: 20px 0; }
+    #mainMenu .menuList h3 {
+      padding: 0 10px;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #d84d50; }
+    #mainMenu .menuList a {
+      display: block;
+      font-size: 1.2rem;
+      padding: 7px 0 7px 25px; }
+  #mainMenu hr {
+    width: 70%; }
   #mainMenu .menu {
     width: 100%;
     margin: auto;
     position: relative;
-    cursor: pointer;
-    color: black; }
-    #mainMenu .menu a {
-      display: inline-block;
-      width: 100%;
-      padding: 10px;
-      padding-left: 40px;
-      background: #e6e6e6;
-      transition: background-color 0.35s, color 0.35s; }
-      #mainMenu .menu a.active {
-        color: #7C98B3;
-        font-weight: bold; }
-      #mainMenu .menu a:hover {
-        color: inherit;
-        background-color: #507DBC;
-        color: white; }
-      #mainMenu .menu a [class^="icon-"], #mainMenu .menu a [class*=" icon-"] {
-        display: inline-block;
-        margin-right: 10px; }
+    cursor: pointer; }
     #mainMenu .menu .submenu {
       max-height: 0;
       overflow: hidden;
@@ -225,8 +203,6 @@ textarea {
       font-weight: bold;
       color: white; }
     #mainMenu .menu.open .submenu {
-      border-top: 1px solid #507DBC;
-      border-bottom: 1px solid #507DBC;
       max-height: 400px; }
       #mainMenu .menu.open .submenu > a {
         left: 0; }
@@ -239,17 +215,18 @@ textarea {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 7px;
+  padding: 7px 0;
   z-index: 4;
-  background: #A1C6EA; }
+  color: black; }
 
 /*******************/
 /* Wrapper général */
 /*******************/
 #wrapper {
-  width: 100%;
+  width: 70%;
   height: 100%;
-  padding: 30px;
+  padding: 15px;
+  float: left;
   display: flex;
   box-sizing: border-box;
   background-image: url("../background.jpg");

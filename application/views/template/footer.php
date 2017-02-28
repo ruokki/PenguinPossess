@@ -1,7 +1,4 @@
     </div>
-    <div id="footer">
-        <p class="text-center">Penguin Possess v<?php echo $this->config->item('version'); ?> &copy; Ruokki ( fubautsu[at]gmail.com )</p>
-    </div>
     <!-- JS par défaut -->
     <script type="text/javascript" src="<?php echo base_url('asset/js/lib/jquery-3.1.1.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('asset/js/lib/jquery-ui-1.12.1.min.js'); ?>"></script>
