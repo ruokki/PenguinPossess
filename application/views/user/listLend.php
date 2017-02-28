@@ -6,10 +6,11 @@
     <thead>
         <tr>
             <th>Nom de l'item</th>
+            <th>Demandeur</th>
             <th>Date de la demande</th>
             <th>État de la demande</th>
+            <th>Date de début</th>
             <th>Date de fin</th>
-            <th>Demandeur</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -17,10 +18,11 @@
         <?php foreach($items as $item) : ?>
         <tr data-id="<?php echo $item['borrow_id']; ?>">
             <td><?php echo $item['item_name']; ?></td>
+            <td class="borrower"><?php echo $item['borrower_name']; ?></td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_create'])); ?></td>
             <td><?php echo $state[$item['borrow_state']]; ?></td>
+            <td><?php echo date('d/m/Y', strtotime($item['borrow_date_begin'])); ?></td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?></td>
-            <td class="borrower"><?php echo $item['borrower_name']; ?></td>
             <td class="text-center">
                 <?php if($item['borrow_state'] === 'WA') : ?>
                 <span class="accept icon-checkmark" title="Accepter la demande"></span>
@@ -30,6 +32,8 @@
                 <?php elseif($item['borrow_state'] === 'BO') : ?>
                 <span class="renew icon-spinner11" data-old="<?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?>" title="Modifier la date de fin du prêt"></span>
                 <span class="stop icon-stop2" title="Terminer le prêt"></span>
+                <?php elseif($item['borrow_state'] === 'AR') : ?>
+                <span class="seeRenew icon-eye" data-old="<?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?>" data-new="<?php echo date('d/m/Y', strtotime($item['borrow_date_renew_asked'])); ?>" title="Voir la demande de rallonge"></span>
                 <?php endif; ?>
             </td>
         </tr>
@@ -55,8 +59,8 @@
         <li>
             Indiquer la durée du prêt. Une notification sera affiché pour l'emprunteur une semaine avant
             la date de fin du prêt. Il est possible d'allonger la durée du prêt à l'aide de l'icone <span class="icon-spinner11"></span>
-            Il est possible de terminer le prêt avant la date limite.
         </li>
+        <li>Il est possible de terminer le prêt avant la date limite.</li>
         <li>
             Une fois le prêt terminé et l'item rendu, cliquer sur l'icone <span class="icon-stop2"></span> pour terminer le prêt
             et rendre l'item à nouveau disponible. <br />
@@ -93,4 +97,11 @@
     <input type="text" id="newEndDate" name="newEndDate" placeholder="jj/mm/aaaa" />
     <input type="hidden" id="idBorrowRenew" name="idBorrowRenew" />
     <input type="hidden" id="cmdRenew" name="cmdRenew" value="renew" />
+</div>
+
+<div id="modalSeeRenew">
+    <p>Une rallonge a été demandée pour cet item.</p>
+    <p>Date de fin actuelle : <span class="old"></span></p>
+    <p>Nouvelle date de fin : <span class="new"></span></p>
+    <input type="hidden" id="idBorrowRenewAsked" name="idBorrowRenewAsked" />
 </div>

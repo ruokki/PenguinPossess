@@ -36,3 +36,9 @@ table {
   padding: 7px 0; }
   #modalBorrowBegin p span, #modalRenewBorrow p span {
     font-weight: bold; }
+
+#modalSeeRenew p {
+  margin-bottom: 10px; }
+
+#modalSeeRenew .old, #modalSeeRenew .new {
+  font-weight: bold; }

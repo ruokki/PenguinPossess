@@ -76,6 +76,14 @@
         $modalRenewBorrow.dialog("open");
     });
     
+    // Une rallonge a été demandée par l'emprunteur
+    $(".seeRenew").on("click", function(){
+        $("#idBorrowRenewAsked").val($(this).parents("tr").data("id"));
+        $modalSeeRenew.find(".old").text($(this).data("old"));
+        $modalSeeRenew.find(".new").text($(this).data("new"));
+        $modalSeeRenew.dialog("open");
+    });
+    
     // Ajout d'un datepicker
     $("#newEndDate").datepicker({
         minDate: 0,
@@ -159,7 +167,7 @@
                                 window.location.reload();
                             }
                         }
-                    })
+                    });
                 }
             },
             Annuler: function(){
@@ -231,6 +239,55 @@
                         }
                     });
                 }
+            },
+            Annuler: function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+    // Modal de modification de la date de fin
+    var $modalSeeRenew = $("#modalSeeRenew");
+    $modalSeeRenew.dialog({
+        title: "Demande de rallonge",
+        modal: true,
+        autoOpen: false,
+        buttons: {
+            Accepter: function() {
+                $.ajax({
+                    url: siteUrl + "/user/lent",
+                    type: "POST",
+                    data: {
+                        cmd: "acceptRenew",
+                        idBorrow: $("#idBorrowRenewAsked").val()
+                    },
+                    success: function(data) {
+                        if(data === "ERROR") {
+                            showAlertBox("Erreur lors de la modification du prêt", "error");
+                        }
+                        else {
+                            window.location.reload();
+                        }
+                    }
+                });
+            },
+            Refuser: function() {
+                $.ajax({
+                    url: siteUrl + "/user/lent",
+                    type: "POST",
+                    data: {
+                        cmd: "denyRenew",
+                        idBorrow: $("#idBorrowRenewAsked").val()
+                    },
+                    success: function(data) {
+                        if(data === "ERROR") {
+                            showAlertBox("Erreur lors de la modification du prêt", "error");
+                        }
+                        else {
+                            window.location.reload();
+                        }
+                    }
+                });
             },
             Annuler: function() {
                 $(this).dialog("close");

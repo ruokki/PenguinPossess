@@ -367,7 +367,7 @@ class User extends CI_Controller {
                     $error = TRUE;
                 }
             }
-            // Modification de la date de fin
+            // Modification/Demande de modification de la date de fin
             else if ($cmd === 'renew' || $cmd === 'askRenew') {
                 $idBorrow = $this->input->post('idBorrow');
                 $newDate = $this->input->post('newDate');
@@ -405,6 +405,39 @@ class User extends CI_Controller {
                 else {
                     $error = TRUE;
                 }
+            }
+            // Demande de modification de la date de fin acceptée
+            else if($cmd === 'acceptRenew') {
+                $idBorrow = $this->input->post('idBorrow');
+                $borrow = $this->Item->getBorrow(array(
+                    'where' => array(
+                        'borrow_id' => $idBorrow
+                    )
+                ));
+
+                if (count($borrow) === 1) {
+                    $borrow = $borrow[0];
+                    $beginDate = new DateTime($borrow['borrow_date_begin']);
+                    $endDate = new DateTime($borrow['borrow_date_renew_asked']);
+                    $diffDate = $beginDate->diff($endDate);
+
+                    $infos = array(
+                        'borrow_date_end' => $endDate->format('Y-m-d'),
+                        'borrow_length' => $diffDate->format('%a'),
+                        'borrow_state' => 'BO'
+                    );
+                }
+                else {
+                    $error = TRUE;
+                }
+            }
+            // Demande de modification de la date de fin refusée
+            else if($cmd === 'denyRenew') {
+                $idBorrow = $this->input->post('idBorrow');
+                $infos = array(
+                    'borrow_state' => 'BO',
+                    'borrow_date_renew_asked' => '2000-01-01'
+                );
             }
             else {
                 $error = TRUE;

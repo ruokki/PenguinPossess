@@ -140,11 +140,11 @@ class item_model extends CI_Model {
         }
         
         return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_date_end, borrow_date_begin, '
-                . 'borrow_state, lender_id, borrower_id, user_name AS borrower_name')
+                . 'borrow_state, lender_id, borrower_id, user_name AS borrower_name, borrow_date_renew_asked')
                 ->from('borrow B')
                 ->join('item I', 'B.item_id = I.item_id', 'left')
                 ->join('user U', 'B.borrower_id = U.user_id', 'left')
-                ->group_by('borrow_id, item_name, borrow_date_create, borrow_date_end, borrow_date_begin, borrow_state')
+                ->group_by('borrow_id, item_name, borrow_date_create, borrow_date_end, borrow_date_begin, borrow_state, borrow_date_renew_asked')
                 ->get()->result_array();
     }
     
