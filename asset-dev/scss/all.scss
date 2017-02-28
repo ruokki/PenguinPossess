@@ -172,8 +172,8 @@ textarea {
         }
         
         .nb {
-            background: red;
-            color: white;
+            background: $highlightColor;
+            color: $topBackground;
             padding: 2px 4px;
             position: absolute;
             top: 8px;

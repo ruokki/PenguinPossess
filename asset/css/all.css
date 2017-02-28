@@ -144,8 +144,8 @@ textarea {
     #mainMenu a:hover {
       color: #507DBC; }
     #mainMenu a .nb {
-      background: red;
-      color: white;
+      background: #d84d50;
+      color: #E8F1F2;
       padding: 2px 4px;
       position: absolute;
       top: 8px;
