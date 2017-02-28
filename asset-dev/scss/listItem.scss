@@ -32,24 +32,40 @@
         }
         
         .front {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            
             position: relative;
             color: black;
+            width: 100%;
             background: rgba(white, .8);
             z-index: 3;
             opacity: 0;
             cursor: pointer;
             transition: opacity $transitionTime;
             
-            .info {
-                padding: 7px;
-                height: 168px;
-                overflow: hidden;
+            > div {
+                width: 100%;
+                
+                h1 {
+                    font-size: 2.3rem;
+                    width: 100%;
+                    padding: 0 12px;
+                    word-break: break-all;
+                    margin-bottom: 20px;
+                }
                 
                 p {
-                    margin-bottom: 7px;
+                    font-size: 1.75rem;
                     
-                    &:last-child {
-                        margin-bottom: 0;
+                    a, span {
+                        margin-right: 15px;
+                        
+                        &:last-child {
+                            margin-right: 0;
+                        }
                     }
                 }
             }
@@ -60,33 +76,7 @@
                 bottom: 0;
                 left: 0;
                 padding: 7px;
-                
-                a, span {
-                    cursor: pointer;
-                    transition: color $transitionTime;
-                    
-                    &.disabled {
-                        color: grey;
-            
-                        &:hover {
-                            color: grey;
-                        }
-                    }
-                    
-                    &:hover {
-                        color: $activeColor;
-                    }
-                }
-                
-                .float-right {
-                    > a, > span {
-                        margin-right: 7px;
-                        
-                        &:last-child {
-                            margin-right: 0;
-                        }
-                    }
-                }
+                font-size: 1.2rem;
             }
             
             &:hover {

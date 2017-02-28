@@ -22,40 +22,39 @@
       #listItem .item .background img {
         width: 100%; }
     #listItem .item .front {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
       position: relative;
       color: black;
+      width: 100%;
       background: rgba(255, 255, 255, 0.8);
       z-index: 3;
       opacity: 0;
       cursor: pointer;
       transition: opacity 0.35s; }
-      #listItem .item .front .info {
-        padding: 7px;
-        height: 168px;
-        overflow: hidden; }
-        #listItem .item .front .info p {
-          margin-bottom: 7px; }
-          #listItem .item .front .info p:last-child {
-            margin-bottom: 0; }
+      #listItem .item .front > div {
+        width: 100%; }
+        #listItem .item .front > div h1 {
+          font-size: 2.3rem;
+          width: 100%;
+          padding: 0 12px;
+          word-break: break-all;
+          margin-bottom: 20px; }
+        #listItem .item .front > div p {
+          font-size: 1.75rem; }
+          #listItem .item .front > div p a, #listItem .item .front > div p span {
+            margin-right: 15px; }
+            #listItem .item .front > div p a:last-child, #listItem .item .front > div p span:last-child {
+              margin-right: 0; }
       #listItem .item .front .icons {
         width: 100%;
         position: absolute;
         bottom: 0;
         left: 0;
-        padding: 7px; }
-        #listItem .item .front .icons a, #listItem .item .front .icons span {
-          cursor: pointer;
-          transition: color 0.35s; }
-          #listItem .item .front .icons a.disabled, #listItem .item .front .icons span.disabled {
-            color: grey; }
-            #listItem .item .front .icons a.disabled:hover, #listItem .item .front .icons span.disabled:hover {
-              color: grey; }
-          #listItem .item .front .icons a:hover, #listItem .item .front .icons span:hover {
-            color: #7C98B3; }
-        #listItem .item .front .icons .float-right > a, #listItem .item .front .icons .float-right > span {
-          margin-right: 7px; }
-          #listItem .item .front .icons .float-right > a:last-child, #listItem .item .front .icons .float-right > span:last-child {
-            margin-right: 0; }
+        padding: 7px;
+        font-size: 1.2rem; }
       #listItem .item .front:hover {
         opacity: 1; }
 
