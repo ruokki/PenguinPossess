@@ -41,13 +41,18 @@
           width: 100%;
           padding: 0 12px;
           word-break: break-all;
-          margin-bottom: 20px; }
+          margin-bottom: 20px;
+          color: #d84d50; }
         #listItem .item .front > div p {
           font-size: 1.75rem; }
           #listItem .item .front > div p a, #listItem .item .front > div p span {
             margin-right: 15px; }
             #listItem .item .front > div p a:last-child, #listItem .item .front > div p span:last-child {
               margin-right: 0; }
+      #listItem .item .front [class*='icon-'] {
+        transition: color 0.35s; }
+        #listItem .item .front [class*='icon-']:hover {
+          color: #507DBC; }
       #listItem .item .front .icons {
         width: 100%;
         position: absolute;

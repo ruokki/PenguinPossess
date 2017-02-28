@@ -55,6 +55,7 @@
                     padding: 0 12px;
                     word-break: break-all;
                     margin-bottom: 20px;
+                    color: $highlightColor;
                 }
                 
                 p {
@@ -67,6 +68,14 @@
                             margin-right: 0;
                         }
                     }
+                }
+            }
+            
+            [class*='icon-'] {
+                transition: color $transitionTime;
+                
+                &:hover {
+                    color: $hoverColor;
                 }
             }
             
