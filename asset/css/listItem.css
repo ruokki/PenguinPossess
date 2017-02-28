@@ -37,9 +37,9 @@
       #listItem .item .front > div {
         width: 100%; }
         #listItem .item .front > div h1 {
-          font-size: 2.3rem;
+          font-size: 1.8rem;
           width: 100%;
-          padding: 0 12px;
+          padding: 0 8px;
           word-break: break-all;
           margin-bottom: 20px;
           color: #d84d50; }

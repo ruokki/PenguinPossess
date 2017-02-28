@@ -1,6 +1,7 @@
 @import '../_commonVar.scss';
 
 #wrapper {
+    width: 100%;
     align-items: center;
     justify-content: center;
     
@@ -13,43 +14,35 @@
         padding: 20px;
         background: white;
         border-radius: 5px;
+        font-size: 1.5rem;
+        width: 700px;
+        color: black;
         
-        button, input {
-            width: 100%;
-            margin: 7px 0;
-        }
-        
-        #crea {
-            text-align: right;
+        .row {
+            margin-top: 20px;
             
-            a {
-                margin: 7px 0;
+            button {
+                width: 100%;
             }
         }
         
-        label {
-            color: black;
-            display: inline-block;
-            margin: 7px 0;
+        #crea {
+            padding: 12px;
+            
+            a {
+                color: $defaultColor;
+                text-decoration: underline;
+                cursor: pointer;
+                
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
     
     .logo {
         width: 100%;
         margin-bottom: 15px;
-    }
-    
-    a {
-        display: block;
-        padding-top: 14px;
-        font-size: 18px;
-        color: $defaultColor;
-        text-decoration: underline;
-        transition: color $transitionTime;
-        
-        &:hover {
-            color: $hoverColor;
-            text-decoration: none;
-        }
     }
 }

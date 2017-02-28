@@ -1,0 +1,37 @@
+@import '_commonVar.scss';
+
+.floatingLabel {
+    position: relative;
+    margin-top: 2.5rem;
+    
+    input {
+        padding: 6px;
+        font-size: 1.6rem;
+        outline: none;
+        transition: border-color $transitionTime;
+        border: 1px solid black;
+        
+        + label {
+            position: absolute;
+            pointer-events: none;
+            top: 9px;
+            left: 5px;
+            font-size: 1.6rem;
+            transition: color $transitionTime, font-size $transitionTime, top $transitionTime;
+        }
+        
+        &:focus + label, &.filled + label {
+            top: -1.3rem;
+            font-size: 1rem;
+        }
+        
+        &:focus {
+            border-color: $highlightColor;
+            
+            & + label {
+                color: $highlightColor;
+            }
+        }
+        
+    }
+}

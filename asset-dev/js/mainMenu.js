@@ -1,7 +1,6 @@
 (jQuery)(function($){
     
-    var $mainMenu = $("#mainMenu"),
-        currentMenu = $("#mainMenu .active").text();
+    var currentMenu = $("#mainMenu .active").text();
     
     $("#currenttMenu").text(currentMenu);
     
