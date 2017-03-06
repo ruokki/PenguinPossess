@@ -2,3 +2,4 @@
 /application/config/database.php
 /node_modules/*
 /asset/userfile/*
+backupBDD/
