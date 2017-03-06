@@ -3,6 +3,7 @@
     // Chargement des sous-catégories
     document.querySelector("#categoryItem").addEventListener("change", function(){
         $.ajax({
+            url: siteUrl + "/user/manageItem",
             type: "POST",
             data: {
                 cmd: "getSub",
@@ -28,6 +29,7 @@
         var category = $(this).find(":selected").text();
         
         $.ajax({
+            url: siteUrl + "/user/manageItem",
             type: "POST",
             data: {
                 cmd: "getCompl",
@@ -36,7 +38,8 @@
             dataType: "JSON",
             success: function(data) {
                 $(".compl").remove();
-                $(data.html).insertBefore("#submitWrapper");
+                $(data.html).insertBefore("#buttonWrapper");
+                setFloatingLabel();
             }
         });
     });
@@ -47,8 +50,8 @@
     reader.onload = function (e) {
         $('#imgContainer img').attr('src', e.target.result);
     }
-        
-    document.querySelector("#imgItem").addEventListener("change", function(){
+
+    $("#imgItem").on("change", function(){
         var files = this.files;
         
         if(files && files[0]) {
@@ -56,15 +59,17 @@
         }
     });
     
+    $("[type='reset']").on("click", function(e){
+        e.preventDefault();
+        $("input, select, textarea").val("").change();
+    });
+    
     // Gestion de l'ajout/suppression des pistes d'un album
     var trackTemplate = $(
-    '<div class="row">' + 
-        '<div class="col-xs-offset-4 col-xs-8">' +
-            '<div class="box">' +
-                '<input type="text" name="track[]" />' +
-            '</div>' +
-        '</div>' +
-    '</div>');
+        '<div class="floatingLabel track">' + 
+            '<input type="text" name="track[]" value="" />' +
+        '</div>'
+    );
     
     document.querySelector("body").addEventListener("click", function(e){
         var $target = $(e.target);
@@ -77,7 +82,7 @@
                 showAlertBox("Impossible de supprimer la dernière piste", "error");
             }
             else {
-                allTrack.last().parent().parent().parent().remove();
+                allTrack.last().parent().remove();
             }
         }
     });

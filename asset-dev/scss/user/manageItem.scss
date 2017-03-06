@@ -16,12 +16,45 @@
         color: red;
     }
     
-    form > div, [name*='track'] {
+    [name*='track'] {
         margin-bottom: 15px;
+    }
+    
+    #imgInput {
+        margin-top: 1.8rem;
+        
+        label {
+            font-size: 1.6rem;
+        }
+    }
+    
+    .track {
+        margin-top: 0;
+    }
+    
+    #buttonWrapper {
+        margin-top: 1.8rem;
+        
+        button {
+            width: 100%;
+        }
     }
     
     #manageTrack button {
         padding: 5px;
+    }
+    
+    .floatingLabel {
+        input, select, textarea {
+            
+            & + label {
+                color: black;
+            }
+            
+            &:focus + label, &.filled + label {
+                color: white;
+            }
+        }
     }
     
     #imgContainer {

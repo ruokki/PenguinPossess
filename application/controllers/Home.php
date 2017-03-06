@@ -314,8 +314,8 @@ class Home extends CI_Controller {
             }
         }
         else {
-            array_push($data['css'], 'home/search.css');
-            array_push($data['js'], 'home/search.js');
+            array_push($data['css'], 'user/manageItem.css');
+            array_push($data['js'], 'user/manageItem.js');
         }
         
         $this->load->view('template/header', $data);

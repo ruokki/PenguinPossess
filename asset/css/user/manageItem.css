@@ -9,9 +9,23 @@
     font-weight: bold; }
   #wrapper h2 {
     color: red; }
-  #wrapper form > div, #wrapper [name*='track'] {
+  #wrapper [name*='track'] {
     margin-bottom: 15px; }
+  #wrapper #imgInput {
+    margin-top: 1.8rem; }
+    #wrapper #imgInput label {
+      font-size: 1.6rem; }
+  #wrapper .track {
+    margin-top: 0; }
+  #wrapper #buttonWrapper {
+    margin-top: 1.8rem; }
+    #wrapper #buttonWrapper button {
+      width: 100%; }
   #wrapper #manageTrack button {
     padding: 5px; }
+  #wrapper .floatingLabel input + label, #wrapper .floatingLabel select + label, #wrapper .floatingLabel textarea + label {
+    color: black; }
+  #wrapper .floatingLabel input:focus + label, #wrapper .floatingLabel input.filled + label, #wrapper .floatingLabel select:focus + label, #wrapper .floatingLabel select.filled + label, #wrapper .floatingLabel textarea:focus + label, #wrapper .floatingLabel textarea.filled + label {
+    color: white; }
   #wrapper #imgContainer img {
     max-height: 200px; }

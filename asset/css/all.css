@@ -23,26 +23,46 @@
 
 .floatingLabel {
   position: relative;
-  margin-top: 2.5rem; }
-  .floatingLabel input {
+  margin-top: 1.8rem; }
+  .floatingLabel select, .floatingLabel input, .floatingLabel textarea {
     padding: 6px;
     font-size: 1.6rem;
     outline: none;
     transition: border-color 0.35s;
     border: 1px solid black; }
-    .floatingLabel input + label {
+    .floatingLabel select::-webkit-input-placeholder, .floatingLabel input::-webkit-input-placeholder, .floatingLabel textarea::-webkit-input-placeholder {
+      color: transparent;
+      transition: color 0.35s; }
+    .floatingLabel select:-moz-placeholder, .floatingLabel input:-moz-placeholder, .floatingLabel textarea:-moz-placeholder {
+      color: transparent;
+      transition: color 0.35s; }
+    .floatingLabel select::-moz-placeholder, .floatingLabel input::-moz-placeholder, .floatingLabel textarea::-moz-placeholder {
+      color: transparent;
+      transition: color 0.35s; }
+    .floatingLabel select:-ms-input-placeholder, .floatingLabel input:-ms-input-placeholder, .floatingLabel textarea:-ms-input-placeholder {
+      color: transparent;
+      transition: color 0.35s; }
+    .floatingLabel select + label, .floatingLabel input + label, .floatingLabel textarea + label {
       position: absolute;
       pointer-events: none;
       top: 9px;
       left: 5px;
       font-size: 1.6rem;
       transition: color 0.35s, font-size 0.35s, top 0.35s; }
-    .floatingLabel input:focus + label, .floatingLabel input.filled + label {
+    .floatingLabel select:focus + label, .floatingLabel select.filled + label, .floatingLabel input:focus + label, .floatingLabel input.filled + label, .floatingLabel textarea:focus + label, .floatingLabel textarea.filled + label {
       top: -1.3rem;
       font-size: 1rem; }
-    .floatingLabel input:focus {
+    .floatingLabel select:focus, .floatingLabel input:focus, .floatingLabel textarea:focus {
       border-color: #d84d50; }
-      .floatingLabel input:focus + label {
+      .floatingLabel select:focus::-webkit-input-placeholder, .floatingLabel input:focus::-webkit-input-placeholder, .floatingLabel textarea:focus::-webkit-input-placeholder {
+        color: #AAA; }
+      .floatingLabel select:focus:-moz-placeholder, .floatingLabel input:focus:-moz-placeholder, .floatingLabel textarea:focus:-moz-placeholder {
+        color: #AAA; }
+      .floatingLabel select:focus::-moz-placeholder, .floatingLabel input:focus::-moz-placeholder, .floatingLabel textarea:focus::-moz-placeholder {
+        color: #AAA; }
+      .floatingLabel select:focus:-ms-input-placeholder, .floatingLabel input:focus:-ms-input-placeholder, .floatingLabel textarea:focus:-ms-input-placeholder {
+        color: #AAA; }
+      .floatingLabel select:focus + label, .floatingLabel input:focus + label, .floatingLabel textarea:focus + label {
         color: #d84d50; }
 
 html, body {
@@ -141,7 +161,7 @@ textarea {
 /* Menu principal */
 /******************/
 #mainMenu {
-  width: 30%;
+  width: 20%;
   height: 100%;
   background: #E8F1F2;
   float: left;
@@ -247,7 +267,7 @@ textarea {
 /* Wrapper général */
 /*******************/
 #wrapper {
-  width: 70%;
+  width: 80%;
   height: 100%;
   padding: 15px;
   float: left;

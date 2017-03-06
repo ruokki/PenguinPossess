@@ -2,14 +2,19 @@
 
 .floatingLabel {
     position: relative;
-    margin-top: 2.5rem;
+    margin-top: 1.8rem;
     
-    input {
+    select, input, textarea {
         padding: 6px;
         font-size: 1.6rem;
         outline: none;
         transition: border-color $transitionTime;
         border: 1px solid black;
+        
+        @include placeholder {
+            color: transparent;
+            transition: color $transitionTime;
+        }
         
         + label {
             position: absolute;
@@ -27,6 +32,10 @@
         
         &:focus {
             border-color: $highlightColor;
+            
+            @include placeholder {
+                color: #AAA;
+            }
             
             & + label {
                 color: $highlightColor;
