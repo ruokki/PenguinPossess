@@ -371,7 +371,8 @@ class Forge_model extends CI_Model {
                 'icon' => 'pacman',
                 'sub' => array(
                     'Jeux vidéo' => '',
-                    'Jeux de plateau' => ''
+                    'Jeux de plateau' => '',
+                    'Jeux de rôle' => ''
                 )
             )
         );
