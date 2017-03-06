@@ -13,7 +13,7 @@
     <?php if(isset($js)) : ?>
         <?php if(is_array($js)) : ?>
             <?php foreach($js as $file) : ?>
-            <script type="text/javascript" src="<?php echo base_url('asset/js/' . $file); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('asset/js/' . $file . '?version=' . $this->config->item('version')); ?>"></script>
             <?php endforeach; ?>
         <?php endif; ?>
     <?php endif; ?>
