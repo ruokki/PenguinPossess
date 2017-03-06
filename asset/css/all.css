@@ -3,6 +3,7 @@
   position: absolute;
   width: 400px;
   padding: 15px;
+  z-index: 15;
   bottom: 50px;
   left: 50%;
   margin-left: -200px;

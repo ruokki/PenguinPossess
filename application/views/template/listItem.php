@@ -5,7 +5,6 @@
         <?php foreach($items as $item) : ?>
         <?php 
             $possessors = explode(',', $item['user_id_possess']); 
-            $borrowers = explode(',', $item['borrowers_id']);
         ?>
         <div class="item">
             <div class="background">
@@ -20,7 +19,7 @@
                         </a>
                         
                         <?php if(!in_array($this->session->user['id'], $possessors)) : ?>
-                        <span class="icon-box-add borrow <?php echo !in_array($this->session->user['id'], $borrowers) ? '' : 'disabled'; ?>" 
+                        <span class="icon-box-add borrow" 
                                data-id="<?php echo $item['item_id']; ?>"
                                title="Demander l'emprunt de l'item"></span>
                         <?php endif; ?>
@@ -47,7 +46,7 @@
     <?php endif; ?>
 </div>
 <div id="modalBorrow">
-    <p>Veuiller choisir auprès de qui faire la demande (plusieurs choix possibles)</p>
+    <p>Veuiller choisir auprès de qui faire la demande (un choix possible)</p>
     <div class="listUser">
         <div class="clearfix"></div>
     </div>

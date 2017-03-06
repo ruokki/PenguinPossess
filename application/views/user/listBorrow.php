@@ -22,7 +22,11 @@
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_create'])); ?></td>
             <td>
                 <?php echo $state[$item['borrow_state']]; ?>
-                <?php echo date('d/m/Y', strtotime($item['borrow_date_renew_asked'])) === '01/01/2000' ? '(rallonge refusée)' : ''; ?>
+                <?php if(date('d/m/Y', strtotime($item['borrow_date_renew_asked'])) === '01/01/2000') : ?>
+                (rallonge refusée)
+                <?php elseif(date('d/m/Y', strtotime($item['borrow_date_renew_asked'])) === date('d/m/Y', strtotime($item['borrow_date_end']))) : ?>
+                (rallonge acceptée)
+                <?php endif; ?>
             </td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_begin'])); ?></td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_end'])); ?></td>

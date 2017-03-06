@@ -40,21 +40,21 @@
                 cmd = "addBorrow",
                 id = $possess.data("id");
                 
-            if($possess.hasClass("disabled")) {
-                showAlertBox("Une demande est déjà en cours pour ce produit", "alert");
-            }
-            else {
-                $.ajax({
-                    type: "POST",
-                    url: siteUrl + "/home/managePossess",
-                    data: {
-                        cmd: cmd,
-                        item: id
-                    },
-                    dataType: "JSON",
-                    success: function(data){
-                        var possessors = data.possessors;
-                        
+            $.ajax({
+                type: "POST",
+                url: siteUrl + "/home/managePossess",
+                data: {
+                    cmd: cmd,
+                    item: id
+                },
+                dataType: "JSON",
+                success: function(data){
+                    var possessors = data.possessors;
+
+                    if(data.error && data.error === true) {
+                        showAlertBox(data.text, "error");
+                    }
+                    else {
                         if(data.created === true) {
                             $possess.addClass("disabled");
                             showAlertBox("Demande d'emprunt effectuée auprès de " + possessors[0].split("|")[1], "success");
@@ -65,7 +65,7 @@
                             for(var i in possessors) {
                                 tmp = possessors[i].split("|");
                                 html += 
-                                    '<div class="user active" data-id="' + tmp[0] + '" data-item="' + id + '">' +
+                                    '<div class="user" data-id="' + tmp[0] + '" data-item="' + id + '">' +
                                         '<img src="' + baseUrl + 'asset/default-user.png' + '" />' +
                                         '<p class="text-center">' + tmp[1] + '</p>' +
                                     '</div>';
@@ -73,11 +73,12 @@
 
                             $modalBorrow.find(".listUser .user").remove();
                             $modalBorrow.find(".listUser").prepend(html);
+                            $modalBorrow.find(".listUser .user").first().find(":first-child").click();
                             $modalBorrow.dialog("open");
                         }
                     }
-                });
-            }
+                }
+            });
         }
         // Si on clique ailleurs que sur un lien, on redirige vers les infos item
         else if(!$(e.target).is("a")) {
@@ -94,25 +95,32 @@
         buttons: {
             Valider: function() {
                 var users = [],
+                    names = [],
                     selected = $(this).find(".user.active"),
                     item = selected.first().data("item");
                 $(this).find(".user.active").each(function(idx, elem){
                     users.push($(elem).data("id"));
+                    names.push($(elem).find("p").text());
                 });
-                $(this).dialog("close");
-                
-                $.ajax({
-                    type: "POST",
-                    url: siteUrl + "/home/managePossess",
-                    data: {
-                        cmd: "createBorrow",
-                        item: item,
-                        users: users
-                    },
-                    success: function(data){
-                        showAlertBox("Demande d'emprunt effectuée auprès des utilisateurs sélectionnés", "success");
-                    }
-                });
+
+                if(users.length === 0) {
+                    showAlertBox("Veuillez sélectionner l'utilisateur aurpès duquel faire la demande", "error");
+                }
+                else {
+                    $(this).dialog("close");
+                    $.ajax({
+                        type: "POST",
+                        url: siteUrl + "/home/managePossess",
+                        data: {
+                            cmd: "createBorrow",
+                            item: item,
+                            users: users
+                        },
+                        success: function(data){
+                            showAlertBox("Demande d'emprunt effectuée auprès " + (names.length === 1 ? "de " + names.join(", ") : "des utilisateurs concernés"), "success");
+                        }
+                    });
+                }
             },
             Annuler: function() {
                 $(this).dialog("close");
@@ -120,7 +128,8 @@
         }
     }).on("click", function(e){
         if($(e.target).parents(".user").length > 0) {
-            $(e.target).parents(".user").toggleClass("active");
+            $modalBorrow.find(".user").removeClass("active");
+            $(e.target).parents(".user").addClass("active");
         }
     });
 });

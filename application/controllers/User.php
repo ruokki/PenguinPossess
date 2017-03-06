@@ -285,6 +285,7 @@ class User extends CI_Controller {
         }
         
         $data = array(
+            'active' => 'borrow',
             'css' => array(
                 'user/listBorrowLent.css'
             ),
@@ -452,6 +453,7 @@ class User extends CI_Controller {
         }
         else {
             $data = array(
+                'active' => 'lent',
                 'css' => array(
                     'user/listBorrowLent.css'
                 ),

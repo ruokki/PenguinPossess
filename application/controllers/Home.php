@@ -344,32 +344,62 @@ class Home extends CI_Controller {
             }
             // Ajoute une demande d'emprunt
             else if($cmd === 'addBorrow') {
+                // Vérifier qu'il n'existe pas une demande d'emprunt pour cet item
+                $borrowRequest= $this->Item->getBorrow(array(
+                    'where' => array(
+                        'I.item_id' => $id
+                    ),
+                    'notIn' => array(
+                        'borrow_state' => array('GB', 'DE')
+                    )
+                ));
                 $item = $this->Item->getItem(array(
                     'where' => array(
                         'I.item_id' => $id
                     )
                 ));
+                
                 $item = $item[0];
-                $nbPossessor = explode(',', $item['user_id_possess']);
-                if(count($nbPossessor) === 1) {
-                    $this->Item->setBorrow(array(
-                        'item_id' => $id,
-                        'borrower_id' => $this->session->user['id'],
-                        'borrow_state' => 'WA',
-                        'borrow_date_create' => date('Y-m-d'),
-                        'lender_id' => ',' . $nbPossessor[0] . ','
-                    ));
+                $possessors = explode(',', $item['user_id_possess']);
+                $nbPossessor = count($possessors);
+                $nbRequest = count($borrowRequest);
+                
+                // Si il y a autant de requêtes que de possesseurs, on ne peut pas effectuer la demande
+                if($nbRequest >= $nbPossessor) {
+                    $isMe = FALSE;
+                    foreach($borrowRequest as $request) {
+                        if(intval($request['borrower_id']) === intval($this->session->user['id'])) {
+                            $isMe = true;
+                            break;
+                        }
+                    }
+                    
                     $return = array(
-                        'created' => TRUE,
-                        'possessors' => array($item['user_possess'])
+                        'error' => TRUE,
+                        'text' => $isMe ? 'Une demande de prêt est en cours sur cet item' : "Aucun item n'est disponible pour le prêt"
                     );
                 }
                 else {
-                    $possessors = explode(',', $item['user_possess']);
-                    $return = array(
-                        'created' => false,
-                        'possessors' => $possessors
-                    );
+                    if($nbPossessor === 1) {
+                        $this->Item->setBorrow(array(
+                            'item_id' => $id,
+                            'borrower_id' => $this->session->user['id'],
+                            'borrow_state' => 'WA',
+                            'borrow_date_create' => date('Y-m-d'),
+                            'lender_id' => ',' . $nbPossessor[0] . ','
+                        ));
+                        $return = array(
+                            'created' => TRUE,
+                            'possessors' => array($item['user_possess'])
+                        );
+                    }
+                    else {
+                        $possessors = explode(',', $item['user_possess']);
+                        $return = array(
+                            'created' => FALSE,
+                            'possessors' => $possessors
+                        );
+                    }
                 }
             }
             else if ($cmd === 'createBorrow') {
