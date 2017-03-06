@@ -10,7 +10,7 @@
     <hr />
     <div class="menuList">
         <h3>Mon compte</h3>
-        <a href="<?php echo site_url('user/index'); ?>">
+        <a href="<?php echo site_url('user/index'); ?>" <?php if($active === 'user') { echo 'class="active"'; } ?>>
             <span class="icon-database"></span>
             Ma collection
         </a>

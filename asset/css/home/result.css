@@ -4,3 +4,5 @@
 #actions {
   width: 100%;
   margin-bottom: 20px; }
+  #actions h1 {
+    font-size: 1.5rem; }

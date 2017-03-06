@@ -2,7 +2,8 @@ table {
   width: 100%; }
   table caption {
     padding: 7px;
-    cursor: pointer; }
+    cursor: pointer;
+    font-size: 1.5rem; }
   table td, table th {
     padding: 12px; }
   table thead {
