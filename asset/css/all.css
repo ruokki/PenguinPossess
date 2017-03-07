@@ -144,7 +144,9 @@ textarea {
   border-radius: 5px;
   background: #ffcccc;
   border: 1px solid #ff6666;
-  padding: 5px; }
+  padding: 9px;
+  font-size: 1.3rem;
+  color: #ff6666; }
   #errors #closeError {
     position: absolute;
     top: 5px;

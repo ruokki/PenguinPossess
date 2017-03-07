@@ -60,6 +60,7 @@ class User extends CI_Controller {
     public function manageItem($cmd = 'create', $id = 0) {
         $this->load->model('Category_model', 'Category', TRUE);
         $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Common_model', 'Common', TRUE);
         $this->load->helper('formatcatname');
         
         if($this->input->is_ajax_request()) {
@@ -124,6 +125,8 @@ class User extends CI_Controller {
                     $data['errors'] = $this->form_validation->error_array();
                 }
                 else {
+                    $this->Common->startTransaction();
+                    
                     $item = $this->input->post();
                     $oldItem = array();
                     $isNew = FALSE;
@@ -173,7 +176,7 @@ class User extends CI_Controller {
 
                     $this->upload->initialize($config);
                     // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
-                    // et on attend la validation par un admin*
+                    // et on attend la validation par un admin
                     if(count($userPossess) > 1) {
                         $this->load->helper('file');
                         $validateFolder = $this->config->item('validateFolder');
@@ -200,28 +203,23 @@ class User extends CI_Controller {
                             mkdir($config['upload_path'], 0777, TRUE);
                         }
 
-                        if($idItem === 0) {
-                            if (!$this->upload->do_upload('item_img')) {
-                                $data['result'] = array('error' => TRUE);
-                                $data['errors'] = array('Veuiller sélectionner une image pour cette item');
+                        if ($this->upload->do_upload('item_img')) {
+                            if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
+                                unlink($config['upload_path'] . '/' . $oldItem['item_img']);
                             }
-                            else {
-                                $data['result'] = array('success' => TRUE);
-                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                            
+                            if($isNew === TRUE) {
+                                $this->Item->setItemUserLink($idItem, $this->session->user['id']);
                             }
-                        }
-                        else {
-                            if ($this->upload->do_upload('item_img')) {
-                                if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
-                                    unlink($config['upload_path'] . '/' . $oldItem['item_img']);
-                                }
-                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                            }
+                            
+                            $this->Common->completeTransaction();
                             $data['result'] = array('success' => TRUE);
                         }
-
-                        if($isNew === TRUE) {
-                            $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                        else {
+                            $data['result'] = array('error' => TRUE);
+                            $data['errors'] = array($this->upload->display_errors());
+                            $this->Common->rollbackTransaction();
                         }
                     }
                 }
