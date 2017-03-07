@@ -121,11 +121,15 @@ class Home extends CI_Controller {
             }
             else {
 
-                $user = $this->User->getUserFromName($futureUser['user_name']);
+                $user = $this->User->getUserFromName(trim($futureUser['user_name']));
+                $userMail = $this->User->getUserFromEmail(trim($futureUser['user_email']));
                 $totalUser = $this->User->getNbUser();
 
                 if (count($user) > 0) {
                     $data['errors'] = array('Nom déjà utilisé');
+                }
+                else if (count($userMail) > 0) {
+                    $data['errors'] = array('Email déjà utilisé');
                 }
                 else if ($totalUser > 10) {
                     $data['errors'] = array("Nombre d'utilisateur max atteint");
