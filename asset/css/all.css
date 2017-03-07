@@ -146,7 +146,8 @@ textarea {
   border: 1px solid #ff6666;
   padding: 9px;
   font-size: 1.3rem;
-  color: #ff6666; }
+  color: #ff6666;
+  margin-bottom: 10px; }
   #errors #closeError {
     position: absolute;
     top: 5px;

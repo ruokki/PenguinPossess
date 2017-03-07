@@ -204,24 +204,40 @@ class User extends CI_Controller {
                         if(!is_dir($config['upload_path'])) {
                             mkdir($config['upload_path'], 0777, TRUE);
                         }
-
-                        if ($this->upload->do_upload('item_img')) {
-                            if(isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
-                                unlink($config['upload_path'] . '/' . $oldItem['item_img']);
-                            }
-                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                            
-                            if($isNew === TRUE) {
+                        
+                        // Si on est en ajout, on upload l'image
+                        if($isNew === TRUE) {
+                            if ($this->upload->do_upload('item_img')) {
+                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
                                 $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                                $this->Common->completeTransaction();
+                                $data['result'] = array('success' => TRUE);
                             }
-                            
-                            $this->Common->completeTransaction();
-                            $data['result'] = array('success' => TRUE);
+                            else {
+                                $data['result'] = array('error' => TRUE);
+                                $data['errors'] = array($this->upload->display_errors());
+                                $this->Common->rollbackTransaction();
+                            }
                         }
+                        // Si on est en modif, l'image n'est pas obligatoire
                         else {
-                            $data['result'] = array('error' => TRUE);
-                            $data['errors'] = array($this->upload->display_errors());
-                            $this->Common->rollbackTransaction();
+                            if (empty($_FILES['item_img']['name'])) {
+                                $data['result'] = array('success' => TRUE);
+                            }
+                            else {
+                                if ($this->upload->do_upload('item_img')) {
+                                    if (isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
+                                        unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+                                    }
+                                    $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                                }
+                                else {
+                                    $data['result'] = array('error' => TRUE);
+                                    $data['errors'] = array($this->upload->display_errors());
+                                }
+                            }
+                            // Dans tout les cas, on enregistre les modifications qui ont été faites
+                            $this->Common->completeTransaction();
                         }
                     }
                 }
