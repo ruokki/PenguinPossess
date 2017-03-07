@@ -5,3 +5,6 @@
     <div class="clearfix"></div>
 </div>
 <?php $this->view('template/listItem'); ?>
+<script>
+    var myCollection = true;
+</script>

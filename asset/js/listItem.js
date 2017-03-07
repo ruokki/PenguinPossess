@@ -1,6 +1,6 @@
 (jQuery)(function($){
+    
     $(".item .front").on("click", function(e){
-        
         // On veut ajouter/enlever la possession d'un objet
         if($(e.target).hasClass("possess")) {
             var $possess = $(e.target),
@@ -22,6 +22,14 @@
                             .addClass("icon-checkbox-unchecked")
                             .attr("title", "Ajouter à ma collection");
                         $possess.prev(".edit").addClass("hidden");
+                        
+                        if(typeof(myCollection) !== "undefined" && myCollection === true) {
+                            var $item = $possess.parents(".item");
+                            $item.on("transitionend", function(){
+                                $(this).remove();
+                            });
+                            $item.addClass("deleted");
+                        }
                     }
                     else if (cmd === "addPossess") {
                         text = "ajouté à";
