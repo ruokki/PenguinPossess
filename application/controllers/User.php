@@ -94,7 +94,9 @@ class User extends CI_Controller {
                     'user/manageItem.js'
                 ),
                 'result' => array(),
-                'typeView' => 'form'
+                'typeView' => 'form',
+                'maxWidthImg' => 1260,
+                'maxHeightImg' => 1260,
             );
             
             // Enregistrement de l'item
@@ -169,8 +171,8 @@ class User extends CI_Controller {
                     $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
                     $config['allowed_types']        = 'gif|jpg|png';
                     $config['max_size']             = 2048;
-                    $config['max_width']            = 1260;
-                    $config['max_height']           = 1260;
+                    $config['max_width']            = $data['maxWidthImg'];
+                    $config['max_height']           = $data['maxHeightImg'];
                     $config['file_ext_tolower']     = TRUE;
                     $config['file_name']            = uniqid($this->session->user['id'] . '_');
 

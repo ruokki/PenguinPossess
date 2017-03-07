@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-xs-4">
                 <div class="box">
-                    <label for="imgItem">Image (2Mo max.)</label>
+                    <label for="imgItem">Image (<?php echo $maxWidthImg . 'x' . $maxHeightImg; ?>, 2Mo max.)</label>
                 </div>
             </div>
             <div class="col-xs-8">
