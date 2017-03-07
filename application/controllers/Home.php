@@ -244,14 +244,16 @@ class Home extends CI_Controller {
         }
         
         $possessors = explode(',', $item['user_possess']);
-        
         $item['possessors'] = array();
-        foreach($possessors as $user) {
-            $tmp = explode('|', $user);
-            array_push(
-                $item['possessors'], 
-                '<a href="' . site_url('home/user/' . $tmp[0]) . '">' . $tmp[1] . '</a>'
-            );
+        
+        // Il y a au moins un possesseur
+        if($possessors[0] !== '') {
+            foreach ($possessors as $user) {
+                $tmp = explode('|', $user);
+                array_push(
+                        $item['possessors'], '<a href="' . site_url('home/user/' . $tmp[0]) . '">' . $tmp[1] . '</a>'
+                );
+            }
         }
         
         $data = array(

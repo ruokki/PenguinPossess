@@ -3,9 +3,8 @@
         <p>Aucun item à afficher</p>
     <?php else : ?>
         <?php foreach($items as $item) : ?>
-        <?php 
-            $possessors = explode(',', $item['user_id_possess']); 
-        ?>
+        <?php $possessors = $item['user_id_possess'] === NULL ? array() : explode(',', $item['user_id_possess']); ?>
+        <?php if(count($possessors) > 0) : ?>
         <div class="item">
             <div class="background">
                 <img src="<?php echo base_url('asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'] . '/' . $item['item_img']) ?>" title="<?php echo $item['item_name']; ?>" />
@@ -42,6 +41,7 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
