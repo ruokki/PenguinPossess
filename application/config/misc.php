@@ -36,3 +36,6 @@ $config['borrowState'] = array(
         'DE' => 'Demande refusée'
     )
 );
+
+// Heures durant laquel le token de nouveau mot de passe est valide
+$config['newPassValidateTime'] = 2;

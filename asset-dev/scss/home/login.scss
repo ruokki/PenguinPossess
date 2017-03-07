@@ -26,17 +26,26 @@
             }
         }
         
+        #passWrapper {
+            a {
+                display: inline-block;
+                font-size: 1rem;
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+        }
+        
         #crea {
             padding: 12px;
-            
-            a {
-                color: $defaultColor;
-                text-decoration: underline;
-                cursor: pointer;
-                
-                &:hover {
-                    text-decoration: none;
-                }
+        }
+        
+        a {
+            color: $defaultColor;
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: none;
             }
         }
     }

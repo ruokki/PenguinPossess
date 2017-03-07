@@ -7,8 +7,9 @@ class Home extends CI_Controller {
         parent::__construct();
         
         $uri = uri_string();
+        $tmp = explode('/', $uri);
         
-        if($this->session->user === NULL && !in_array($uri, array('home/login', 'home/createDB', 'home/createUser'))) {
+        if($this->session->user === NULL && !in_array($tmp[1], array('login', 'createDB', 'createUser', 'forgotPass', 'newPass'))) {
             redirect('home/login');
         }
     }
@@ -16,15 +17,27 @@ class Home extends CI_Controller {
     /**
      * Page de login
      */
-    public function login() {
+    public function login($msg = '') {
         
         $data = array(
             'title' => 'Connexion',
             'errors' => FALSE,
             'css' => array(
                 'home/login.css'
-            )
+            ),
+            'js' => array(
+                'home/login.js'
+            ),
+            'msg' => ''
         );
+        
+        $msg = $this->session->flashdata('msg');
+        if($msg === 'sent') {
+            $data['msg'] = 'Email de réinitialisation envoyé';
+        }
+        else if($msg === 'reinit') {
+            $data['msg'] = 'Mot de passe réinitialisé';
+        }
         
         // Vérification des infos saisies
         if($this->input->post()) {
@@ -99,16 +112,16 @@ class Home extends CI_Controller {
                         'label' => 'Mot de passe',
                         'rules' => 'required'
                     ),
-                );
+            );
                 
-                $this->form_validation->set_rules($config);
-                
-                if($this->form_validation->run() === FALSE) {
-                    $data['errors'] = $this->form_validation->error_array();
-                }
-                else {
-                    
-                    $user = $this->User->getUserFromName($futureUser['user_name']);
+            $this->form_validation->set_rules($config);
+
+            if($this->form_validation->run() === FALSE) {
+                $data['errors'] = $this->form_validation->error_array();
+            }
+            else {
+
+                $user = $this->User->getUserFromName($futureUser['user_name']);
                 $totalUser = $this->User->getNbUser();
 
                 if (count($user) > 0) {
@@ -131,6 +144,144 @@ class Home extends CI_Controller {
         
         $this->load->view('template/header', $data);
         $this->load->view('home/createUser');
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Page de demande de réinitialisation du mot de passe
+     */
+    public function forgotPass() {
+        $this->load->library('form_validation');
+        
+        $data = array(
+            'title' => 'Réinitialisation du mot de passe',
+            'error' => FALSE,
+            'css' => array(
+                'home/login.css'
+            )
+        );
+        
+        if($this->input->post()) {
+            $this->load->model('User_model', 'User', TRUE);
+            $user = $this->input->post();
+            
+            $config = array(
+                    array(
+                        'field' => 'user_email',
+                        'label' => 'Email',
+                        'rules' => 'required|valid_email'
+                    )
+                );
+                
+                $this->form_validation->set_rules($config);
+                
+                if($this->form_validation->run() === FALSE) {
+                    $data['errors'] = $this->form_validation->error_array();
+                }
+                else {
+                    $data['success'] = TRUE;
+                    $user = $this->User->getUserFromEmail($user['user_email']);
+                    
+                    if(count($user) > 0) {
+                        $token = uniqid();
+                        $this->User->setUser(array(
+                            'user_token_new_pass' => $token,
+                            'user_date_new_pass' => date('Y-m-d H:i:s')
+                        ), $user[0]['user_id']);
+                        /*
+                        $this->load->library('email');
+                        $config['mailtype'] = 'HTML';
+                        $this->email->initialize($config);
+                        
+                        $this->email->from('noreply@penguin.net');
+                        $this->email->to($user['user_email']);
+                        $this->email->subject('Demande de réinitialisation du mot de passe');
+                        $this->email->message(
+                            'Vous avez effectué une demande de réinitialisation de votre mot de passe.<br />' .
+                            'Pour ce faire, <a href="' . site_url('home/newPass/' . $token) . '">cliquez ici !</a><br/>' . 
+                            'Ce lien est valide pendant ' . $this->config->item('newPassValidateTime') . 'h. <br/><br/>' .
+                            "Si vous n'avez pas fait de demande, merci d'ignorer cet email."
+                        );*/
+                        $this->session->set_flashdata('msg', 'sent');
+                        redirect('home/login');
+                    }
+            }
+        }
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('home/forgotPass');
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Modification du mot de passe
+     * @param String $token
+     */
+    public function newPass($token = '') {
+        if($token === '') {
+            redirect('home/login');
+        }
+        
+        $this->load->library('form_validation');
+        $this->load->model('User_model', 'User', TRUE);
+        
+        $user = $this->User->getUserFromToken($token);
+        
+        if(count($user) > 0) {
+            $user = $user[0];
+        }
+        else {
+            redirect('home/login');
+        }
+        
+        $data = array(
+            'title' => 'Nouveau mot de passe',
+            'error' => FALSE,
+            'css' => array(
+                'home/login.css'
+            )
+        );
+        
+        if($this->input->post()) {
+            $config = array(
+                    array(
+                        'field' => 'user_pwd',
+                        'label' => 'Mot de passe',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'user_pwd_confirm',
+                        'label' => 'de confirmation du mot de passe',
+                        'rules' => 'required|matches[user_pwd]'
+                    )
+            );
+                
+            $this->form_validation->set_rules($config);
+
+            if($this->form_validation->run() === FALSE) {
+                $data['errors'] = $this->form_validation->error_array();
+            }
+            else {
+                $this->User->setUser(array(
+                    'user_pwd' => password_hash($this->input->post('user_pwd'), PASSWORD_DEFAULT),
+                    'user_token_new_pass' => NULL,
+                    'user_date_new_pass' => '0000-00-00'
+                ), $user['user_id']);
+                $this->session->set_flashdata('msg', 'reinit');
+                redirect('home/login');
+            }
+        }
+        else {
+            $tokenDate = new DateTime($user['user_date_new_pass']);
+            $now = new DateTime();
+            $diffDate = $tokenDate->diff($now);
+            if($diffDate->h > $this->config->item('newPassValidateTime')) {
+                redirect('home/login');
+            }
+        }
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('home/newPass');
         $this->load->view('template/footer', $data);
     }
 

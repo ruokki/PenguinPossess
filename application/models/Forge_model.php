@@ -22,6 +22,7 @@ class Forge_model extends CI_Model {
     public function setDB() {
         $this->load->dbforge();
         
+        // on essaie d'abord de créer les tables
         $this->createUser();
         $this->createRole();
         $this->createCategory();
@@ -30,6 +31,9 @@ class Forge_model extends CI_Model {
         $this->createItemTag();
         $this->createItemUser();
         $this->createBorrow();
+        
+        // On tente de les modifier ensuite
+        $this->alterUser();
     }
     
     /**
@@ -65,6 +69,13 @@ class Forge_model extends CI_Model {
                 'type' => 'INT',
                 'constraint' => '1'
             ),
+            'user_token_new_pass' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '13'
+            ),
+            'user_date_new_pass' => array(
+                'type' => 'DATETIME'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('user_id', TRUE);
@@ -73,6 +84,28 @@ class Forge_model extends CI_Model {
 //        if($created === TRUE) {
 //            $this->populateUser();
 //        }
+    }
+    
+    /**
+     * Modification de la table User si déjà existante
+     */
+    public function alterUser() {
+        if(!$this->db->field_exists('user_token_new_pass', 'user')) {
+            $this->dbforge->add_column('user', array(
+                    'user_token_new_pass' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '13'
+                )
+            ));
+        }
+        
+        if(!$this->db->field_exists('user_date_new_pass', 'user')) {
+            $this->dbforge->add_column('user', array(
+                    'user_date_new_pass' => array(
+                    'type' => 'DATETIME'
+                )
+            ));
+        }
     }
     
     /**

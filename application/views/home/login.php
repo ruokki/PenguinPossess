@@ -11,10 +11,13 @@
             <label for="userName">Utilisateur</label>
         </div>
     </div>
-    <div>
+    <div id="passWrapper">
         <div class="floatingLabel">
             <input type="password" id="userPass" name="userPass" />
             <label for="userPass">Mot de passe</label>
+        </div>
+        <div class="text-right">
+            <a href="<?php echo site_url('home/forgotPass'); ?>">Mot de passe oublié ?</a>
         </div>
     </div>
     <div class="row">
@@ -28,3 +31,9 @@
         </div>
     </div>
 </form>
+
+<?php if($msg !== '') : ?>
+<script>
+    var msg = "<?php echo $msg ?>";
+</script>
+<?php endif; ?>

@@ -41,6 +41,30 @@ class User_model extends CI_Model {
     }
     
     /**
+     * Récupère un utilisateur par son adresse mail
+     * @param type $name
+     * @return Array
+     */
+    public function getUserFromEmail($email) {
+        return $this->db->select('*')
+                ->from('user')
+                ->where('user_email', $email)
+                ->get()->result_array();
+    }
+    
+    /**
+     * Récupère un utilisateur par son token
+     * @param type $name
+     * @return Array
+     */
+    public function getUserFromToken($token) {
+        return $this->db->select('user_id, user_date_new_pass')
+                ->from('user')
+                ->where('user_token_new_pass', $token)
+                ->get()->result_array();
+    }
+    
+    /**
      * Récupère l'ensemble des utilisateurs
      * @param Array
      * @return Array
