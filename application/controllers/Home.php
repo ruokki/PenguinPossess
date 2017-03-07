@@ -188,7 +188,7 @@ class Home extends CI_Controller {
                             'user_token_new_pass' => $token,
                             'user_date_new_pass' => date('Y-m-d H:i:s')
                         ), $user[0]['user_id']);
-                        /*
+                        
                         $this->load->library('email');
                         $config['mailtype'] = 'HTML';
                         $this->email->initialize($config);
@@ -201,7 +201,7 @@ class Home extends CI_Controller {
                             'Pour ce faire, <a href="' . site_url('home/newPass/' . $token) . '">cliquez ici !</a><br/>' . 
                             'Ce lien est valide pendant ' . $this->config->item('newPassValidateTime') . 'h. <br/><br/>' .
                             "Si vous n'avez pas fait de demande, merci d'ignorer cet email."
-                        );*/
+                        );
                         $this->session->set_flashdata('msg', 'sent');
                         redirect('home/login');
                     }
