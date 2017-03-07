@@ -2,10 +2,8 @@
     <div class="text-center logo">
         <img src="<?php echo base_url('asset/logo.png'); ?>" title="Penguin Possess" />
     </div>
-    <?php if($error !== FALSE) : ?>
-    <div>
-        <div class="box"><?php echo $error; ?></div>
-    </div>
+    <?php if($errors !== FALSE) : ?>
+    <?php $this->view('template/form_errors'); ?>
     <?php endif; ?>
     <div>
         <div class="floatingLabel">

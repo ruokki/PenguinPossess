@@ -20,7 +20,7 @@ class Home extends CI_Controller {
         
         $data = array(
             'title' => 'Connexion',
-            'error' => FALSE,
+            'errors' => FALSE,
             'css' => array(
                 'home/login.css'
             )
@@ -47,11 +47,11 @@ class Home extends CI_Controller {
                     redirect('home/index');
                 }
                 else {
-                    $data['error'] = 'Mauvais couple user/pass';
+                    $data['errors'] = array('Mauvais couple user/pass');
                 }
             }
             else {
-                $data['error'] = 'Mauvais couple user/pass';
+                $data['errors'] = array('Mauvais couple user/pass');
             }
         }
         
