@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<p>Nb épisode : <?php echo $item['item_siblings']; ?></p>
+<h3>Nb épisode :</h3>
+<p><?php echo $item['item_siblings']; ?></p>
 <?php endif; ?>

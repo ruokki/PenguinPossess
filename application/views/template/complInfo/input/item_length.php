@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<p>Durée des épisodes : <?php echo $item['item_length']; ?></p>
+<h3>Durée des épisodes :</h3>
+<p><?php echo $item['item_length']; ?></p>
 <?php endif; ?>

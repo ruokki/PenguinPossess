@@ -6,13 +6,16 @@
 </div>
 <div class="info">
     <h1><?php echo $item['item_name']; ?></h1>
-    <h3>Catégorie : 
+    <h3>Catégorie : </h3>
+    <p>
         <a href="<?php echo site_url('home/category/' . $item['category_id']); ?>"><?php echo $item['main_category']; ?></a>
         -
         <a href="<?php echo site_url('home/category/' . $item['subcategory_id']); ?>"><?php echo $item['sub_category']; ?></a>
-    </h3>
-    <p>Description : <br /><?php echo $item['item_descript']; ?></p>
+    </p>
+    <h3>Description : </h3>
+    <p><?php echo preg_replace( "/\r|\n/", "<br/>", $item['item_descript']); ?></p>
     <?php $this->load->view('template/complInfo/' . formatCatName($item['sub_category'])); ?>
-    <p>Possesseurs : <?php echo implode(', ', $item['possessors']); ?></p>
+    <h3>Possesseurs :</h3>
+    <p><?php echo implode(', ', $item['possessors']); ?></p>
 </div>
 <?php endif; ?>

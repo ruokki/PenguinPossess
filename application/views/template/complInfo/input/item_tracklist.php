@@ -27,6 +27,7 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
+<h3>Pistes :</h3>
     <?php for($i = 0; $i < $nbTrack; $i++) : ?>
         <p><?php echo $i + 1; ?> - <?php echo $tracks[$i]; ?></p>
     <?php endfor; ?>

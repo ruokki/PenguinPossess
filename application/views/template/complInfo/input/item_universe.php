@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<p>Série : <?php echo $item['item_universe']; ?></p>
+<h3>Série :</h3>
+<p><?php echo $item['item_universe']; ?></p>
 <?php endif; ?>

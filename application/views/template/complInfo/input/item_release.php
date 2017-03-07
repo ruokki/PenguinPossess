@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<p>Année : <?php echo $item['item_release']; ?></p>
+<h3>Année :</h3>
+<p><?php echo $item['item_release']; ?></p>
 <?php endif; ?>

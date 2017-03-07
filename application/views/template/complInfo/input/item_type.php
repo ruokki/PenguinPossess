@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<p>Support : <?php echo $item['item_type']; ?></p>
+<h3>Support :</h3>
+<p> <?php echo $item['item_type']; ?></p>
 <?php endif; ?>

@@ -6,5 +6,6 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
+<h3>Éditeur :</h3>
 <p><?php echo $item['item_editor']; ?></p>
 <?php endif; ?>

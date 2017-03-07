@@ -132,7 +132,7 @@ class User extends CI_Controller {
                     $item = $this->input->post();
                     $oldItem = array();
                     $isNew = FALSE;
-
+                    
                     // Gestion des pistes pour un album
                     if(isset($item['track'])) {
                         $item['item_tracklist'] = implode('|', $item['track']);
