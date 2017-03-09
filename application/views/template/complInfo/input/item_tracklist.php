@@ -27,8 +27,10 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<h3>Pistes :</h3>
+<p class="label">Pistes :</p>
+<ul>
     <?php for($i = 0; $i < $nbTrack; $i++) : ?>
-        <p><?php echo $i + 1; ?> - <?php echo $tracks[$i]; ?></p>
+        <li class="value"><?php echo $i + 1; ?> - <?php echo $tracks[$i]; ?></li>
     <?php endfor; ?>
+</ul>
 <?php endif; ?>

@@ -47,12 +47,20 @@
         .value {
             font-style: italic;
         }
-
+        
         > p {
             width: 100%;
             text-align: justify;
             font-size: 1.3rem;
             margin-bottom: 15px;
+        }
+        
+        ul {
+            li {
+                font-size: 1.3rem;
+                margin-bottom: 5px;
+                padding-left: 15px;
+            }
         }
 
         a {

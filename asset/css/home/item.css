@@ -34,6 +34,10 @@
       text-align: justify;
       font-size: 1.3rem;
       margin-bottom: 15px; }
+    #item .info ul li {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+      padding-left: 15px; }
     #item .info a {
       text-decoration: underline; }
       #item .info a:hover {
