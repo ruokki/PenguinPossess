@@ -413,9 +413,12 @@ class Home extends CI_Controller {
         
         $data = array(
             'css' => array(
-                'home/item.css'
+                'home/item.css',
+                'listItem.css'
             ),
-            'js' => array(),
+            'js' => array(
+                'listItem.js'
+            ),
             'title' => $item['item_name'],
             'item' => $item,
             'typeView' => 'print'

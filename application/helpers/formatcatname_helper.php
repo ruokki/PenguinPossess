@@ -8,14 +8,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @return String
  */
 function formatCatName($category) {
-    $category = strtolower($category);
     $category = str_replace(array(
         ' ',
-        'é'
+        'é',
+        'ô'
     ), array(
         '',
-        'e'
+        'e',
+        'o'
     ), $category);
-    
+    $category = strtolower($category);
+
     return trim($category);
 }

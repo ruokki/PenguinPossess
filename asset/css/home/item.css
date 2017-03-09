@@ -1,31 +1,56 @@
-.info {
-  width: 70%;
-  padding: 15px 30px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: stretch; }
-  .info > h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 25px; }
-  .info > h3 {
-    font-size: 1.7rem;
-    padding-bottom: 15px; }
-  .info > p {
-    font-size: 1.3rem;
-    padding-left: 20px;
-    margin-bottom: 15px; }
-  .info a {
-    text-decoration: underline; }
-    .info a:hover {
-      text-decoration: none; }
+#wrapper {
+  display: block;
+  overflow: hidden; }
 
-.img {
-  width: 30%;
+#item {
+  width: 100%;
+  height: 70%;
   display: flex;
-  align-items: center;
-  justify-content: center; }
-  .img img {
-    max-width: 100%;
-    max-height: 100%; }
+  overflow: hidden; }
+  #item .info {
+    width: 70%;
+    padding: 15px 30px; }
+    #item .info .category {
+      width: 100%;
+      font-size: 1.3rem;
+      margin-bottom: 15px; }
+      #item .info .category .float-right a, #item .info .category .float-right span {
+        margin-right: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.35s; }
+        #item .info .category .float-right a:hover, #item .info .category .float-right span:hover {
+          color: #507DBC; }
+    #item .info > h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 25px; }
+    #item .info .label {
+      padding-right: 7px; }
+    #item .info .value {
+      font-style: italic; }
+    #item .info > p {
+      width: 100%;
+      text-align: justify;
+      font-size: 1.3rem;
+      margin-bottom: 15px; }
+    #item .info a {
+      text-decoration: underline; }
+      #item .info a:hover {
+        text-decoration: none; }
+  #item .img {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    #item .img img {
+      max-width: 100%;
+      max-height: 100%; }
+
+#listItem {
+  height: 30%; }
+  #listItem .item {
+    margin-bottom: 0; }
+  #listItem > h1 {
+    font-size: 1.7rem;
+    margin-bottom: 15px; }

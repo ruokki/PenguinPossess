@@ -19,6 +19,5 @@
     </div>
 </div>
 <?php elseif($typeView === 'print') : ?>
-<h3>Tome :</h3>
-<p><?php echo $item['item_idx_sibling']; ?> / <?php echo intval($item['item_siblings']) === 0 ? 'En cours' : $item['item_siblings']; ?></p>
+<span class="label">Tome</span><span class="value"><?php echo $item['item_idx_sibling']; ?> / <?php echo intval($item['item_siblings']) === 0 ? 'En cours' : $item['item_siblings']; ?></span>
 <?php endif; ?>

@@ -1,45 +1,93 @@
-.info {
-    width: 70%;
-    padding: 15px 30px;
+@import "../_commonVar.scss";
+
+#wrapper {
+    display: block;
+    overflow: hidden;
+}
+
+#item {
+    width: 100%;
+    height: 70%;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: stretch;
+    overflow: hidden;
     
-    > h1 {
-        font-size: 2.5rem;;
-        text-align: center;
-        margin-bottom: 25px;
-    }
-    
-    > h3 {
-        font-size: 1.7rem;
-        padding-bottom: 15px;
-    }
-    
-    > p {
-        font-size: 1.3rem;
-        padding-left: 20px;
-        margin-bottom: 15px;
-    }
-    
-    a {
-        text-decoration: underline;
+    .info {
+        width: 70%;
+        padding: 15px 30px;
         
-        &:hover {
-            text-decoration: none;
+        .category {
+            width: 100%;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            
+            .float-right {
+                a, span {
+                    margin-right: 8px;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: color $transitionTime;
+                    
+                    &:hover {
+                        color: $hoverColor;
+                    }
+                }
+            }
+        }
+
+        > h1 {
+            font-size: 2.5rem;;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .label {
+            padding-right: 7px;
+        }
+        
+        .value {
+            font-style: italic;
+        }
+
+        > p {
+            width: 100%;
+            text-align: justify;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .img {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
         }
     }
 }
 
-.img {
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#listItem {
     
-    img {
-        max-width: 100%;
-        max-height: 100%;
+    height: 30%;
+    
+    .item {
+        margin-bottom: 0;
     }
+    
+    > h1 {
+        font-size: 1.7rem;
+        margin-bottom: 15px;
+    }
+    
 }

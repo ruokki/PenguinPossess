@@ -1,6 +1,6 @@
 (jQuery)(function($){
     
-    $(".item .front").on("click", function(e){
+    $(".item .front, #item .category").on("click", function(e){
         // On veut ajouter/enlever la possession d'un objet
         if($(e.target).hasClass("possess")) {
             var $possess = $(e.target),
