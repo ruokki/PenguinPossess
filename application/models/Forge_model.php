@@ -31,6 +31,7 @@ class Forge_model extends CI_Model {
         $this->createItemTag();
         $this->createItemUser();
         $this->createBorrow();
+        $this->createToken();
         
         // On tente de les modifier ensuite
         $this->alterUser();
@@ -341,6 +342,36 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('borrow_id', TRUE);
         $this->dbforge->create_table('borrow', TRUE, $this->attributes);
+    }
+    
+    /**
+     * Création de la table Borrow
+     * Item emprunté par une personne à une autre
+     */
+    public function createToken() {
+        $fields = array(
+            'token_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
+            'user_id' => array(
+                'type' => 'INT'
+            ),
+            'token_key' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 32
+            ),
+            'token_ip' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 15
+            ),
+            'token_date_create' => array(
+                'type' => 'DATETIME'
+            ),
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('token_id', TRUE);
+        $this->dbforge->create_table('token', TRUE, $this->attributes);
     }
     
     
