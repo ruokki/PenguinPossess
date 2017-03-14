@@ -546,7 +546,7 @@ class Home extends CI_Controller {
                             'borrower_id' => $this->session->user['id'],
                             'borrow_state' => 'WA',
                             'borrow_date_create' => date('Y-m-d'),
-                            'lender_id' => ',' . $nbPossessor[0] . ','
+                            'lender_id' => ',' . $possessors[0] . ','
                         ));
                         $return = array(
                             'created' => TRUE,
