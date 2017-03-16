@@ -546,7 +546,8 @@ class Home extends CI_Controller {
                             'borrower_id' => $this->session->user['id'],
                             'borrow_state' => 'WA',
                             'borrow_date_create' => date('Y-m-d'),
-                            'lender_id' => ',' . $possessors[0] . ','
+                            'lender_id' => ',' . $possessors[0] . ',',
+                            'borrow_date_renew_asked' => '1950-01-01'
                         ));
                         $return = array(
                             'created' => TRUE,
@@ -569,7 +570,8 @@ class Home extends CI_Controller {
                     'borrower_id' => $this->session->user['id'],
                     'borrow_state' => 'WA',
                     'borrow_date_create' => date('Y-m-d'),
-                    'lender_id' => ',' . implode(',', $users) . ','
+                    'lender_id' => ',' . implode(',', $users) . ',',
+                    'borrow_date_renew_asked' => '1950-01-01'
                 ));
             }
             
