@@ -53,7 +53,7 @@ class item_model extends CI_Model {
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
                     . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon, "
                     . "C.category_name AS main_category, SC.category_name AS sub_category, GROUP_CONCAT(U.user_id) AS user_id_possess,"
-                    . "GROUP_CONCAT(CONCAT(U.user_id, '|', user_name)) AS user_possess")
+                    . "GROUP_CONCAT(CONCAT(U.user_id, '|', user_name)) AS user_possess, GROUP_CONCAT(CONCAT(U.user_id, '|', item_borrowable)) AS user_let_borrow")
                 ->from('item I')
                 ->join('category C', 'I.category_id = C.category_id', 'left')
                 ->join('category SC', 'I.subcategory_id = SC.category_id', 'left')
@@ -74,7 +74,8 @@ class item_model extends CI_Model {
     public function setItemUserLink($idItem, $idUser) {
         $this->db->insert('itemUser', array(
             'item_id' => $idItem,
-            'user_id' => $idUser
+            'user_id' => $idUser,
+            'item_borrowable' => 1
         ));
     }
     
