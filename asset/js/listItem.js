@@ -88,12 +88,43 @@
                 }
             });
         }
+        // On souhaite rendre l'item empruntable/non-empruntable
+        else if($(e.target).hasClass("letBorrow")) {
+            var $letBorrow = $(e.target),
+                cmd = $letBorrow.hasClass("icon-unlocked") ? "stopBorrow" : "letBorrow",
+                id = $letBorrow.data("id");
+                
+            $.ajax({
+                type: "POST",
+                url: siteUrl + "/home/managePossess",
+                data: {
+                    cmd: cmd,
+                    item: id
+                },
+                success: function(data){
+                    var text = "";
+                    if(cmd === "letBorrow") {
+                        text = "disponible pour un prêt";
+                        $letBorrow.removeClass("icon-lock")
+                            .addClass("icon-unlocked")
+                            .attr("title", "Prêt possible");
+                    }
+                    else if (cmd === "stopBorrow") {
+                        text = "indisponible pour un prêt";
+                        $letBorrow.removeClass("icon-unlocked")
+                            .addClass("icon-lock")
+                            .attr("title", "Prêt interdit");
+                    }
+                    showAlertBox("Item " + text, "success");
+                }
+            });
+        }
         // Si on clique ailleurs que sur un lien, on redirige vers les infos item
         else if(!$(e.target).is("a")) {
             window.location = siteUrl + "/" + $(this).data("href");
         }
     });
-    
+
     var $modalBorrow = $("#modalBorrow");
     $modalBorrow.dialog({
         title: "Demande d'emprunt",

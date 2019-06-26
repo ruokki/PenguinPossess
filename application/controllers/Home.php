@@ -563,6 +563,26 @@ class Home extends CI_Controller {
                     }
                 }
             }
+            // User autorise le prêt sur son item
+            else if($cmd === 'letBorrow') {
+                $this->Item->editItemUserLink(
+                    $id, 
+                    $this->session->user['id'],
+                    array(
+                        'item_borrowable' => 1
+                    )
+                );
+            }
+            // User refuse le prêt sur son item
+            else if($cmd === 'stopBorrow') {
+                $this->Item->editItemUserLink(
+                    $id, 
+                    $this->session->user['id'],
+                    array(
+                        'item_borrowable' => 0
+                    )
+                );
+            }
             else if ($cmd === 'createBorrow') {
                 $users = $this->input->post('users');
                 $this->Item->setBorrow(array(

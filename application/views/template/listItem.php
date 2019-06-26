@@ -35,9 +35,8 @@
                     <div class="float-right">
                         <?php if(in_array($this->session->user['id'], $possessors)) : ?>
                             <?php $letBorrow = strpos($item['user_let_borrow'], $this->session->user['id'] . '|1') !== FALSE; ?>
-                            <span class="<?php echo $letBorrow === TRUE ? 'icon-unlocked' : 'icon-lock' ?>"
+                            <span class="<?php echo $letBorrow === TRUE ? 'icon-unlocked' : 'icon-lock' ?> letBorrow"
                                    data-id="<?php echo $item['item_id']; ?>"
-                                   data-user="<?php echo $this->session->user['id']; ?>"
                                    title="<?php echo $letBorrow === TRUE ? 'Prêt possible' : 'Prêt interdit' ?>"></span>
                         <?php endif; ?>
                         <span class="<?php echo in_array($this->session->user['id'], $possessors) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess"

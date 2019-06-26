@@ -80,6 +80,18 @@ class item_model extends CI_Model {
     }
     
     /**
+     * 
+     * @param Integer $idItem
+     * @param Integer $idUser
+     * @param Array $data
+     */
+    public function editItemUserLink($idItem, $idUser, $data) {
+        $this->db->where('item_id', $idItem)
+                ->where('user_id', $idUser)
+                ->update('itemUser', $data);
+    }
+    
+    /**
      * Supprimer un lien entre un item et un utilisateur
      * @param Integer $idItem
      * @param Integer $idUser
@@ -92,7 +104,7 @@ class item_model extends CI_Model {
               ->delete('itemUser');
     }
     
-    
+
     /**
      * Ajoute une demande d'emprunt dans la base
      * @param Array $info
