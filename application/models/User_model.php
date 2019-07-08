@@ -131,7 +131,7 @@ class User_model extends CI_Model {
      * @param Integer $idUser
      */
     public function getNbBorrowNotif($idUser) {
-        return $this->db->like('lender_id', ',' . $idUser . ',', 'both')
+        return $this->db->where('lender_id', $idUser, 'both')
                 ->where('borrow_state', 'WA')
                 ->count_all_results('borrow');
     }

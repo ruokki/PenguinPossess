@@ -1,8 +1,14 @@
 <table>
+    <?php if(isset($oldLent) && $oldLent === TRUE) : ?>
+    <caption class="text-center">
+        <span class="title">Historique des prêts</span>
+    </caption>
+    <?php else : ?>
     <caption class="text-left">
         <span class="icon-info"></span>
         <span class="title">Fonctionnement des prêts</span>
     </caption>
+    <?php endif; ?>
     <thead>
         <tr>
             <th>Nom de l'item</th>
@@ -41,6 +47,8 @@
     </tbody>
 </table>
 
+<?php if(isset($oldLent) && $oldLent === TRUE) : ?>
+<?php else : ?>
 <!-- Fonctionnement des prêts -->
 <div id="modalRuleBorrow">
     <p>Les prêts fonctionnent de la façon suivante :</p>
@@ -105,3 +113,4 @@
     <p>Nouvelle date de fin : <span class="new"></span></p>
     <input type="hidden" id="idBorrowRenewAsked" name="idBorrowRenewAsked" />
 </div>
+<?php endif; ?>

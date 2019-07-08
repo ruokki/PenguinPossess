@@ -481,4 +481,30 @@ class User extends CI_Controller {
         }
     }
     
+    /**
+     * Liste des items prétés
+     */
+    public function oldLent() {
+        $this->load->model('Item_model', 'Item', TRUE);
+
+        $data = array(
+            'active' => 'oldLent',
+            'css' => array(
+                'user/listBorrowLent.css'
+            ),
+            'items' => $this->Item->getBorrow(array(
+                'where' => array(
+                    'lender_id' => $this->session->user['id'],
+                    'borrow_state' => 'GB'
+                ),
+            )),
+            'state' => $this->config->item('borrowState')['lender'],
+            'oldLent' => TRUE
+        );
+
+        $this->load->view('template/header', $data);
+        $this->load->view('user/listLend', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
 }
