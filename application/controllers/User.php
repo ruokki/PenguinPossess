@@ -288,17 +288,6 @@ class User extends CI_Controller {
             ),
             'orderBy' => 'borrow_state'
         ));
-
-        foreach($items as &$item) {
-            $lenders = substr($item['lender_id'], 1, strlen($item['lender_id']) - 2);
-            $lendersName = $this->User->getLender(explode(',', $lenders));
-            if($lendersName === FALSE) {
-                $item['lenders_name'] = '';
-            }
-            else {
-                $item['lenders_name'] = $lendersName['names'];
-            }
-        }
         
         $data = array(
             'active' => 'borrow',
@@ -333,8 +322,7 @@ class User extends CI_Controller {
                 $idBorrow = $this->input->post('idBorrow');
                 if(intval($idBorrow) > 0) {
                     $infos = array(
-                        'borrow_state' => 'TB',
-                        'lender_id' => ',' . $this->session->user['id'] . ','
+                        'borrow_state' => 'TB'
                     );
                 }
                 else {
@@ -347,7 +335,6 @@ class User extends CI_Controller {
                 if(intval($idBorrow) > 0) {
                     $infos = array(
                         'borrow_state' => 'DE',
-                        'lender_id' => ',' . $this->session->user['id'] . ',',
                         'borrow_deny' => $this->input->post('motive')
                     );
                 }
@@ -477,8 +464,8 @@ class User extends CI_Controller {
                     'user/listLent.js'
                 ),
                 'items' => $this->Item->getBorrow(array(
-                    'like' => array(
-                        'lender_id' => ',' . $this->session->user['id'] . ','
+                    'where' => array(
+                        'lender_id' => $this->session->user['id']
                     ),
                     'notIn' => array(
                         'borrow_state' => array('DE', 'GB')

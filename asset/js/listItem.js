@@ -132,17 +132,13 @@
         autoOpen: false,
         buttons: {
             Valider: function() {
-                var users = [],
-                    names = [],
-                    selected = $(this).find(".user.active"),
-                    item = selected.first().data("item");
-                $(this).find(".user.active").each(function(idx, elem){
-                    users.push($(elem).data("id"));
-                    names.push($(elem).find("p").text());
-                });
+                var $selected = $(this).find(".user.active"),
+                    item = $selected.first().data("item"),
+                    user = $selected.data("id"),
+                    name = $selected.find("p").text();
 
-                if(users.length === 0) {
-                    showAlertBox("Veuillez sélectionner l'utilisateur aurpès duquel faire la demande", "error");
+                if($selected.length === 0) {
+                    showAlertBox("Veuillez sélectionner l'utilisateur auprès duquel faire la demande", "error");
                 }
                 else {
                     $(this).dialog("close");
@@ -152,10 +148,15 @@
                         data: {
                             cmd: "createBorrow",
                             item: item,
-                            users: users
+                            user: user
                         },
                         success: function(data){
-                            showAlertBox("Demande d'emprunt effectuée auprès " + (names.length === 1 ? "de " + names.join(", ") : "des utilisateurs concernés"), "success");
+                            if(data.error === true) {
+                                showAlertBox("Une demande est déjà en cours auprès de " + name, "error");
+                            }
+                            else {
+                                showAlertBox("Demande d'emprunt effectuée auprès de " + name, "success");
+                            }
                         }
                     });
                 }

@@ -531,19 +531,37 @@ class Home extends CI_Controller {
                 
                 $nbPossessor = count($possessors);
                 if($nbPossessor === 1) {
-                    $this->Item->setBorrow(array(
-                        'item_id' => $id,
-                        'borrower_id' => $this->session->user['id'],
-                        'borrow_state' => 'WA',
-                        'borrow_date_create' => date('Y-m-d'),
-                        'lender_id' => ',' . $possessors[0] . ',',
-                        'borrow_date_renew_asked' => '1950-01-01'
+                    // On va vérifier qu'une demande n'est pas déjà en cours pour le demandeur et l'item concerné
+                    $isBorrow = $this->Item->getBorrow(array(
+                        'where' => array(
+                            'B.item_id' => $id,
+                            'borrower_id' => $this->session->user['id'],
+                            'lender_id' => $possessors[0],
+                            'borrow_state' => '!= GB'
+                        )
                     ));
 
-                    $return = array(
-                        'created' => TRUE,
-                        'possessors' => $idToName[$possessors[0]]
-                    );
+                    if(count($isBorrow) === 0) {
+                        $this->Item->setBorrow(array(
+                            'item_id' => $id,
+                            'borrower_id' => $this->session->user['id'],
+                            'borrow_state' => 'WA',
+                            'borrow_date_create' => date('Y-m-d'),
+                            'lender_id' => $possessors[0],
+                            'borrow_date_renew_asked' => '1950-01-01'
+                        ));
+
+                        $return = array(
+                            'created' => TRUE,
+                            'possessors' => $idToName[$possessors[0]]
+                        );
+                    }
+                    else {
+                        $return = array(
+                            'error' => TRUE,
+                            'text' => 'Une demande est déjà en cours pour cet item auprès de ' . $idToName[$possessors[0]]
+                        );
+                    }
                 }
                 else if($nbPossessor <= 0) {
                     $return = array(
@@ -578,16 +596,40 @@ class Home extends CI_Controller {
                     )
                 );
             }
+            // Création d'une demande après sélection du user dans la liste des possesseurs
             else if ($cmd === 'createBorrow') {
-                $users = $this->input->post('users');
-                $this->Item->setBorrow(array(
-                    'item_id' => $id,
-                    'borrower_id' => $this->session->user['id'],
-                    'borrow_state' => 'WA',
-                    'borrow_date_create' => date('Y-m-d'),
-                    'lender_id' => ',' . implode(',', $users) . ',',
-                    'borrow_date_renew_asked' => '1950-01-01'
+                $user = $this->input->post('user');
+                // On va vérifier qu'une demande n'est pas déjà en cours pour le demandeur et l'item concerné
+                $isBorrow = $this->Item->getBorrow(array(
+                    'where' => array(
+                        'B.item_id' => $id,
+                        'borrower_id' => $this->session->user['id'],
+                        'lender_id' => $user,
+                    ),
+                    'notIn' => array(
+                        'borrow_state' => 'GB'
+                    )
                 ));
+
+                if(count($isBorrow) === 0) {
+                    $this->Item->setBorrow(array(
+                        'item_id' => $id,
+                        'borrower_id' => $this->session->user['id'],
+                        'borrow_state' => 'WA',
+                        'borrow_date_create' => date('Y-m-d'),
+                        'lender_id' => $user,
+                        'borrow_date_renew_asked' => '1950-01-01'
+                    ));
+
+                    $return = array(
+                        'error' => FALSE
+                    );
+                }
+                else {
+                    $return = array(
+                        'error' => TRUE
+                    );
+                }
             }
             
             echo json_encode($return);

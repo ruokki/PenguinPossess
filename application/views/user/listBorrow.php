@@ -18,7 +18,7 @@
         <?php foreach($items as $item) : ?>
         <tr data-id="<?php echo $item['borrow_id']; ?>">
             <td><?php echo $item['item_name']; ?></td>
-            <td><?php echo $item['lenders_name']; ?></td>
+            <td><?php echo $item['lender_name']; ?></td>
             <td><?php echo date('d/m/Y', strtotime($item['borrow_date_create'])); ?></td>
             <td>
                 <?php echo $state[$item['borrow_state']]; ?>
