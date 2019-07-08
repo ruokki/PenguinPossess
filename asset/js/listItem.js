@@ -145,6 +145,7 @@
                     $.ajax({
                         type: "POST",
                         url: siteUrl + "/home/managePossess",
+                        dataType: "JSON",
                         data: {
                             cmd: "createBorrow",
                             item: item,
