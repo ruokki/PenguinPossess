@@ -494,13 +494,23 @@ class Home extends CI_Controller {
             $id = $this->input->post('item');
             $return = '';
             
-            // Ajoute la possession d'un item
-            if($cmd === 'addPossess') {
-                $this->Item->setItemUserLink($id, $this->session->user['id']);
-            }
-            // Enlève la possession d'un item
-            else if($cmd === 'delPossess') {
-                $this->Item->delItemUserLink($id, $this->session->user['id']);
+            if($cmd === 'addPossess' || $cmd === 'delPossess') {
+                // Ajoute la possession d'un item
+                if($cmd === 'addPossess') {
+                    $this->Item->setItemUserLink($id, $this->session->user['id']);
+                }
+                // Enlève la possession d'un item
+                else if($cmd === 'delPossess') {
+                    $this->Item->delItemUserLink($id, $this->session->user['id']);
+                }
+                
+                $item = $this->Item->getItem(array(
+                    'where' => array('I.item_id' => $id)
+                ));
+                
+                $return = array(
+                    'html' => $this->load->view('template/actionItem', array('item' => $item[0]), TRUE)
+                );
             }
             // Ajoute une demande d'emprunt
             else if($cmd === 'addBorrow') {
@@ -633,7 +643,7 @@ class Home extends CI_Controller {
                     );
                 }
             }
-            
+
             echo json_encode($return);
         }
     }

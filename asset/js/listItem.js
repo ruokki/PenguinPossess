@@ -14,31 +14,10 @@
                     cmd: cmd,
                     item: id
                 },
+                dataType: "JSON",
                 success: function(data){
-                    var text = "";
-                    if(cmd === "delPossess") {
-                        text = "supprimé de";
-                        $possess.removeClass("icon-checkbox-checked")
-                            .addClass("icon-checkbox-unchecked")
-                            .attr("title", "Ajouter à ma collection");
-                        $possess.prev(".edit").addClass("hidden");
-                        
-                        if(typeof(myCollection) !== "undefined" && myCollection === true) {
-                            var $item = $possess.parents(".item");
-                            $item.on("transitionend", function(){
-                                $(this).remove();
-                            });
-                            $item.addClass("deleted");
-                        }
-                    }
-                    else if (cmd === "addPossess") {
-                        text = "ajouté à";
-                        $possess.removeClass("icon-checkbox-unchecked")
-                            .addClass("icon-checkbox-checked")
-                            .attr("title", "Supprimer de ma collection");
-                        $possess.prev(".edit").removeClass("hidden");
-                    }
-                    showAlertBox("Item " + text + " votre collection", "success");
+                    $(e.target).parents(".actionItem").html(data.html);
+                    showAlertBox("Item " + (cmd === "delPossess" ? "supprimé de" : "ajouté à") + " votre collection", "success");
                 }
             });
         }
