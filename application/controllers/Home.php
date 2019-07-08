@@ -531,14 +531,14 @@ class Home extends CI_Controller {
                 
                 $nbPossessor = count($possessors);
                 if($nbPossessor === 1) {
-//                    $this->Item->setBorrow(array(
-//                        'item_id' => $id,
-//                        'borrower_id' => $this->session->user['id'],
-//                        'borrow_state' => 'WA',
-//                        'borrow_date_create' => date('Y-m-d'),
-//                        'lender_id' => ',' . $possessors[0] . ',',
-//                        'borrow_date_renew_asked' => '1950-01-01'
-//                    ));*
+                    $this->Item->setBorrow(array(
+                        'item_id' => $id,
+                        'borrower_id' => $this->session->user['id'],
+                        'borrow_state' => 'WA',
+                        'borrow_date_create' => date('Y-m-d'),
+                        'lender_id' => ',' . $possessors[0] . ',',
+                        'borrow_date_renew_asked' => '1950-01-01'
+                    ));
 
                     $return = array(
                         'created' => TRUE,
