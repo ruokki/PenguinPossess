@@ -58,14 +58,13 @@
                 dataType: "JSON",
                 success: function(data){
                     var possessors = data.possessors;
-
                     if(data.error && data.error === true) {
                         showAlertBox(data.text, "error");
                     }
                     else {
                         if(data.created === true) {
                             $possess.addClass("disabled");
-                            showAlertBox("Demande d'emprunt effectuée auprès de " + possessors[0].split("|")[1], "success");
+                            showAlertBox("Demande d'emprunt effectuée auprès de " + possessors, "success");
                         }
                         else {
                             var html = "";

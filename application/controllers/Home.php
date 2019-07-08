@@ -504,15 +504,7 @@ class Home extends CI_Controller {
             }
             // Ajoute une demande d'emprunt
             else if($cmd === 'addBorrow') {
-                // Vérifier qu'il n'existe pas une demande d'emprunt pour cet item
-                $borrowRequest= $this->Item->getBorrow(array(
-                    'where' => array(
-                        'I.item_id' => $id
-                    ),
-                    'notIn' => array(
-                        'borrow_state' => array('GB', 'DE')
-                    )
-                ));
+                // On va récupérer les possesseurs de l'item
                 $item = $this->Item->getItem(array(
                     'where' => array(
                         'I.item_id' => $id
@@ -520,47 +512,50 @@ class Home extends CI_Controller {
                 ));
                 
                 $item = $item[0];
-                $possessors = explode(',', $item['user_id_possess']);
-                $nbPossessor = count($possessors);
-                $nbRequest = count($borrowRequest);
+                $possessorLetBorrow = explode(',', $item['user_let_borrow']);
+
+                // On va regarder combien autorise le prêt de leur item
+                $tmp = array();
+                $possessors = array();
+                $idToName = array();
+                $listPossessors = array();
                 
-                // Si il y a autant de requêtes que de possesseurs, on ne peut pas effectuer la demande
-                if($nbRequest >= $nbPossessor) {
-                    $isMe = FALSE;
-                    foreach($borrowRequest as $request) {
-                        if(intval($request['borrower_id']) === intval($this->session->user['id'])) {
-                            $isMe = true;
-                            break;
-                        }
+                for($i = 0, $len = count($possessorLetBorrow); $i < $len; $i++) {
+                    $tmp = explode('|', $possessorLetBorrow[$i]);
+                    if(intval($tmp[1]) === 1) {
+                        array_push($possessors, $tmp[0]);
+                        array_push($listPossessors, $tmp[0] . '|' . $tmp[2]);
                     }
-                    
+                    $idToName[$tmp[0]] = $tmp[2];
+                }
+                
+                $nbPossessor = count($possessors);
+                if($nbPossessor === 1) {
+//                    $this->Item->setBorrow(array(
+//                        'item_id' => $id,
+//                        'borrower_id' => $this->session->user['id'],
+//                        'borrow_state' => 'WA',
+//                        'borrow_date_create' => date('Y-m-d'),
+//                        'lender_id' => ',' . $possessors[0] . ',',
+//                        'borrow_date_renew_asked' => '1950-01-01'
+//                    ));*
+
+                    $return = array(
+                        'created' => TRUE,
+                        'possessors' => $idToName[$possessors[0]]
+                    );
+                }
+                else if($nbPossessor <= 0) {
                     $return = array(
                         'error' => TRUE,
-                        'text' => $isMe ? 'Une demande de prêt est en cours sur cet item' : "Aucun item n'est disponible pour le prêt"
+                        'text' => "Aucun item n'est disponible pour le prêt"
                     );
                 }
                 else {
-                    if($nbPossessor === 1) {
-                        $this->Item->setBorrow(array(
-                            'item_id' => $id,
-                            'borrower_id' => $this->session->user['id'],
-                            'borrow_state' => 'WA',
-                            'borrow_date_create' => date('Y-m-d'),
-                            'lender_id' => ',' . $possessors[0] . ',',
-                            'borrow_date_renew_asked' => '1950-01-01'
-                        ));
-                        $return = array(
-                            'created' => TRUE,
-                            'possessors' => array($item['user_possess'])
-                        );
-                    }
-                    else {
-                        $possessors = explode(',', $item['user_possess']);
-                        $return = array(
-                            'created' => FALSE,
-                            'possessors' => $possessors
-                        );
-                    }
+                    $return = array(
+                        'created' => FALSE,
+                        'possessors' => $listPossessors
+                    );
                 }
             }
             // User autorise le prêt sur son item
