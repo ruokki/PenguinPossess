@@ -497,6 +497,7 @@ class User extends CI_Controller {
                     'lender_id' => $this->session->user['id'],
                     'borrow_state' => 'GB'
                 ),
+                'orderBy' => 'borrow_date_create DESC'
             )),
             'state' => $this->config->item('borrowState')['lender'],
             'oldLent' => TRUE
