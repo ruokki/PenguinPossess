@@ -537,7 +537,9 @@ class Home extends CI_Controller {
                             'B.item_id' => $id,
                             'borrower_id' => $this->session->user['id'],
                             'lender_id' => $possessors[0],
-                            'borrow_state' => '!= GB'
+                        ),
+                        'notIn' => array(
+                            'borrow_state' => 'GB'
                         )
                     ));
 
