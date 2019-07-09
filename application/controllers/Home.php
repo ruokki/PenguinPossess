@@ -296,22 +296,77 @@ class Home extends CI_Controller {
     public function index() {
         $this->load->model('Item_model', 'Item', TRUE);
         
+        // Récupération des stats pour l'affichage par sous catégorie
+        $subStats = $this->Item->getNbItemByCategory($this->session->user['id'], TRUE);
+        $processedStats = array();
+        foreach($subStats as $one) {
+            if(!isset($proccessedStats[$one['parent_id']])) {
+                $proccessedStats[$one['parent_id']] = array(
+                    'name' => $one['parent_name'],
+                    'total' => 0,
+                    'sub' => array()
+                );
+            }
+            
+            $proccessedStats[$one['parent_id']]['total'] += intval($one['nb_item']);
+            array_push($proccessedStats[$one['parent_id']]['sub'], array(
+                'name' => $one['category_name'],
+                'nb' => $one['nb_item']
+            ));
+        }
+        
+        // Récupération des stats pour le chart
+        $stats = $this->Item->getNbItemByCategory($this->session->user['id']);
+        $labels = array();
+        $dataStat = array();
+        foreach($stats as $one) {
+            array_push($labels, $one['category_name']);
+            array_push($dataStat, $one['nb_item']);
+        }
+        
         $data = array(
             'active' => 'home',
             'items' => $this->Item->getItem(array(
-                'limit' => 500,
+                'limit' => 10,
                 'orderBy' => 'item_date_create DESC'
             )),
+            'lends' => $this->Item->getBorrow(array(
+                'where' => array(
+                    'lender_id' => $this->session->user['id'],
+                    'borrow_state' => 'WA'
+                ),
+                'orderBy' => 'borrow_date_create DESC',
+                'limit' => 8
+            )),
+            'borrows' => $this->Item->getBorrow(array(
+                'where' => array(
+                    'borrower_id' => $this->session->user['id'],
+                ),
+                'notIn' => array(
+                    'borrow_state' => array(
+                        'GB'
+                    )
+                ),
+                'orderBy' => 'borrow_date_end',
+                'limit' => 8
+            )),
+            'dataJS' => array(
+                'labels' => $labels,
+                'data' => $dataStat,
+                'all' => $proccessedStats
+            ),
             'css' => array(
-                'listItem.css'
+                'listItem.css',
+                'home/home.css',
             ),
             'js' => array(
-                'listItem.js'
+                'listItem.js',
+                'home/home.js',
             )
         );
 
         $this->load->view('template/header', $data);
-        $this->load->view('template/listItem', $data);
+        $this->load->view('home/home', $data);
         $this->load->view('template/footer', $data);
     }
     

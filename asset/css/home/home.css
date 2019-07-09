@@ -1,0 +1,62 @@
+#wrapper {
+  flex-direction: column; }
+
+#me h1, #lastItems h1 {
+  font-size: 1vw; }
+
+#me {
+  flex: 2;
+  display: flex; }
+  #me > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid white; }
+    #me > div:last-of-type {
+      border-right: 0; }
+    #me > div > div {
+      flex: 1; }
+    #me > div #canvasWrapper {
+      position: relative; }
+    #me > div #textStat {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      font-size: 1.2vw; }
+      #me > div #textStat .row {
+        display: flex; }
+        #me > div #textStat .row .column {
+          flex: 1; }
+      #me > div #textStat p, #me > div #textStat li {
+        position: relative; }
+        #me > div #textStat p span, #me > div #textStat li span {
+          position: absolute;
+          right: 4%; }
+      #me > div #textStat p {
+        font-weight: bold; }
+      #me > div #textStat ul {
+        padding-left: 6%; }
+    #me > div .borrow, #me > div .lend {
+      display: flex; }
+      #me > div .borrow > div, #me > div .lend > div {
+        flex: 1;
+        padding: 6px; }
+  #me #lendBorrow {
+    flex: 1.5; }
+  #me h1 {
+    text-align: center;
+    padding-bottom: 7px;
+    border-bottom: 1px solid white; }
+
+#lastItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 7px;
+  border-top: 1px solid white; }
+  #lastItems h1 {
+    padding: 8px 5px; }
+  #lastItems > div {
+    flex: 1;
+    height: 100px;
+    overflow: auto; }

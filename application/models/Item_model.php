@@ -67,6 +67,35 @@ class item_model extends CI_Model {
     }
     
     /**
+     * Récupère le nombre d'élément par catégorie ou sous catégorie
+     * @param Integer $idUser
+     * @param Boolean $sub
+     * @return Array
+     */
+    public function getNbItemByCategory($idUser, $sub = FALSE) {
+        if($sub === TRUE) {
+            $this->db->select('C.category_name, CP.category_name AS parent_name, CP.category_id AS parent_id')
+                    ->join('category C', 'C.category_id = I.subcategory_id')
+                    ->join('category CP', 'C.category_parent_id = CP.category_id')
+                    ->group_by('subcategory_id');
+        }
+        else {
+            $this->db->select('category_name')
+                    ->join('category C', 'C.category_id = I.category_id')
+                    ->group_by('I.category_id');
+        }
+        
+        // WHERE user_id = 1 group by I.category_id
+        return $this->db->select('COUNT(I.item_id) AS nb_item')
+                ->from('item I')
+                ->join('itemuser IU', 'IU.item_id = I.item_id')
+                ->where('user_id', $idUser)
+                ->get()->result_array();
+                
+                
+    }
+    
+    /**
      * Établit un lien entre un item et un utilisateur
      * @param Integer $idItem
      * @param Integer $idUser
@@ -151,7 +180,7 @@ class item_model extends CI_Model {
             $this->db->order_by($cond['orderBy']);
         }
         
-        return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_date_end, borrow_date_begin, '
+        return $this->db->select('borrow_id, item_name, borrow_date_create, borrow_date_end, borrow_date_begin, borrow_length, '
                 . 'borrow_state, lender_id, U2.user_name AS lender_name, borrower_id, U.user_name AS borrower_name, borrow_date_renew_asked')
                 ->from('borrow B')
                 ->join('item I', 'B.item_id = I.item_id', 'left')

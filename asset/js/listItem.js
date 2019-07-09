@@ -14,10 +14,31 @@
                     cmd: cmd,
                     item: id
                 },
-                dataType: "JSON",
                 success: function(data){
-                    $(e.target).parents(".actionItem").html(data.html);
-                    showAlertBox("Item " + (cmd === "delPossess" ? "supprimé de" : "ajouté à") + " votre collection", "success");
+                    var text = "";
+                    if(cmd === "delPossess") {
+                        text = "supprimé de";
+                        $possess.removeClass("icon-checkbox-checked")
+                            .addClass("icon-checkbox-unchecked")
+                            .attr("title", "Ajouter à ma collection");
+                        $possess.prev(".edit").addClass("hidden");
+                        
+                        if(typeof(myCollection) !== "undefined" && myCollection === true) {
+                            var $item = $possess.parents(".item");
+                            $item.on("transitionend", function(){
+                                $(this).remove();
+                            });
+                            $item.addClass("deleted");
+                        }
+                    }
+                    else if (cmd === "addPossess") {
+                        text = "ajouté à";
+                        $possess.removeClass("icon-checkbox-unchecked")
+                            .addClass("icon-checkbox-checked")
+                            .attr("title", "Supprimer de ma collection");
+                        $possess.prev(".edit").removeClass("hidden");
+                    }
+                    showAlertBox("Item " + text + " votre collection", "success");
                 }
             });
         }
@@ -37,13 +58,14 @@
                 dataType: "JSON",
                 success: function(data){
                     var possessors = data.possessors;
+
                     if(data.error && data.error === true) {
                         showAlertBox(data.text, "error");
                     }
                     else {
                         if(data.created === true) {
                             $possess.addClass("disabled");
-                            showAlertBox("Demande d'emprunt effectuée auprès de " + possessors, "success");
+                            showAlertBox("Demande d'emprunt effectuée auprès de " + possessors[0].split("|")[1], "success");
                         }
                         else {
                             var html = "";
@@ -66,43 +88,12 @@
                 }
             });
         }
-        // On souhaite rendre l'item empruntable/non-empruntable
-        else if($(e.target).hasClass("letBorrow")) {
-            var $letBorrow = $(e.target),
-                cmd = $letBorrow.hasClass("icon-unlocked") ? "stopBorrow" : "letBorrow",
-                id = $letBorrow.data("id");
-                
-            $.ajax({
-                type: "POST",
-                url: siteUrl + "/home/managePossess",
-                data: {
-                    cmd: cmd,
-                    item: id
-                },
-                success: function(data){
-                    var text = "";
-                    if(cmd === "letBorrow") {
-                        text = "disponible pour un prêt";
-                        $letBorrow.removeClass("icon-lock")
-                            .addClass("icon-unlocked")
-                            .attr("title", "Prêt possible");
-                    }
-                    else if (cmd === "stopBorrow") {
-                        text = "indisponible pour un prêt";
-                        $letBorrow.removeClass("icon-unlocked")
-                            .addClass("icon-lock")
-                            .attr("title", "Prêt interdit");
-                    }
-                    showAlertBox("Item " + text, "success");
-                }
-            });
-        }
         // Si on clique ailleurs que sur un lien, on redirige vers les infos item
         else if(!$(e.target).is("a")) {
             window.location = siteUrl + "/" + $(this).data("href");
         }
     });
-
+    
     var $modalBorrow = $("#modalBorrow");
     $modalBorrow.dialog({
         title: "Demande d'emprunt",
@@ -111,32 +102,30 @@
         autoOpen: false,
         buttons: {
             Valider: function() {
-                var $selected = $(this).find(".user.active"),
-                    item = $selected.first().data("item"),
-                    user = $selected.data("id"),
-                    name = $selected.find("p").text();
+                var users = [],
+                    names = [],
+                    selected = $(this).find(".user.active"),
+                    item = selected.first().data("item");
+                $(this).find(".user.active").each(function(idx, elem){
+                    users.push($(elem).data("id"));
+                    names.push($(elem).find("p").text());
+                });
 
-                if($selected.length === 0) {
-                    showAlertBox("Veuillez sélectionner l'utilisateur auprès duquel faire la demande", "error");
+                if(users.length === 0) {
+                    showAlertBox("Veuillez sélectionner l'utilisateur aurpès duquel faire la demande", "error");
                 }
                 else {
                     $(this).dialog("close");
                     $.ajax({
                         type: "POST",
                         url: siteUrl + "/home/managePossess",
-                        dataType: "JSON",
                         data: {
                             cmd: "createBorrow",
                             item: item,
-                            user: user
+                            users: users
                         },
                         success: function(data){
-                            if(data.error === true) {
-                                showAlertBox("Une demande est déjà en cours auprès de " + name, "error");
-                            }
-                            else {
-                                showAlertBox("Demande d'emprunt effectuée auprès de " + name, "success");
-                            }
+                            showAlertBox("Demande d'emprunt effectuée auprès " + (names.length === 1 ? "de " + names.join(", ") : "des utilisateurs concernés"), "success");
                         }
                     });
                 }
