@@ -31,7 +31,7 @@
         position: relative; }
         #me > div #textStat p span, #me > div #textStat li span {
           position: absolute;
-          right: 4%; }
+          right: 8%; }
       #me > div #textStat p {
         font-weight: bold; }
       #me > div #textStat ul {
