@@ -1,9 +1,5 @@
 (jQuery)(function($){
     
-    var currentMenu = $("#mainMenu .active").text();
-    
-    $("#currenttMenu").text(currentMenu);
-    
     // Gestion des sous-menus
     $("#mainMenu .menu > a").on("click", function(e){
         if($(this).siblings(".submenu").length !== 0) {
@@ -31,4 +27,9 @@
             $(this).remove();
         });
     });
+    
+    var $currentMenu = $("#mainMenu .active");
+    if($currentMenu.parent().hasClass("submenu")) {
+        $currentMenu.parents(".menu").find("a").click();
+    }
 });
