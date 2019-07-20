@@ -1,49 +1,52 @@
 #wrapper {
-    display: block;
-    
-    h1, h2 { 
-        width: 100%;
-        margin-bottom: 20px;
-    }
+    display: flex;
+    flex-direction: column;
     
     h1 {
-        font-size: 25px;
-        text-transform: uppercase;
-        font-weight: bold;
+        font-size: 2vw;
     }
     
     h2 {
-        color: red;
+        font-size: 1.5vw;
     }
     
-    [name*='track'] {
-        margin-bottom: 15px;
-    }
-    
-    #imgInput {
-        margin-top: 1.8rem;
+    #stepWrapper {
+        position: relative;
+        flex: 1;
         
-        label {
-            font-size: 1.6rem;
-        }
-    }
-    
-    .track {
-        margin-top: 0;
-    }
-    
-    #buttonWrapper {
-        margin-top: 1.8rem;
-        
-        button {
+        .step {
+            height: 100%;
             width: 100%;
+            position: absolute;
+            top: 0;
+            left: 150%;
+            transition: left .35s, right .35s;
         }
     }
     
-    #manageTrack button {
-        padding: 5px;
-    }
     
+    #step1, #step2 {
+        display: flex;
+        flex-direction: column;
+        
+        > div {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-evenly;
+            
+            > div {
+                cursor: pointer;
+                font-size: 2vw;
+                
+                .icon  {
+                    margin-bottom: 3vh;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+        
     .floatingLabel {
         input, select, textarea {
             
@@ -57,9 +60,4 @@
         }
     }
     
-    #imgContainer {
-        img {
-            max-height: 200px;
-        }
-    }
 }
