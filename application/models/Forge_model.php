@@ -27,6 +27,7 @@ class Forge_model extends CI_Model {
         $this->createRole();
         $this->createCategory();
         $this->createItem();
+        $this->createCollection();
         $this->createTag();
         $this->createItemTag();
         $this->createItemUser();
@@ -232,6 +233,29 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('item_id', TRUE);
         $created = $this->dbforge->create_table('item', TRUE, $this->attributes);
+    }
+    
+    /**
+     * Création de la table Collection
+     */
+    public function createCollection() {
+        $fields = array(
+            'collection_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
+            'collection_name' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255'
+            ),
+            'collection_length' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '4'
+            ),
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('collection_id', TRUE);
+        $created = $this->dbforge->create_table('collection', TRUE, $this->attributes);
     }
     
     /**
