@@ -1,4 +1,7 @@
 <h1 class="text-center">Création d'un item</h1>
+<?php if(isset($errors)) : ?>
+<?php $this->view('template/form_errors'); ?>
+<?php endif; ?>
 <h2 id="breadcrumb"></h2>
 <form name="manageItem" enctype="multipart/form-data" method="POST" action=""  id="stepWrapper">
     <div id="step1" class="step">
@@ -22,7 +25,11 @@
         <h2>Veuillez remplir les infos item</h2>
         <div>
             <div id="imgContainer" class="col-xs-12">
+                <?php if($entry !== FALSE && isset($entry['item_img'])) : ?>
+                <img src="<?php echo base_url('asset/userfile/img/' . $entry['category_id'] . '/' . $entry['subcategory_id'] . '/' . $entry['item_img']) ?>" title="<?php echo $entry['item_name']; ?>" />
+                <?php else : ?>
                 <img src="" />
+                <?php endif; ?>
             </div>
             <div id="imgInput" class="col-xs-12">
                 <div class="row">
@@ -40,14 +47,32 @@
             </div>
             <div class="col-xs-12">
                 <div class="floatingLabel">
-                    <input type="text" name="item_name" id="nameItem" maxlength="255" <?php echo isset($item) ? 'value="' . $item['item_name'] . '"' : ''; ?> />
+                    <input type="text" name="item_name" id="nameItem" maxlength="255" <?php echo $entry !== FALSE ? 'value="' . $entry['item_name'] . '"' : ''; ?> />
                     <label for="nameItem">Nom</label>
                 </div>
             </div>
+            <?php if($entry !== FALSE) : ?>
+                <?php $this->load->view('template/complInfo/' . formatCatName($entry['sub_category']), array('item' => $entry)); ?>
+            <?php endif; ?>
         </div>
         <button type="submit">Terminer</button>
     </div>
     
     <input type="hidden" id="categoryId" name="category_id" />
     <input type="hidden" id="subCategoryId" name="subcategory_id" />
+    <input type="hidden" id="subCategoryName" name="sub_category" />
 </form>
+
+<script>
+<?php if(isset($result['error']) && $result['error'] === TRUE) : ?>
+    var alert = "Erreur lors de l'enregistrement";
+    var type = "error";
+<?php elseif(isset($result['success']) && $result['success'] === TRUE) : ?>
+    var alert = "Item créé avec succès";
+    var type = "success";
+<?php else : ?>
+    var alert = null;
+    var type = "default";
+<?php endif; ?>
+    var entry = <?php echo json_encode($entry); ?>
+</script>

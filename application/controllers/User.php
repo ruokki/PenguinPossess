@@ -97,6 +97,7 @@ class User extends CI_Controller {
                 'typeView' => 'form',
                 'maxWidthImg' => 1260,
                 'maxHeightImg' => 1260,
+                'entry' => FALSE
             );
             
             // Enregistrement de l'item
@@ -125,6 +126,7 @@ class User extends CI_Controller {
                 
                 if($this->form_validation->run() === FALSE) {
                     $data['errors'] = $this->form_validation->error_array();
+                    $data['entry'] = $this->input->post();
                 }
                 else {
                     $this->Common->startTransaction();
@@ -132,12 +134,15 @@ class User extends CI_Controller {
                     $item = $this->input->post();
                     $oldItem = array();
                     $isNew = FALSE;
-var_dump($item)                    ;
-exit();
+
                     // Gestion des pistes pour un album
                     if(isset($item['track'])) {
                         $item['item_tracklist'] = implode('|', $item['track']);
                         unset($item['track']);
+                    }
+                    
+                    if(isset($item['sub_category'])) {
+                        unset($item['sub_category']);
                     }
 
                     // Gestion de l'id
@@ -225,31 +230,31 @@ exit();
                 }
             }
             
-            if($id !== 0) {
-                $item = $this->Item->getItem(array(
-                    'where' => array(
-                        'I.item_id' => $id
-                    )
-                ));
-                
-                if(count($item) > 0) {
-                    $data['item'] = $item[0];
-                    $data['subCategories'] = $this->Category->getCategory($data['item']['category_id']);
-                    
-                    $userPossess = explode(',', $data['item']['user_id_possess']);
-                    if(!in_array($this->session->user['id'] . '', $userPossess)) {
-                        redirect('home/index');
-                    }
-                    else {
-                        if(count($userPossess) > 1) {
-                            $data['multiUser'] = true;
-                        }
-                    }
-                }
-                else {
-                    
-                }
-            }
+//            if($id !== 0) {
+//                $item = $this->Item->getItem(array(
+//                    'where' => array(
+//                        'I.item_id' => $id
+//                    )
+//                ));
+//                
+//                if(count($item) > 0) {
+//                    $data['item'] = $item[0];
+//                    $data['subCategories'] = $this->Category->getCategory($data['item']['category_id']);
+//                    
+//                    $userPossess = explode(',', $data['item']['user_id_possess']);
+//                    if(!in_array($this->session->user['id'] . '', $userPossess)) {
+//                        redirect('home/index');
+//                    }
+//                    else {
+//                        if(count($userPossess) > 1) {
+//                            $data['multiUser'] = true;
+//                        }
+//                    }
+//                }
+//                else {
+//                    
+//                }
+//            }
             
             $this->load->view('template/header', $data);
             $this->load->view('user/manageItem', $data);

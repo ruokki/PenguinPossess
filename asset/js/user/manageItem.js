@@ -38,6 +38,7 @@
             if($target.parents(".category").length > 0) {
                 $target = $target.parents(".category");
                 $("#subCategoryId").val($target.data("id"));
+                $("#subCategoryName").val($target.find("p").text());
                 $.ajax({
                     url: siteUrl + "/user/manageItem",
                     type: "POST",
@@ -114,7 +115,12 @@
         
     });
     
-    changeStep("first");
+    if(entry === false) {
+        changeStep("first");
+    }
+    else {
+        changeStep("goTo", 3);
+    }
     
     // Gestion de la prévisualisation de l'image
     var reader = new FileReader();
@@ -153,5 +159,8 @@
             }
         }
     });
-    
+   
+    if(alert !== null) {
+        showAlertBox(alert, type);
+    }
 });
