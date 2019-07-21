@@ -10,10 +10,17 @@
     <hr />
     <div class="menuList">
         <h3>Mon compte</h3>
-        <a href="<?php echo site_url('user/index'); ?>" <?php if($active === 'user') { echo 'class="active"'; } ?>>
-            <span class="icon-database"></span>
-            Ma collection
-        </a>
+        <div class="menu">
+            <a href="<?php echo site_url('user/index'); ?>">
+                <span class="icon-database"></span>
+                Ma collection
+            </a>
+            <div class="submenu">
+                <a href="<?php echo site_url('user/index'); ?>" <?php if($active === 'user') { echo 'class="active"'; } ?>>Mes items</a>
+                <a href="<?php echo site_url('user/manageItem'); ?>" <?php if($active === 'createItem') { echo 'class="active"'; } ?>>Créer un item</a>
+                <a href="<?php echo site_url('user/manageCollection'); ?>" <?php if($active === 'createCollec') { echo 'class="active"'; } ?>>Créer un collection</a>
+            </div>
+        </div>
         <a href="" class="disabled">
             <span class="icon-heart"></span>
             Ma wishlist
