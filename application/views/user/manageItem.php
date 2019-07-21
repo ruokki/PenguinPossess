@@ -58,9 +58,9 @@
         <button type="submit">Terminer</button>
     </div>
     
-    <input type="hidden" id="categoryId" name="category_id" />
-    <input type="hidden" id="subCategoryId" name="subcategory_id" />
-    <input type="hidden" id="subCategoryName" name="sub_category" />
+    <input type="hidden" id="categoryId" name="category_id"  <?php echo $entry !== FALSE ? 'value="' . $entry['category_id'] . '"' : ''; ?> />
+    <input type="hidden" id="subCategoryId" name="subcategory_id" <?php echo $entry !== FALSE ? 'value="' . $entry['subcategory_id'] . '"' : ''; ?> />
+    <input type="hidden" id="subCategoryName" name="sub_category" <?php echo $entry !== FALSE ? 'value="' . $entry['sub_category'] . '"' : ''; ?> />
 </form>
 
 <script>
