@@ -39,3 +39,10 @@ $config['borrowState'] = array(
 
 // Heures durant laquel le token de nouveau mot de passe est valide
 $config['newPassValidateTime'] = 2;
+
+// Catégories gérées comme des collections
+$config['collectionCategories'] = array(
+    'comics',
+    'manga',
+    'bd'
+);

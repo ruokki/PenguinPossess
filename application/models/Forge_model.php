@@ -180,6 +180,9 @@ class Forge_model extends CI_Model {
             'subcategory_id' => array(
                 'type' => 'INT'
             ),
+            'collection_id' => array(
+                'type' => 'INT',
+            ),
             'item_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255'
