@@ -10,6 +10,10 @@
         font-size: 1.5vw;
     }
     
+    > h1, > h2 {
+        padding: .5rem 0;
+    }
+    
     #stepWrapper {
         position: relative;
         flex: 1;
@@ -23,7 +27,6 @@
             transition: left .35s, right .35s;
         }
     }
-    
     
     #step1, #step2 {
         display: flex;
@@ -51,6 +54,24 @@
         > button {
             margin-top: 1.8rem;
             margin-left: .5rem;
+        }
+    }
+    
+    #breadcrumb {
+        
+        span {
+            cursor: pointer;
+            
+            &::after {
+                content: ">";
+                padding: 0 .5vw;
+            }
+            
+            &:last-child {
+                &::after {
+                    display: none;
+                }
+            }
         }
     }
         

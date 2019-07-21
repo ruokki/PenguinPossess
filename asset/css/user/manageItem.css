@@ -5,6 +5,8 @@
     font-size: 2vw; }
   #wrapper h2 {
     font-size: 1.5vw; }
+  #wrapper > h1, #wrapper > h2 {
+    padding: .5rem 0; }
   #wrapper #stepWrapper {
     position: relative;
     flex: 1; }
@@ -32,6 +34,13 @@
   #wrapper #step3 > button {
     margin-top: 1.8rem;
     margin-left: .5rem; }
+  #wrapper #breadcrumb span {
+    cursor: pointer; }
+    #wrapper #breadcrumb span::after {
+      content: ">";
+      padding: 0 .5vw; }
+    #wrapper #breadcrumb span:last-child::after {
+      display: none; }
   #wrapper .floatingLabel input + label, #wrapper .floatingLabel select + label, #wrapper .floatingLabel textarea + label {
     color: black; }
   #wrapper .floatingLabel input:focus + label, #wrapper .floatingLabel input.filled + label, #wrapper .floatingLabel select:focus + label, #wrapper .floatingLabel select.filled + label, #wrapper .floatingLabel textarea:focus + label, #wrapper .floatingLabel textarea.filled + label {

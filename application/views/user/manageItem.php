@@ -1,4 +1,5 @@
 <h1 class="text-center">Création d'un item</h1>
+<h2 id="breadcrumb"></h2>
 <form name="manageItem" enctype="multipart/form-data" method="POST" action=""  id="stepWrapper">
     <div id="step1" class="step">
         <h2>Veuillez choisir une catégorie</h2>
