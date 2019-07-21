@@ -70,13 +70,6 @@ class User extends CI_Controller {
             if($cmd === 'getSub') {
                 $return = $this->Category->getCategory($this->input->post('category'));
                 $isCollection = $this->config->item('collectionCategories');
-                
-                foreach($return as &$one) {
-                    $one['is_collection'] = FALSE;
-                    if(in_array(strtolower($one['category_name']), $isCollection)) {
-                        $one['is_collection'] = TRUE;
-                    }
-                }
             }
             else if ($cmd === 'getCompl') {
                 $category = $this->input->post('category');
@@ -93,7 +86,7 @@ class User extends CI_Controller {
             $data = array(
                 'categories' => $this->Category->getCategory(),
                 'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',
-                'active' => 'user',
+                'active' => 'createItem',
                 'cmd' => $cmd,
                 'css' => array(
                     'user/manageItem.css'
