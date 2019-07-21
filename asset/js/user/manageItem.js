@@ -63,7 +63,7 @@
      * @param String cmd
      */
     var step = 1;
-    function changeStep(cmd) {
+    function changeStep(cmd, myStep = false) {
         if(cmd === "next") {
             step++;
         }
@@ -72,6 +72,10 @@
         }
         if(cmd === "first") {
             step = 1;
+        }
+        else if(cmd === "goTo") {
+            $("#step" + step).css("left", "-150%");
+            step = myStep;
         }
 
         $("#step" + step).css("left", "0");
@@ -93,13 +97,22 @@
                 "Informations"
             ],
             html = "";
-        console.log()
         for(var i = 0; i < step; i++) {
-            html += "<span>" + labelStep[i] + "</span>";
+            html += '<span data-step="' + (i + 1) + '">' + labelStep[i] + "</span>";
         }
         
         $("#breadcrumb").html(html);
     }
+    
+    $("#breadcrumb").on("click", function(e){
+        var $target = $(e.target),
+            toStep = $target.data("step");
+            
+        if(toStep !== step) {
+            changeStep("goTo", toStep);
+        }
+        
+    });
     
     changeStep("first");
     
