@@ -252,6 +252,25 @@ class Forge_model extends CI_Model {
                 'type' => 'VARCHAR',
                 'constraint' => '4'
             ),
+            'collection_date_create' => array(
+                'type' => 'DATETIME'
+            ),
+            'collection_creator' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ),
+            'collection_editor' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ),
+            'collection_release' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '4'
+            ),
+            'collection_universe' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('collection_id', TRUE);
