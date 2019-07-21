@@ -18,7 +18,14 @@
     <div id="step2" class="step">
         <h2>Veuillez choisir une sous-catégorie</h2>
         <div>
-            
+            <?php if(isset($subCategories)) : ?>
+            <?php foreach($subCategories as $one) : ?>
+            <div class="category text-center" data-id="<?php echo $one['category_id']; ?>">
+                <span class="icon icon-<?php echo $one['category_icon']; ?>"></span>
+                <p><?php echo $one['category_name'] ?></p>
+            </div>
+            <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
     <div id="step3" class="step">

@@ -229,6 +229,9 @@ class User extends CI_Controller {
                 }
             }
             
+            if($data['entry'] !== FALSE) {
+                $data['subCategories'] = $this->Category->getCategory($data['entry']['category_id']);
+            }
 //            if($id !== 0) {
 //                $item = $this->Item->getItem(array(
 //                    'where' => array(
