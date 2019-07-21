@@ -49,6 +49,7 @@
                     dataType: "JSON",
                     success: function(data) {
                         changeStep("next");
+                        $("#step3 > div > *:not(.dontRemove)").remove();
                         $("#step3 > div").append(data.html);
                         setFloatingLabel();
                     }
