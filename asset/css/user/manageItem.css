@@ -29,6 +29,9 @@
         #wrapper #step1 > div > div .icon, #wrapper #step2 > div > div .icon {
           margin-bottom: 3vh;
           display: inline-block; }
+  #wrapper #step3 > button {
+    margin-top: 1.8rem;
+    margin-left: .5rem; }
   #wrapper .floatingLabel input + label, #wrapper .floatingLabel select + label, #wrapper .floatingLabel textarea + label {
     color: black; }
   #wrapper .floatingLabel input:focus + label, #wrapper .floatingLabel input.filled + label, #wrapper .floatingLabel select:focus + label, #wrapper .floatingLabel select.filled + label, #wrapper .floatingLabel textarea:focus + label, #wrapper .floatingLabel textarea.filled + label {
