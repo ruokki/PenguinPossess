@@ -108,7 +108,7 @@
         var $target = $(e.target),
             toStep = $target.data("step");
             
-        if(toStep !== step) {
+        if(toStep !== undefined && toStep !== step) {
             changeStep("goTo", toStep);
         }
         
