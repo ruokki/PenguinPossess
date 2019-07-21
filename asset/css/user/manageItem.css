@@ -47,12 +47,9 @@
     color: white; }
   #wrapper #imgContainer img {
     max-height: 200px; }
-  #wrapper #gotVolume {
+  #wrapper .attention {
     margin-top: 1.8rem;
-    font-size: 1.6rem; }
-    #wrapper #gotVolume input {
-      width: auto; }
-    #wrapper #gotVolume label {
-      padding-right: .8vw; }
-    #wrapper #gotVolume #allTomes {
-      margin-bottom: .8vw; }
+    color: red;
+    font-size: 1.6vw; }
+    #wrapper .attention a {
+      text-decoration: underline; }

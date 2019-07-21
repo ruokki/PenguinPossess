@@ -94,20 +94,13 @@
         }
     }
     
-    #gotVolume {
+    .attention {
         margin-top: 1.8rem;
-        font-size: 1.6rem;
+        color: red;
+        font-size: 1.6vw;
         
-        input {
-            width: auto;
-        }
-        
-        label {
-            padding-right: .8vw;
-        }
-        
-        #allTomes {
-            margin-bottom: .8vw;
+        a {
+            text-decoration: underline;
         }
     }
     
