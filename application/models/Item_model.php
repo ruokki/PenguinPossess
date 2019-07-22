@@ -49,7 +49,7 @@ class item_model extends CI_Model {
             $this->db->order_by($cond['orderBy']);
         }
         
-        return $this->db->select("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript,"
+        $toReturn = $this->db->select("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript, I.collection_id, "
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
                     . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon, "
                     . "C.category_name AS main_category, SC.category_name AS sub_category, GROUP_CONCAT(U.user_id) AS user_id_possess,"
@@ -64,6 +64,40 @@ class item_model extends CI_Model {
                     . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon,"
                     . "C.category_name, SC.category_name")
                 ->get()->result_array();
+        
+        foreach($toReturn as &$one) {
+            if(intval($one['collection_id']) > 0) {
+                $collec = $this->getCollection($one['collection_id']);
+                if($collec !== FALSE) {
+                    $one['item_name'] = $collec['collection_name'] . ' T' . $one['item_idx_sibling'];
+                    $one['item_creator'] = $collec['collection_creator'];
+                    $one['item_editor'] = $collec['collection_editor'];
+                    $one['item_release'] = $collec['collection_release'];
+                    $one['item_universe'] = $collec['collection_universe'];
+                }
+            }
+        }
+        
+        return $toReturn;
+    }
+    
+    /**
+     * Récupération des infos d'une collection
+     * @param type $id
+     * @return Array
+     */
+    public function getCollection($id) {
+        $query = $this->db->select('*')
+                ->from('collection')
+                ->where('collection_id', $id)
+                ->get()->result_array();
+        
+        if(count($query) > 0) {
+            return $query[0];
+        }
+        else {
+            return FALSE;
+        }
     }
     
     /**
