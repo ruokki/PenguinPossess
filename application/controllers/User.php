@@ -351,14 +351,16 @@ class User extends CI_Controller {
                         $idCollection = $this->Collection->setCollection($collection);
                         $item['collection_id'] = $idCollection;
                         $item['item_date_create'] = date('Y-m-d H:i:s');
+                        $idItem = 0;
                         foreach($tomes as $nbTome => $checked) {
                             if($checked === 'on') {
                                 $item['item_idx_sibling'] = $nbTome;
-                                $this->Item->setItem($item, 0);
+                                $idItem = $this->Item->setItem($item, 0);
+                                $this->Item->setItemUserLink($idItem, $this->session->user['id']);
                             }
                         }
                         $this->Common->completeTransaction();
-                    } 
+                    }
                     catch (Exception $ex) {
                         $this->Common->rollbackTransaction();
                     }
