@@ -31,6 +31,7 @@
     <div id="step3" class="step">
         <h2>Veuillez remplir les infos item</h2>
         <div>
+            <?php if(!(isset($isCollec) && $isCollec === TRUE)) : ?>
             <div id="imgContainer" class="col-xs-12 dontRemove">
                 <?php if($entry !== FALSE && isset($entry['item_img'])) : ?>
                 <img src="<?php echo base_url('asset/userfile/img/' . $entry['category_id'] . '/' . $entry['subcategory_id'] . '/' . $entry['item_img']) ?>" title="<?php echo $entry['item_name']; ?>" />
@@ -52,6 +53,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
             <div class="col-xs-12 dontRemove">
                 <div class="floatingLabel">
                     <input type="text" name="item_name" id="nameItem" maxlength="255" <?php echo $entry !== FALSE ? 'value="' . $entry['item_name'] . '"' : ''; ?> />
@@ -81,5 +83,6 @@
     var alert = null;
     var type = "default";
 <?php endif; ?>
-    var entry = <?php echo json_encode($entry); ?>
+    var entry = <?php echo json_encode($entry); ?>;
+    var isCollec = <?php echo isset($isCollec) ? json_encode($isCollec) : 'false' ?>;
 </script>

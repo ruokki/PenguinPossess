@@ -104,4 +104,21 @@
         }
     }
     
+    #gotVolume {
+        margin-top: 1.8rem;
+        font-size: 1.6rem;
+        
+        input {
+            width: auto;
+        }
+        
+        label {
+            padding-right: .8vw;
+        }
+        
+        #allTomes {
+            margin-bottom: .8vw;
+        }
+    }
+    
 }

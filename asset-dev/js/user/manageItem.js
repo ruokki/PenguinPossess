@@ -41,7 +41,7 @@
                 $("#subCategoryId").val($target.data("id"));
                 $("#subCategoryName").val($target.find("p").text());
                 $.ajax({
-                    url: siteUrl + "/user/manageItem",
+                    url: siteUrl + "/user/" + (isCollec === true ? "manageCollection" : "manageItem"),
                     type: "POST",
                     data: {
                         cmd: "getCompl",
@@ -53,6 +53,8 @@
                         $("#step3 > div > *:not(.dontRemove)").remove();
                         $("#step3 > div").append(data.html);
                         setFloatingLabel();
+                        
+                        $gotVolume = $("#gotVolume");
                     }
                 });
             }
@@ -113,6 +115,39 @@
             changeStep("goTo", toStep);
         }
         
+    });
+    
+    // Gestion du champ des volumes d'une collection
+    $("body").on("change", function(e){
+        var $target = $(e.target);
+        if($target.is("#totalCollection") && $gotVolume !== undefined) {
+            var nbTome = parseInt($target.val()),
+                html = '<label for="allTomes"><input type="checkbox" checked="checked" id="allTomes" /> Tous les tomes</label><br />';
+            
+            if(nbTome > 0) {
+                for(var i = 1; i <= nbTome; i++) {
+                    html += '<label for="tome' + i + '"><input type="checkbox" id="tome' + i + '" name="collection[got_tome][' + i + ']" checked="checked" /> Tome ' + i + '</label>';
+                }
+                $gotVolume.find("div").html(html);
+                $gotVolume.show();
+                
+            }
+            else {
+                $gotVolume.hide();
+            }
+        }
+    })
+    // Gestion du clic sur "Tous les tomes"
+    .on("click", function(e){
+        var $target = $(e.target);
+        if($target.is("#allTomes")) {
+            if($target.is(":checked")) {
+                $gotVolume.find("[id*='tome']").attr("checked", "checked");
+            }
+            else {
+                $gotVolume.find("[id*='tome']").removeAttr("checked");
+            }
+        }
     });
     
     // Si on a eu une erreur lors de la création, on va directement à l'étape 3, sinon on va à l'étape 1

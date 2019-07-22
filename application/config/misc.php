@@ -42,6 +42,7 @@ $config['newPassValidateTime'] = 2;
 
 // Catégories gérées comme des collections
 $config['collectionCategories'] = array(
+    'livre',
     'comics',
     'manga',
     'bd'

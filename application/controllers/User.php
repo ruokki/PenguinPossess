@@ -129,101 +129,105 @@ class User extends CI_Controller {
                 }
                 else {
                     $this->Common->startTransaction();
-                    
-                    $item = $this->input->post();             
-                    // Gestion des pistes pour un album
-                    if(isset($item['track'])) {
-                        $item['item_tracklist'] = implode('|', $item['track']);
-                        unset($item['track']);
+                    try {
+                        $item = $this->input->post();
+                        // Gestion des pistes pour un album
+                        if(isset($item['track'])) {
+                            $item['item_tracklist'] = implode('|', $item['track']);
+                            unset($item['track']);
+                        }
+
+                        // Suppression clé uniquement pour la vue
+                        if(isset($item['sub_category'])) {
+                            unset($item['sub_category']);
+                        }
+
+                        // Gestion de l'id
+                        $idItem = 0;
+                        // Date création
+                        $item['item_date_create'] = date('Y-m-d H:i:s');
+                        $userPossess = array($this->session->user['id']);
+
+                        // Gestion de l'upload de l'image
+                        $config = array();
+                        $this->load->library('upload', $config);
+
+                        $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
+                        $config['allowed_types']        = 'gif|jpg|png';
+                        $config['max_size']             = 2048;
+                        $config['max_width']            = $data['maxWidthImg'];
+                        $config['max_height']           = $data['maxHeightImg'];
+                        $config['file_ext_tolower']     = TRUE;
+                        $config['file_name']            = uniqid($this->session->user['id'] . '_');
+
+                        $this->upload->initialize($config);
+                        // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
+                        // et on attend la validation par un admin
+    //                    if(count($userPossess) > 1) {
+    //                        $this->load->helper('file');
+    //                        $validateFolder = $this->config->item('validateFolder');
+    //
+    //                        if(!is_dir($validateFolder['root'] . '/' . $validateFolder['img'])) {
+    //                            mkdir($validateFolder['root'] . '/' . $validateFolder['img'], 0777, TRUE);
+    //                        }
+    //                        $config['upload_path'] = $validateFolder['root'] . '/' . $validateFolder['img'];
+    //                        $this->upload->initialize($config);
+    //                        $this->upload->do_upload('item_img');
+    //
+    //                        write_file($validateFolder['root'] . '/pendingEdit', serialize($item) . '##', 'a');
+    //                    }
+    //                    else {
+
+                        // On tente d'insérer le produit
+                        if($idItem === 0) {
+                            $item['item_img'] = '';
+                        }
+                        $idItem = $this->Item->setItem($item, $idItem);
+
+                        // Si l'insertion se fait, on finit l'upload du fichier
+                        if(!is_dir($config['upload_path'])) {
+                            mkdir($config['upload_path'], 0777, TRUE);
+                        }
+
+                        // On upload l'image
+                        if ($this->upload->do_upload('item_img')) {
+                            $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+                            $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                            $this->Common->completeTransaction();
+                            $data['result'] = array('success' => TRUE);
+                        }
+                        else {
+                            $data['result'] = array('error' => TRUE);
+                            $data['errors'] = array($this->upload->display_errors());
+                            $this->Common->rollbackTransaction();
+                            $data['entry'] = $this->input->post();
+                        }
+    //                    // Si on est en modif, l'image n'est pas obligatoire
+    //                    $oldItem = array();
+    //                    else {
+    //                        if (empty($_FILES['item_img']['name'])) {
+    //                            $data['result'] = array('success' => TRUE);
+    //                        }
+    //                        else {
+    //                            if ($this->upload->do_upload('item_img')) {
+    //                                if (isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
+    //                                    unlink($config['upload_path'] . '/' . $oldItem['item_img']);
+    //                                }
+    //                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
+    //                            }
+    //                            else {
+    //                                $data['result'] = array('error' => TRUE);
+    //                                $data['errors'] = array($this->upload->display_errors());
+    //                            }
+    //                        }
+    //                        // Dans tout les cas, on enregistre les modifications qui ont été faites
+    //                        $this->Common->completeTransaction();
+    //                    }
+    //                    }
                     }
-
-                    // Suppression clé uniquement pour la vue
-                    if(isset($item['sub_category'])) {
-                        unset($item['sub_category']);
-                    }
-
-                    // Gestion de l'id
-                    $idItem = 0;
-                    // Date création
-                    $item['item_date_create'] = date('Y-m-d H:i:s');
-                    $userPossess = array($this->session->user['id']);
-
-                    // Gestion de l'upload de l'image
-                    $config = array();
-                    $this->load->library('upload', $config);
-
-                    $config['upload_path']          = './asset/userfile/img/' . $item['category_id'] . '/' . $item['subcategory_id'];
-                    $config['allowed_types']        = 'gif|jpg|png';
-                    $config['max_size']             = 2048;
-                    $config['max_width']            = $data['maxWidthImg'];
-                    $config['max_height']           = $data['maxHeightImg'];
-                    $config['file_ext_tolower']     = TRUE;
-                    $config['file_name']            = uniqid($this->session->user['id'] . '_');
-
-                    $this->upload->initialize($config);
-                    // Si plusieurs utilisateurs possèdent l'item, on bloque l'édition 
-                    // et on attend la validation par un admin
-//                    if(count($userPossess) > 1) {
-//                        $this->load->helper('file');
-//                        $validateFolder = $this->config->item('validateFolder');
-//
-//                        if(!is_dir($validateFolder['root'] . '/' . $validateFolder['img'])) {
-//                            mkdir($validateFolder['root'] . '/' . $validateFolder['img'], 0777, TRUE);
-//                        }
-//                        $config['upload_path'] = $validateFolder['root'] . '/' . $validateFolder['img'];
-//                        $this->upload->initialize($config);
-//                        $this->upload->do_upload('item_img');
-//
-//                        write_file($validateFolder['root'] . '/pendingEdit', serialize($item) . '##', 'a');
-//                    }
-//                    else {
-
-                    // On tente d'insérer le produit
-                    if($idItem === 0) {
-                        $item['item_img'] = '';
-                    }
-                    $idItem = $this->Item->setItem($item, $idItem);
-
-                    // Si l'insertion se fait, on finit l'upload du fichier
-                    if(!is_dir($config['upload_path'])) {
-                        mkdir($config['upload_path'], 0777, TRUE);
-                    }
-
-                    // On upload l'image
-                    if ($this->upload->do_upload('item_img')) {
-                        $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-                        $this->Item->setItemUserLink($idItem, $this->session->user['id']);
-                        $this->Common->completeTransaction();
-                        $data['result'] = array('success' => TRUE);
-                    }
-                    else {
-                        $data['result'] = array('error' => TRUE);
-                        $data['errors'] = array($this->upload->display_errors());
+                    catch (Exception $ex) {
                         $this->Common->rollbackTransaction();
-                        $data['entry'] = $this->input->post();
                     }
-//                    // Si on est en modif, l'image n'est pas obligatoire
-//                    $oldItem = array();
-//                    else {
-//                        if (empty($_FILES['item_img']['name'])) {
-//                            $data['result'] = array('success' => TRUE);
-//                        }
-//                        else {
-//                            if ($this->upload->do_upload('item_img')) {
-//                                if (isset($oldItem['item_img']) && trim($oldItem['item_img']) !== '') {
-//                                    unlink($config['upload_path'] . '/' . $oldItem['item_img']);
-//                                }
-//                                $idItem = $this->Item->setItem(array('item_img' => $this->upload->data('file_name')), $idItem);
-//                            }
-//                            else {
-//                                $data['result'] = array('error' => TRUE);
-//                                $data['errors'] = array($this->upload->display_errors());
-//                            }
-//                        }
-//                        // Dans tout les cas, on enregistre les modifications qui ont été faites
-//                        $this->Common->completeTransaction();
-//                    }
-//                    }
                 }
             }
             
@@ -266,33 +270,133 @@ class User extends CI_Controller {
      * Création d'une collection
      */
     public function manageCollection() {
-        // On est en création d'une collection
-//        if(isset($item['collection'])) {
-//            $this->load->model('Collection_model', 'Collection', TRUE);
-//
-//            // Date création
-////                        $userPossess = array($this->session->user['id']);
-//            $collection = $item['collection'];
-//            $collection['collection_date_create'] = date('Y-m-d H:i:s');
-//            $collection['collection_name'] = $item['item_name'];
-//            $tomes = $collection['got_tome'];
-//
-//            // Suppression des clés inutiles
-//            unset($item['collection']);
-//            unset($collection['got_tome']);
-//            unset($item['sub_category']);
-//
-//            $idCollection = $this->Collection->setCollection($collection);
-//            $item['collection_id'] = $idCollection;
-//            $item['item_date_create'] = date('Y-m-d H:i:s');
-//            foreach($tomes as $nbTome => $checked) {
-//                if($checked === 'on') {
-//                    $item['item_idx_sibling'] = $nbTome;
-//                    $this->Item->setItem($item, 0);
-//                }
-//            }
-//            $this->Common->completeTransaction();
-//        }
+        $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Collection_model', 'Collection', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
+        $this->load->model('Common_model', 'Common', TRUE);
+        $this->load->helper('formatcatname');
+        
+        if($this->input->is_ajax_request()) {
+            $cmd = $this->input->post('cmd');
+            $return = array();
+            
+            if($cmd === 'getSub') {
+                $categories = $this->Category->getCategory($this->input->post('category'));
+                $isCollection = $this->config->item('collectionCategories');
+                
+                $return = array();
+                foreach($categories as $one) {
+                    if(in_array(strtolower($one['category_name']), $isCollection)) {
+                        array_push($return, $one);
+                    }
+                }
+            }
+            else if ($cmd === 'getCompl') {
+                $category = $this->input->post('category');
+                $return['html'] = '';
+                
+                $return['html'] = $this->load->view('template/complInfo/' . formatCatName($category) . 'Collec', array(
+                    'typeView' => 'form'
+                ), TRUE);
+            }
+            
+            echo json_encode($return);
+        }
+        else {
+            if($this->input->post()) {
+                $this->load->library('form_validation');
+                
+                $config = array(
+                    array(
+                        'field' => 'item_name',
+                        'label' => 'Nom',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'category_id',
+                        'label' => 'Catégorie',
+                        'rules' => 'required'
+                    ),
+                    array(
+                        'field' => 'subcategory_id',
+                        'label' => 'Sous-catégorie',
+                        'rules' => 'required'
+                    ),
+                );
+                
+                $this->form_validation->set_rules($config);
+                if($this->form_validation->run() === FALSE) {
+                    $data['errors'] = $this->form_validation->error_array();
+                    $data['entry'] = $this->input->post();
+                }
+                else {
+                    $item = $this->input->post();
+                    
+                    $this->Common->startTransaction();
+                    $this->load->model('Collection_model', 'Collection', TRUE);
+                    
+                    try {
+                        // Date création
+                        $userPossess = array($this->session->user['id']);
+                        $collection = $item['collection'];
+                        $collection['collection_date_create'] = date('Y-m-d H:i:s');
+                        $collection['collection_name'] = $item['item_name'];
+                        $tomes = $collection['got_tome'];
+
+                        // Suppression des clés inutiles
+                        unset($item['collection']);
+                        unset($collection['got_tome']);
+                        unset($item['sub_category']);
+
+                        $idCollection = $this->Collection->setCollection($collection);
+                        $item['collection_id'] = $idCollection;
+                        $item['item_date_create'] = date('Y-m-d H:i:s');
+                        foreach($tomes as $nbTome => $checked) {
+                            if($checked === 'on') {
+                                $item['item_idx_sibling'] = $nbTome;
+                                $this->Item->setItem($item, 0);
+                            }
+                        }
+                        $this->Common->completeTransaction();
+                    } 
+                    catch (Exception $ex) {
+                        $this->Common->rollbackTransaction();
+                    }
+                }
+            }
+            
+            $categories = $this->Category->getCategory($this->input->post('category'));
+            $isCollection = $this->config->item('collectionCategories');
+
+            $availableCategories = array();
+            foreach($categories as $one) {
+                if(in_array(strtolower($one['category_name']), $isCollection)) {
+                    array_push($availableCategories, $one);
+                }
+            }
+            
+            $data = array(
+                'categories' => $availableCategories,
+                'title' => 'Création item',
+                'active' => 'createCollec',
+                'css' => array(
+                    'user/manageItem.css'
+                ),
+                'js' => array(
+                    'user/manageItem.js'
+                ),
+                'result' => array(),
+                'typeView' => 'form',
+                'maxWidthImg' => 1260,
+                'maxHeightImg' => 1260,
+                'entry' => FALSE,
+                'isCollec' => TRUE
+            );
+
+            $this->load->view('template/header', $data);
+            $this->load->view('user/manageItem', $data);
+            $this->load->view('template/footer', $data);
+        }
     }
     
     /**

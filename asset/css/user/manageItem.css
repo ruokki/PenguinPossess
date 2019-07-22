@@ -53,3 +53,12 @@
     font-size: 1.6vw; }
     #wrapper .attention a {
       text-decoration: underline; }
+  #wrapper #gotVolume {
+    margin-top: 1.8rem;
+    font-size: 1.6rem; }
+    #wrapper #gotVolume input {
+      width: auto; }
+    #wrapper #gotVolume label {
+      padding-right: .8vw; }
+    #wrapper #gotVolume #allTomes {
+      margin-bottom: .8vw; }
