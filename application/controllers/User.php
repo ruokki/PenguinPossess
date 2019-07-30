@@ -54,7 +54,7 @@ class User extends CI_Controller {
     /**
      * Création d'un item
      */
-    public function manageItem($cmd = 'create', $id = 0) {
+    public function manageItem($type = 'item', $id = 0) {
         $this->load->model('Category_model', 'Category', TRUE);
         $this->load->model('Item_model', 'Item', TRUE);
         $this->load->model('Common_model', 'Common', TRUE);
@@ -82,9 +82,8 @@ class User extends CI_Controller {
         else {
             $data = array(
                 'categories' => $this->Category->getCategory(),
-                'title' => ($cmd === 'create' ? 'Création' : 'Modification') .  ' item',
+                'title' => "Création d'un item",
                 'active' => 'createItem',
-                'cmd' => $cmd,
                 'css' => array(
                     'user/manageItem.css'
                 ),
@@ -182,6 +181,7 @@ class User extends CI_Controller {
                             $item['item_img'] = '';
                         }
                         $idItem = $this->Item->setItem($item, $idItem);
+                        $this->Item->setItemUserLink($idItem, $this->session->user['id']);
 
                         // Si l'insertion se fait, on finit l'upload du fichier
                         if(!is_dir($config['upload_path'])) {
