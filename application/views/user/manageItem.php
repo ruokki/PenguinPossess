@@ -1,4 +1,11 @@
-<h1 class="text-center">Création d'un item <?php echo $type === 'wish' ? 'désiré' : 'possédé' ?></h1>
+<h1 class="text-center">
+    Création 
+    <?php if(isset($isCollec) && $isCollec === TRUE) : ?>
+    d'une collection d'items <?php echo $type === 'wish' ? 'désirés' : 'possédés' ?>
+    <?php else : ?>
+     d'un item <?php echo $type === 'wish' ? 'désiré' : 'possédé' ?>
+    <?php endif; ?>
+</h1>
 <?php if(isset($errors)) : ?>
 <?php $this->view('template/form_errors'); ?>
 <?php endif; ?>
@@ -85,4 +92,5 @@
 <?php endif; ?>
     var entry = <?php echo json_encode($entry); ?>;
     var isCollec = <?php echo isset($isCollec) ? json_encode($isCollec) : 'false' ?>;
+    var typeItem = <?php echo isset($type) ? json_encode($type) : ''; ?>;
 </script>

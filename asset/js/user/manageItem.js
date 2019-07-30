@@ -30,7 +30,7 @@
             }
         });
     });
-    
+
     // Gestion de l'étape 2 (Choix de la sous catégorie)
     $("#step2").on("click", function(e) {
         var $target = $(e.target);
@@ -53,8 +53,13 @@
                         $("#step3 > div > *:not(.dontRemove)").remove();
                         $("#step3 > div").append(data.html);
                         setFloatingLabel();
-                        
-                        $gotVolume = $("#gotVolume");
+
+                        if(typeItem === "wish") {
+                            $("#gotVolume").remove();
+                        }
+                        else {
+                            $gotVolume = $("#gotVolume");
+                        }
                     }
                 });
             }

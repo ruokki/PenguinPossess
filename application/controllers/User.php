@@ -275,7 +275,7 @@ class User extends CI_Controller {
     /**
      * Création d'une collection
      */
-    public function manageCollection($cmd = 'create') {
+    public function manageCollection($type = 'item') {
         $this->load->model('Item_model', 'Item', TRUE);
         $this->load->model('Collection_model', 'Collection', TRUE);
         $this->load->model('Category_model', 'Category', TRUE);
@@ -347,7 +347,7 @@ class User extends CI_Controller {
                         $collection = $item['collection'];
                         $collection['collection_date_create'] = date('Y-m-d H:i:s');
                         $collection['collection_name'] = $item['item_name'];
-                        $tomes = $collection['got_tome'];
+                        $tomes = isset($collection['got_tome']) ? $collection['got_tome'] : array();
 
                         // Suppression des clés inutiles
                         unset($item['collection']);
@@ -358,11 +358,20 @@ class User extends CI_Controller {
                         $item['collection_id'] = $idCollection;
                         $item['item_date_create'] = date('Y-m-d H:i:s');
                         $idItem = 0;
-                        foreach($tomes as $nbTome => $checked) {
-                            if($checked === 'on') {
-                                $item['item_idx_sibling'] = $nbTome;
-                                $idItem = $this->Item->setItem($item, 0);
-                                $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                        if($type === 'wish') {
+                            for($i = 0; $i < $collection['collection_length']; $i++) {
+                                $item['item_idx_sibling'] = $i;
+                                $idItem = $this->Item->setItem($item, 0);                                
+                                $this->Item->setItemUserWish($idItem, $this->session->user['id']);
+                            }
+                        }
+                        else {
+                            foreach($tomes as $nbTome => $checked) {
+                                if($checked === 'on') {
+                                    $item['item_idx_sibling'] = $nbTome;
+                                    $idItem = $this->Item->setItem($item, 0);                                
+                                    $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                                }
                             }
                         }
                         $this->Common->completeTransaction();
@@ -385,7 +394,8 @@ class User extends CI_Controller {
             
             $data = array(
                 'categories' => $availableCategories,
-                'title' => 'Création item',
+                'title' => "Création d'une collection",
+                'type' => $type,
                 'active' => 'createCollec',
                 'css' => array(
                     'user/manageItem.css'

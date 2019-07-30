@@ -14,7 +14,7 @@ $config['validateFolder'] = array(
 );
 
 // Version de l'application
-$config['version'] = '0.2';
+$config['version'] = '0.3';
 
 // État des demandes d'emprunt (lisible pour l'homme) en fonction du type
 // de l'utilisateur (emprunteur ou prêteur)
