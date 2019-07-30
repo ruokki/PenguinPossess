@@ -145,7 +145,7 @@ class item_model extends CI_Model {
     }
     
     /**
-     * Établit un lien entre un item et un utilisateur
+     * Établit un lien de possession entre un item et un utilisateur
      * @param Integer $idItem
      * @param Integer $idUser
      */
@@ -180,6 +180,31 @@ class item_model extends CI_Model {
                     'user_id' => $idUser
                 ))
               ->delete('itemUser');
+    }
+    
+    /**
+     * Établit un lien de désir entre un item et un utilisateur
+     * @param Integer $idItem
+     * @param Integer $idUser
+     */
+    public function setItemUserWish($idItem, $idUser) {
+        $this->db->insert('wish', array(
+            'item_id' => $idItem,
+            'user_id' => $idUser
+        ));
+    }
+    
+    /**
+     * Établit un lien de désir entre un item et un utilisateur
+     * @param Integer $idItem
+     * @param Integer $idUser
+     */
+    public function delItemUserWish($idItem, $idUser) {
+        $this->db->where(array(
+                    'item_id' => $idItem,
+                    'user_id' => $idUser
+                ))
+              ->delete('wish');
     }
     
 

@@ -84,6 +84,7 @@ class User extends CI_Controller {
                 'categories' => $this->Category->getCategory(),
                 'title' => "Création d'un item",
                 'active' => 'createItem',
+                'type' => $type,
                 'css' => array(
                     'user/manageItem.css'
                 ),
@@ -181,7 +182,13 @@ class User extends CI_Controller {
                             $item['item_img'] = '';
                         }
                         $idItem = $this->Item->setItem($item, $idItem);
-                        $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                        
+                        if($type === 'wish') {
+                            $this->Item->setItemUserWish($idItem, $this->session->user['id']);
+                        }
+                        else {
+                            $this->Item->setItemUserLink($idItem, $this->session->user['id']);
+                        }
 
                         // Si l'insertion se fait, on finit l'upload du fichier
                         if(!is_dir($config['upload_path'])) {

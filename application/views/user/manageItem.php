@@ -1,4 +1,4 @@
-<h1 class="text-center">Création d'un item</h1>
+<h1 class="text-center">Création d'un item <?php echo $type === 'wish' ? 'désiré' : 'possédé' ?></h1>
 <?php if(isset($errors)) : ?>
 <?php $this->view('template/form_errors'); ?>
 <?php endif; ?>
