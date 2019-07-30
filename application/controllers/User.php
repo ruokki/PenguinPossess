@@ -641,8 +641,7 @@ class User extends CI_Controller {
     }
     
     /**
-     * Page d'accueil "Mon compte"
-     *  - Ajout d'un produit
+     * Page d'accueil de la partie wishlist "Ma wishlist"
      */
     public function wishlist() {
         $this->load->model('Item_model', 'Item', TRUE);

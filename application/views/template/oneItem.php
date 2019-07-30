@@ -1,4 +1,4 @@
-<?php $possessors = $item['user_id_possess'] === NULL ? array() : explode(',', $item['user_id_possess']); ?>
+<?php $possessors = !isset($item['user_id_possess']) || $item['user_id_possess'] === NULL ? array() : explode(',', $item['user_id_possess']); ?>
 <?php if(count($possessors) > 0) : ?>
 <div class="item">
     <div class="background">

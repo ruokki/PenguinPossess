@@ -106,10 +106,21 @@ class item_model extends CI_Model {
      * @return Array
      */
     public function getWishlist($idUser) {
-        $query = $this->db->select('*')
+        $query = $this->db->select("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript, I.collection_id, "
+                    . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
+                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon, "
+                    . "C.category_name AS main_category, SC.category_name AS sub_category, GROUP_CONCAT(U.user_id) AS user_id_possess,"
+                    . "GROUP_CONCAT(CONCAT(U.user_id, '|', user_name)) AS user_possess")
                 ->from('item I')
+                ->join('category C', 'I.category_id = C.category_id', 'left')
+                ->join('category SC', 'I.subcategory_id = SC.category_id', 'left')
                 ->join('wish W', 'I.item_id = W.item_id')
-                ->where('user_id', $idUser)
+                ->join('user U', 'U.user_id = W.user_id', 'left')
+                ->group_by("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript,"
+                    . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
+                    . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon,"
+                    . "C.category_name, SC.category_name")
+                ->where('W.user_id', $idUser)
                 ->get()->result_array();
         
         return $query;

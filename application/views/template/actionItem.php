@@ -4,10 +4,12 @@
     title="Modifier">
     <span class="icon-pencil"></span>
 </a>
+<?php if(isset($item['user_let_borrow'])) : ?>
 <?php $letBorrow = strpos($item['user_let_borrow'], $this->session->user['id'] . '|1') !== FALSE; ?>
 <span class="<?php echo $letBorrow === TRUE ? 'icon-unlocked' : 'icon-lock' ?> letBorrow <?php echo in_array($this->session->user['id'], $possessors) ? '' : 'hidden'; ?>"
        data-id="<?php echo $item['item_id']; ?>"
        title="<?php echo $letBorrow === TRUE ? 'Prêt possible' : 'Prêt interdit' ?>"></span>
+<?php endif; ?>
 <span class="<?php echo in_array($this->session->user['id'], $possessors) ? 'icon-checkbox-checked' : 'icon-checkbox-unchecked' ?> possess"
         data-id="<?php echo $item['item_id']; ?>"
         title="<?php echo in_array($this->session->user['id'], $possessors) ? 'Supprimer de ma collection' : 'Ajouter à ma collection' ?>"></span>
