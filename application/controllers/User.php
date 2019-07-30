@@ -24,7 +24,6 @@ class User extends CI_Controller {
     
     /**
      * Page d'accueil "Mon compte"
-     *  - Ajout d'un produit
      */
     public function index() {
         $this->load->model('Item_model', 'Item', TRUE);
@@ -269,7 +268,7 @@ class User extends CI_Controller {
     /**
      * Création d'une collection
      */
-    public function manageCollection() {
+    public function manageCollection($cmd = 'create') {
         $this->load->model('Item_model', 'Item', TRUE);
         $this->load->model('Collection_model', 'Collection', TRUE);
         $this->load->model('Category_model', 'Category', TRUE);
@@ -631,6 +630,31 @@ class User extends CI_Controller {
 
         $this->load->view('template/header', $data);
         $this->load->view('user/listLend', $data);
+        $this->load->view('template/footer', $data);
+    }
+    
+    /**
+     * Page d'accueil "Mon compte"
+     *  - Ajout d'un produit
+     */
+    public function wishlist() {
+        $this->load->model('Item_model', 'Item', TRUE);
+        
+        $data = array(
+            'title' => 'Ma wishlist',
+            'active' => 'wishlist',
+            'css' => array(
+                'listItem.css',
+                'user/index.css'
+            ),
+            'js' => array(
+                'listItem.js'
+            ),
+            'items' => $this->Item->getWishlist($this->session->user['id'])
+        );
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('user/index', $data);
         $this->load->view('template/footer', $data);
     }
     

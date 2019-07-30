@@ -21,10 +21,17 @@
                 <a href="<?php echo site_url('user/manageCollection'); ?>" <?php if($active === 'createCollec') { echo 'class="active"'; } ?>>Créer un collection</a>
             </div>
         </div>
-        <a href="" class="disabled">
-            <span class="icon-heart"></span>
-            Ma wishlist
-        </a>
+        <div class="menu">
+            <a href="<?php echo site_url('user/index'); ?>">
+                <span class="icon-heart"></span>
+                Ma wishlist
+            </a>
+            <div class="submenu">
+                <a href="<?php echo site_url('user/wishlist'); ?>" <?php if($active === 'wishlist') { echo 'class="active"'; } ?>>Ma wishlist</a>
+                <a href="<?php echo site_url('user/manageItem/wish'); ?>" <?php if($active === 'createWish') { echo 'class="active"'; } ?>>Ajouter un item</a>
+                <a href="<?php echo site_url('user/manageCollection/wish'); ?>" <?php if($active === 'collecWish') { echo 'class="active"'; } ?>>Ajouter une collection</a>
+            </div>
+        </div>
         <?php echo getNotification($this->session->user['id']); ?>
         <?php if($this->session->user['role'] === $this->config->item('admin_id')) : ?>
             <a href="<?php echo site_url('admin/index'); ?>" <?php if($active === 'admin') { echo 'class="active"'; } ?>>

@@ -101,6 +101,21 @@ class item_model extends CI_Model {
     }
     
     /**
+     * Récupération de l'ensemble des items de la wishlist d'un user
+     * @param type $id
+     * @return Array
+     */
+    public function getWishlist($idUser) {
+        $query = $this->db->select('*')
+                ->from('item I')
+                ->join('wish W', 'I.item_id = W.item_id')
+                ->where('user_id', $idUser)
+                ->get()->result_array();
+        
+        return $query;
+    }
+    
+    /**
      * Récupère le nombre d'élément par catégorie ou sous catégorie
      * @param Integer $idUser
      * @param Boolean $sub
