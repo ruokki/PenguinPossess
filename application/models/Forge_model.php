@@ -33,6 +33,7 @@ class Forge_model extends CI_Model {
         $this->createItemUser();
         $this->createBorrow();
         $this->createToken();
+        $this->createWish();
         
         // On tente de les modifier ensuite
         $this->alterUser();
@@ -391,8 +392,8 @@ class Forge_model extends CI_Model {
     }
     
     /**
-     * Création de la table Borrow
-     * Item emprunté par une personne à une autre
+     * Création de la table Token
+     * Token pour la modification de mot de passe
      */
     public function createToken() {
         $fields = array(
@@ -418,6 +419,29 @@ class Forge_model extends CI_Model {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('token_id', TRUE);
         $this->dbforge->create_table('token', TRUE, $this->attributes);
+    }
+    
+        
+    /**
+     * Création de la table Wish
+     * Item que voudrait posséder un User
+     */
+    public function createWish() {
+        $fields = array(
+            'wish_id' => array(
+                'type' => 'INT',
+                'auto_increment' => TRUE
+            ),
+            'user_id' => array(
+                'type' => 'INT'
+            ),
+            'item_id' => array(
+                'type' => 'INT',
+            ),
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('wish_id', TRUE);
+        $this->dbforge->create_table('wish', TRUE, $this->attributes);
     }
     
     
