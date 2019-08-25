@@ -1,5 +1,23 @@
 (jQuery)(function($){
     
+    $("#filters").on("change", function(){
+        var filters = {};
+        $(this).find(":input").each(function(idx, elem) {
+            filters[$(elem).attr("name")] = $(elem).val();
+        });
+        
+        $.ajax({
+            url: siteUrl + "/home/filterItems",
+            type: "POST",
+            data: {
+              filters: filters  
+            },
+            success: function(data) {
+                $(".listItem, #listItem").html(data);
+            }
+        });
+    });
+    
     $(".item .front, #item .category").on("click", function(e){
         // On veut ajouter/enlever la possession d'un objet
         if($(e.target).hasClass("possess")) {

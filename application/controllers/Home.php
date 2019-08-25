@@ -702,6 +702,46 @@ class Home extends CI_Controller {
             echo json_encode($return);
         }
     }
+    
+    /**
+     * Retourne la liste des éléments concordant avec les filtres demandés
+     */
+    public function filterItems() {
+        if($this->input->is_ajax_request()) {
+            
+            $filters = $this->input->post('filters');
+            $items = array();
+            
+            if($filters['type'] === 'item') {
+                $this->load->model('Item_model', 'Item', TRUE);
+                $where = array();
+                
+                if(isset($filters['category']) && $filters['category'] !== 'all') {
+                    $where['I.category_id'] = $filters['category'];
+                }
+                
+                if(isset($filters['subcategory']) && $filters['subcategory'] !== 'all') {
+                    $where['I.subcategory_id'] = $filters['subcategory'];
+                }
+                
+                if(isset($filters['user'])) {
+                    $where['U.user_id'] = $filters['user'];
+                }
+                
+                if(count($where) > 0) {
+                    $items = $this->Item->getItem(array(
+                        'where' => $where,
+                        'orderBy' => 'item_date_create DESC'
+                    ));
+                }
+            }
+            else if($filters['type'] === 'collec') {
+                
+            }
+            
+            echo $this->load->view('template/listItem', array('items' => $items, 'noModal' => TRUE), TRUE);
+        }
+    }
 
     /**
      * Créer la base de données
@@ -717,5 +757,5 @@ class Home extends CI_Controller {
     public function logout() {
         $this->session->sess_destroy();
         redirect('home/login');
-    }    
+    }
 }

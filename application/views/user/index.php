@@ -1,14 +1,14 @@
 <div id="actions">
     <div id="filters" class="float-left">
         <div class="floatingLabel">
-            <select id="filterType">
+            <select id="filterType" name="type">
                 <option value="item">Mes items</option>
                 <option value="collec">Mes collections</option>
             </select>
             <label for="filterType">Type</label>
         </div>
         <div class="floatingLabel">
-            <select id="filterCateg">
+            <select id="filterCateg" name="category">
                 <option disabled="disabled">Catégorie</option>
                 <option value="all">Toutes</option>
                 <?php foreach($categories as $one) : ?>
@@ -18,7 +18,7 @@
             <label for="filterCateg">Catégorie</label>
         </div>
         <div class="floatingLabel">
-            <select id="filterSubCateg">
+            <select id="filterSubCateg" name="subcategory">
                 <option disabled="disabled">Sous-catégorie</option>
                 <option value="all">Toutes</option>
                 <?php foreach($subcategories as $one) : ?>
@@ -27,6 +27,7 @@
             </select>
             <label for="filterSubCateg">Sous-catégorie</label>
         </div>
+        <input type="hidden" name="user" value="<?php echo $this->session->user['id']; ?>" />
     </div>
     <div class="float-right">
         <a id="addItem" class="button" href="<?php echo site_url('user/manageItem' . (isset($active) && $active === 'wishlist' ? '/wish' : '')); ?>">Créer un item</a>

@@ -7,9 +7,11 @@
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+<?php if(!(isset($noModal) && $noModal === TRUE)) : ?>
 <div id="modalBorrow">
     <p>Veuiller choisir auprès de qui faire la demande (un choix possible)</p>
     <div class="listUser">
         <div class="clearfix"></div>
     </div>
 </div>
+<?php endif; ?>
