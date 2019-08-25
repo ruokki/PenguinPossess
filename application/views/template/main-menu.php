@@ -18,7 +18,7 @@
             <div class="submenu">
                 <a href="<?php echo site_url('user/index'); ?>" <?php if($active === 'user') { echo 'class="active"'; } ?>>Mes items</a>
                 <a href="<?php echo site_url('user/manageItem'); ?>" <?php if($active === 'createItem') { echo 'class="active"'; } ?>>Créer un item</a>
-                <a href="<?php echo site_url('user/manageCollection'); ?>" <?php if($active === 'createCollec') { echo 'class="active"'; } ?>>Créer une collection</a>
+                <a href="<?php echo site_url('user/createCollection'); ?>" <?php if($active === 'createCollec') { echo 'class="active"'; } ?>>Créer une collection</a>
             </div>
         </div>
         <div class="menu">
@@ -29,7 +29,7 @@
             <div class="submenu">
                 <a href="<?php echo site_url('user/wishlist'); ?>" <?php if($active === 'wishlist') { echo 'class="active"'; } ?>>Ma wishlist</a>
                 <a href="<?php echo site_url('user/manageItem/wish'); ?>" <?php if($active === 'createWish') { echo 'class="active"'; } ?>>Créer un item</a>
-                <a href="<?php echo site_url('user/manageCollection/wish'); ?>" <?php if($active === 'collecWish') { echo 'class="active"'; } ?>>Créer une collection</a>
+                <a href="<?php echo site_url('user/createCollection/wish'); ?>" <?php if($active === 'collecWish') { echo 'class="active"'; } ?>>Créer une collection</a>
             </div>
         </div>
         <?php echo getNotification($this->session->user['id']); ?>

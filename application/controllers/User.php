@@ -275,7 +275,7 @@ class User extends CI_Controller {
     /**
      * Création d'une collection
      */
-    public function manageCollection($type = 'item') {
+    public function createCollection($type = 'item') {
         $this->load->model('Item_model', 'Item', TRUE);
         $this->load->model('Collection_model', 'Collection', TRUE);
         $this->load->model('Category_model', 'Category', TRUE);
@@ -337,6 +337,7 @@ class User extends CI_Controller {
                 }
                 else {
                     $item = $this->input->post();
+                    $goToImage = isset($item['goToImage']) && intval($item['goToImage']) === 1 ? TRUE : FALSE;
                     
                     $this->Common->startTransaction();
                     $this->load->model('Collection_model', 'Collection', TRUE);
@@ -353,6 +354,7 @@ class User extends CI_Controller {
                         unset($item['collection']);
                         unset($collection['got_tome']);
                         unset($item['sub_category']);
+                        unset($item['goToImage']);
 
                         $idCollection = $this->Collection->setCollection($collection);
                         $item['collection_id'] = $idCollection;
@@ -375,6 +377,10 @@ class User extends CI_Controller {
                             }
                         }
                         $this->Common->completeTransaction();
+                        
+                        if($goToImage === TRUE) {
+                            redirect('user/manageCollection/' . $idCollection);
+                        }
                     }
                     catch (Exception $ex) {
                         $this->Common->rollbackTransaction();

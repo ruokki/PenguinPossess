@@ -41,7 +41,7 @@
                 $("#subCategoryId").val($target.data("id"));
                 $("#subCategoryName").val($target.find("p").text());
                 $.ajax({
-                    url: siteUrl + "/user/" + (isCollec === true ? "manageCollection" : "manageItem"),
+                    url: siteUrl + "/user/" + (isCollec === true ? "createCollection" : "manageItem"),
                     type: "POST",
                     data: {
                         cmd: "getCompl",
@@ -185,6 +185,37 @@
         '</div>'
     );
     
+    // Demande d'ajout d'image pour les items d'une collection 
+    var forceSubmit = false;
+    if(isCollec === true) {
+        $("form").on("submit", function() {
+            if(forceSubmit === false) {
+                var $addImage = $("<div>Voulez-vous ajouter des images aux tomes de la collection ?</div>");
+                $addImage.appendTo("body");
+                $addImage.dialog({
+                    title: "Ajouter des images ?",
+                    modal: true,
+                    buttons: {
+                        Oui: function() {
+                            $("#goToImage").val("1");
+                            $(this).dialog("close");
+                        },
+                        Non: function() {
+                            $(this).dialog("close");
+                        }
+                    },
+                    close: function() {
+                        forceSubmit = true;
+                        $("form").submit();
+                        $(this).remove();
+                    }
+                });
+                return false;
+            }
+        });
+    }
+    
+    // Gestion de la suppression des pistes (Audio -> Album)
     document.querySelector("body").addEventListener("click", function(e){
         var $target = $(e.target);
         if($target.is("#addTrack")) {
