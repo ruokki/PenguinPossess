@@ -396,7 +396,7 @@ class User extends CI_Controller {
                 'categories' => $availableCategories,
                 'title' => "Création d'une collection",
                 'type' => $type,
-                'active' => 'createCollec',
+                'active' => $type === 'wish' ? 'collecWish' : 'createCollec',
                 'css' => array(
                     'user/manageItem.css'
                 ),
