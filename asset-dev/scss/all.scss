@@ -276,6 +276,7 @@ textarea {
     padding: 15px;
     float: left;
     display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     background-image: url('../background.jpg');
     background-size: cover;

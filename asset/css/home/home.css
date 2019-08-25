@@ -1,6 +1,3 @@
-#wrapper {
-  flex-direction: column; }
-
 #me h1, #lastItems h1 {
   font-size: 1vw; }
 
@@ -53,7 +50,8 @@
   display: flex;
   flex-direction: column;
   padding-top: 7px;
-  border-top: 1px solid white; }
+  border-top: 1px solid white;
+  overflow: auto; }
   #lastItems h1 {
     padding: 8px 5px; }
   #lastItems > div {
