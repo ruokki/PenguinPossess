@@ -74,6 +74,7 @@ class item_model extends CI_Model {
                     $one['item_editor'] = $collec['collection_editor'];
                     $one['item_release'] = $collec['collection_release'];
                     $one['item_universe'] = $collec['collection_universe'];
+                    $one['collection_length'] = $collec['collection_length'];
                 }
             }
         }
