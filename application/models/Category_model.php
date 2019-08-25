@@ -23,7 +23,10 @@ class Category_model extends CI_Model {
         $this->db->select('*')
                 ->from('category');
         
-        if($idParent !== NULL) {
+        if($idParent === 'sub') {
+            $this->db->where('category_parent_id IS NOT NULL');
+        }
+        else if($idParent !== NULL) {
             $this->db->where('category_parent_id', $idParent);
         }
         else {

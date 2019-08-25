@@ -1,4 +1,16 @@
 #actions {
     width: 100%;
     margin-bottom: 20px;
+    
+    #filters {
+        display: flex;
+        
+        > div {
+            margin-right: 10px;
+            
+            select, input {
+                font-size: 1.2rem;
+            }
+        }
+    }
 }

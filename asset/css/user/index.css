@@ -1,3 +1,9 @@
 #actions {
   width: 100%;
   margin-bottom: 20px; }
+  #actions #filters {
+    display: flex; }
+    #actions #filters > div {
+      margin-right: 10px; }
+      #actions #filters > div select, #actions #filters > div input {
+        font-size: 1.2rem; }

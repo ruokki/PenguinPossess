@@ -43,6 +43,9 @@
     <hr />
     <div class="menuList">
         <h3>La Bibliothèque</h3>
+        <!--<div class="menu">
+            <a href="<?php echo site_url('user/index'); ?>"><span class="icon-truck"></span> Derniers ajouts</a>
+        </div>-->
         <div class="menu">
         <?php echo implode('</div><div class="menu">', $categories); ?>
         </div>

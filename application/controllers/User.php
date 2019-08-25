@@ -27,6 +27,7 @@ class User extends CI_Controller {
      */
     public function index() {
         $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
         
         $data = array(
             'title' => 'Mon compte',
@@ -38,6 +39,8 @@ class User extends CI_Controller {
             'js' => array(
                 'listItem.js'
             ),
+            'categories' => $this->Category->getCategory(),
+            'subcategories' => $this->Category->getCategory('sub'),
             'items' => $this->Item->getItem(array(
                 'where' => array(
                     'U.user_id' => $this->session->user['id']
