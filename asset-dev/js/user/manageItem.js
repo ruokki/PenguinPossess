@@ -3,7 +3,8 @@
     
     // Gestion de l'étape 1 (Choix de la catégorie)
     $("#step1 .category").on("click", function(){
-        var id = $(this).data("id");
+        var id = $(this).data("id"),
+            name = $(this).find(".name").text();
         $("#categoryId").val(id);
         $.ajax({
             url: siteUrl + "/user/manageItem",
@@ -22,11 +23,12 @@
                     html += 
                         '<div class="category text-center" data-id="' + item.category_id + '">' +
                             '<span class="icon icon-' + item.category_icon + '"></span>' +
-                            '<p>' + item.category_name + '</p>' +
+                            '<p class="name">' + item.category_name + '</p>' +
                         '</div>';
                 }
                 $("#step2 > div").html(html);
                 changeStep("next");
+                manageBreadcrumb("changeStep", 0, name);
             }
         });
     });
@@ -38,8 +40,9 @@
         if($target.hasClass("category") || $target.parents(".category").length > 0) {
             if($target.parents(".category").length > 0) {
                 $target = $target.parents(".category");
+                var name = $target.find(".name").text();
                 $("#subCategoryId").val($target.data("id"));
-                $("#subCategoryName").val($target.find("p").text());
+                $("#subCategoryName").val(name);
                 $.ajax({
                     url: siteUrl + "/user/" + (isCollec === true ? "createCollection" : "manageItem"),
                     type: "POST",
@@ -50,6 +53,7 @@
                     dataType: "JSON",
                     success: function(data) {
                         changeStep("next");
+                        manageBreadcrumb("changeStep", 1, name);
                         $("#step3 > div > *:not(.dontRemove)").remove();
                         $("#step3 > div").append(data.html);
                         setFloatingLabel();
@@ -98,19 +102,33 @@
     /**
      * Gestion du fil d'arianne
      */
-    function manageBreadcrumb() {
+    var manageBreadcrumb = (function() {
         var labelStep = [
-                "Catégorie",
-                "Sous catégorie",
-                "Informations"
-            ],
-            html = "";
-        for(var i = 0; i < step; i++) {
-            html += '<span data-step="' + (i + 1) + '">' + labelStep[i] + "</span>";
-        }
+            "Catégorie",
+            "Sous catégorie",
+            "Informations"
+        ],
+        origin = [
+            "Catégorie",
+            "Sous catégorie",
+            "Informations"
+        ];
         
-        $("#breadcrumb").html(html);
-    }
+        return function(cmd = "", target = 0, name = "") {
+            if(cmd === "changeStep") {
+                if(target < 2) {
+                    labelStep[target] = $.trim(name) === "" ? origin[target] : name;
+                }
+            }
+            
+            var html = "";
+            for(var i = 0; i < step; i++) {
+                html += '<span data-step="' + (i + 1) + '">' + labelStep[i] + "</span>";
+            }
+
+            $("#breadcrumb").html(html);
+        }
+    })();
     
     $("#breadcrumb").on("click", function(e){
         var $target = $(e.target),
@@ -118,6 +136,7 @@
             
         if(toStep !== undefined && toStep !== step) {
             changeStep("goTo", toStep);
+            manageBreadcrumb("changeStep", toStep - 1);
         }
         
     });

@@ -17,7 +17,7 @@
             <?php foreach($categories as $one) : ?>
             <div class="category text-center" data-id="<?php echo $one['category_id']; ?>">
                 <span class="icon icon-<?php echo $one['category_icon']; ?>"></span>
-                <p><?php echo $one['category_name'] ?></p>
+                <p class="name"><?php echo $one['category_name'] ?></p>
             </div>
             <?php endforeach; ?>
         </div>
@@ -29,7 +29,7 @@
             <?php foreach($subCategories as $one) : ?>
             <div class="category text-center" data-id="<?php echo $one['category_id']; ?>">
                 <span class="icon icon-<?php echo $one['category_icon']; ?>"></span>
-                <p><?php echo $one['category_name'] ?></p>
+                <p class="name"><?php echo $one['category_name'] ?></p>
             </div>
             <?php endforeach; ?>
             <?php endif; ?>
