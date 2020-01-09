@@ -102,6 +102,62 @@ class item_model extends CI_Model {
     }
     
     /**
+     * Filtrage des collections du User en fonction des critères donnés
+     * @param Array $where
+     * @return Array
+     */
+    public function filterCollection($where) {
+        $sqlItem = $this->db->select('collection_id, I.category_id, I.subcategory_id, C.category_name AS main_category, SC.category_name AS sub_category, C.category_icon')
+                ->distinct()
+                ->from('item I')
+                ->join('category C', 'I.category_id = C.category_id', 'left')
+                ->join('category SC', 'I.subcategory_id = SC.category_id', 'left')
+                ->join('itemUser IU', 'I.item_id = IU.item_id', 'left')
+                ->join('user U', 'U.user_id = IU.user_id', 'left')
+                ->where($where)
+                ->get()->result_array();
+        $result = array();
+        
+        if(count($sqlItem) > 0) {
+            $listIds = array();
+            $categCollec = array();
+            $subcategCollec = array();
+            foreach($sqlItem as $item) {
+                if(!in_array($item['collection_id'], $listIds)) {
+                    array_push($listIds, $item['collection_id']);
+                }
+                $categCollec[$item['collection_id']] = array(
+                    'id' => $item['category_id'],
+                    'name' => $item['main_category'],
+                    'icon' => $item['category_icon']
+                );
+                $subcategCollec[$item['collection_id']] = array(
+                    'id' => $item['subcategory_id'],
+                    'name' => $item['sub_category'],
+                    
+                );
+            }
+            $result = $this->db->select('*, 1 AS is_collection')
+                ->from('collection')
+                ->where('collection_id IN (' . join(',', $listIds) . ')', NULL, FALSE)
+                ->get()->result_array();
+            
+            foreach($result as &$one) {
+                $one['category_icon'] = $categCollec[$one['collection_id']]['icon'];
+                
+                $one['category_id'] = $categCollec[$one['collection_id']]['id'];
+                $one['subcategory_id'] = $subcategCollec[$one['collection_id']]['id'];
+                
+                $one['main_category'] = $categCollec[$one['collection_id']]['name'];
+                $one['sub_category'] = $subcategCollec[$one['collection_id']]['name'];
+            }
+        }
+        
+        
+        return $result;
+    }
+    
+    /**
      * Récupération de l'ensemble des items de la wishlist d'un user
      * @param type $id
      * @return Array

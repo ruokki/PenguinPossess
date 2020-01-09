@@ -708,36 +708,35 @@ class Home extends CI_Controller {
      */
     public function filterItems() {
         if($this->input->is_ajax_request()) {
+            $this->load->model('Item_model', 'Item', TRUE);
             
             $filters = $this->input->post('filters');
             $items = array();
-            $func = $this->input->post('isWishlist') === 'true' ? 'getWishlist' : 'getItem';
-            
-            if($filters['type'] === 'item') {
-                $this->load->model('Item_model', 'Item', TRUE);
-                $where = array();
-                
-                if(isset($filters['category']) && $filters['category'] !== 'all') {
-                    $where['I.category_id'] = $filters['category'];
-                }
-                
-                if(isset($filters['subcategory']) && $filters['subcategory'] !== 'all') {
-                    $where['I.subcategory_id'] = $filters['subcategory'];
-                }
-                
-                if(isset($filters['user'])) {
-                    $where['U.user_id'] = $filters['user'];
-                }
+            $where = array();
 
-                if(count($where) > 0) {
-                    $items = $this->Item->$func(array(
-                            'where' => $where,
-                            'orderBy' => 'item_date_create DESC'
-                        ));
-                }
+            if(isset($filters['category']) && $filters['category'] !== 'all') {
+                $where['I.category_id'] = $filters['category'];
             }
-            else if($filters['type'] === 'collec') {
-                
+
+            if(isset($filters['subcategory']) && $filters['subcategory'] !== 'all') {
+                $where['I.subcategory_id'] = $filters['subcategory'];
+            }
+
+            if(isset($filters['user'])) {
+                $where['U.user_id'] = $filters['user'];
+            }
+            
+            if(count($where) > 0) {
+                if($filters['type'] === 'item') {
+                    $func = $this->input->post('isWishlist') === 'true' ? 'getWishlist' : 'getItem';
+                    $items = $this->Item->$func(array(
+                        'where' => $where,
+                        'orderBy' => 'item_date_create DESC'
+                    ));
+                }
+                else if($filters['type'] === 'collec') {
+                    $items = $this->Item->filterCollection($where);
+                }
             }
             
             echo $this->load->view('template/listItem', array('items' => $items, 'noModal' => TRUE), TRUE);
