@@ -735,7 +735,7 @@ class Home extends CI_Controller {
                     ));
                 }
                 else if($filters['type'] === 'collec') {
-                    $items = $this->Item->filterCollection($where);
+                    $items = $this->input->post('isWishlist') === 'true' ? array() : $this->Item->filterCollection($where);
                 }
             }
             
