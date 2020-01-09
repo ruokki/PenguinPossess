@@ -10,7 +10,8 @@
             url: siteUrl + "/home/filterItems",
             type: "POST",
             data: {
-              filters: filters  
+              filters: filters,
+              isWishlist: isWishlist
             },
             success: function(data) {
                 $(".listItem, #listItem").html(data);

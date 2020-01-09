@@ -37,4 +37,5 @@
 <?php $this->view('template/listItem'); ?>
 <script>
     var myCollection = true;
+    var isWishlist = <?php echo isset($active) && $active === 'wishlist' ? 'true' : 'false';  ?>
 </script>

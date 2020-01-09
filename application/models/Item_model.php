@@ -106,7 +106,23 @@ class item_model extends CI_Model {
      * @param type $id
      * @return Array
      */
-    public function getWishlist($idUser) {
+    public function getWishlist($cond) {
+        if(isset($cond['where'])) {
+            $this->db->where($cond['where']);
+        }
+        
+        if(isset($cond['orWhere'])) {
+            $this->db->or_where($cond['orWhere']);
+        }
+        
+        if(isset($cond['like'])) {
+            $this->db->like($cond['like']);
+        }
+        
+        if(isset($cond['orderBy'])) {
+            $this->db->order_by($cond['orderBy']);
+        }
+        
         $query = $this->db->select("I.item_id, I.category_id, I.subcategory_id, item_name, item_descript, I.collection_id, "
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
                     . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon, "
@@ -121,7 +137,6 @@ class item_model extends CI_Model {
                     . "item_date_create, item_img, item_creator, item_release, item_editor, item_tracklist, item_siblings,"
                     . " item_idx_sibling, item_universe, item_length, item_seasons, item_type, C.category_icon,"
                     . "C.category_name, SC.category_name")
-                ->where('W.user_id', $idUser)
                 ->get()->result_array();
         
         return $query;

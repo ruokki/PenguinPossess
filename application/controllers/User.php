@@ -664,6 +664,7 @@ class User extends CI_Controller {
      */
     public function wishlist() {
         $this->load->model('Item_model', 'Item', TRUE);
+        $this->load->model('Category_model', 'Category', TRUE);
         
         $data = array(
             'title' => 'Ma wishlist',
@@ -672,10 +673,16 @@ class User extends CI_Controller {
                 'listItem.css',
                 'user/index.css'
             ),
+            'categories' => $this->Category->getCategory(),
+            'subcategories' => $this->Category->getCategory('sub'),
             'js' => array(
                 'listItem.js'
             ),
-            'items' => $this->Item->getWishlist($this->session->user['id'])
+            'items' => $this->Item->getWishlist(array(
+                'where' => array(
+                    'W.user_id' => $this->session->user['id']
+                )
+            ))
         );
         
         $this->load->view('template/header', $data);

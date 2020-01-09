@@ -711,6 +711,7 @@ class Home extends CI_Controller {
             
             $filters = $this->input->post('filters');
             $items = array();
+            $func = $this->input->post('isWishlist') === 'true' ? 'getWishlist' : 'getItem';
             
             if($filters['type'] === 'item') {
                 $this->load->model('Item_model', 'Item', TRUE);
@@ -727,12 +728,12 @@ class Home extends CI_Controller {
                 if(isset($filters['user'])) {
                     $where['U.user_id'] = $filters['user'];
                 }
-                
+
                 if(count($where) > 0) {
-                    $items = $this->Item->getItem(array(
-                        'where' => $where,
-                        'orderBy' => 'item_date_create DESC'
-                    ));
+                    $items = $this->Item->$func(array(
+                            'where' => $where,
+                            'orderBy' => 'item_date_create DESC'
+                        ));
                 }
             }
             else if($filters['type'] === 'collec') {
