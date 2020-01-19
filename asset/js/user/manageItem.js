@@ -137,6 +137,9 @@
         if(toStep !== undefined && toStep !== step) {
             changeStep("goTo", toStep);
             manageBreadcrumb("changeStep", toStep - 1);
+            if(toStep - 1 === 0) {
+                manageBreadcrumb("changeStep", toStep);
+            }
         }
         
     });
