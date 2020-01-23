@@ -1,0 +1,14 @@
+Catégorie,Sous catégorie,Autres infos,,,,,,
+Audio,Album,Nom,Groupe,Editeur,Année,Pistes (liste séparée par un;),,
+Audio,Audiobook,Nom,Auteur,Année,Série,,,
+Audio,Saga,Nom,Auteur,Nb épisode,Année,,,
+Vidéo,Série,Nom,Créateur,Année,Nb épisode,Durée épisode,Nb saison,support
+Vidéo,Anime,Nom,Studio,Année,Nb épisode,Durée épisode,Nb saison,Support
+Vidéo,Film,Nom,Réalisateur,Série,Année,Support,,
+Livre,Livre,Nom,Auteur,Editeur,Année,,,
+Livre,Comics,Nom,Auteur,Editeur,Année,,,
+Livre,Manga,Nom,Auteur,Editeur,Année,,,
+Livre,BD,Nom,Auteur,Editeur,Année,,,
+Jeux,Jeux vidéo,Nom,Studio,Série,Editeur,Année,Support,
+Jeux,Jeux de plateau,Nom,Editeur,Nb joueurs,Année,,,
+Jeux,Jeux de rôle,Nom,Editeur,Série,Année,,,
